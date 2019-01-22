@@ -31,3 +31,5 @@ PATHS:
   # Paths to JavaScript entry points for webpack to bundle modules
   entries:
     - "src/assets/js/app.js"
+  typescript:
+    - "src/**/*.ts"

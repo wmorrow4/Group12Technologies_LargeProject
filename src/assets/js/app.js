@@ -15,3 +15,5 @@ require('foundation-sites');
 
 
 $(document).foundation();
+
+alert('foo');

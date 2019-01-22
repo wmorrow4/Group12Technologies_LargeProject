@@ -14,6 +14,7 @@ import webpack2      from 'webpack';
 import named         from 'vinyl-named';
 import uncss         from 'uncss';
 import autoprefixer  from 'autoprefixer';
+import ts            from 'gulp-typescript';
 
 // Load all Gulp plugins into one variable
 const $ = plugins();
@@ -32,11 +33,11 @@ function loadConfig() {
 // Build the "dist" folder by running all of the below tasks
 // Sass must be run later so UnCSS can search for used classes in the others assets.
 gulp.task('build',
- gulp.series(clean, gulp.parallel(pages, javascript, images, copy), sass, styleGuide));
+ gulp.series(clean, typescript, gulp.parallel(pages, javascript, images, copy), sass, styleGuide));
 
 // Build the site, run the server, and watch for file changes
 gulp.task('default',
-  gulp.series('build', server, watch));
+  gulp.series('build'));
 
 // Delete the "dist" folder
 // This happens every time a build starts
@@ -122,6 +123,20 @@ let webpackConfig = {
   devtool: !PRODUCTION && 'source-map'
 }
 
+// Compile TypeScript to JavaScript
+function typescript() {
+  const tsProject = ts.createProject('tsconfig.json')
+
+  return gulp.src(PATHS.typescript)
+    .pipe($.sourcemaps.init())
+    .pipe(tsProject())
+    .pipe($.if(PRODUCTION, $.uglify()
+      .on('error', e => { console.log(e); })
+    ))
+    .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
+    .pipe(gulp.dest(PATHS.dist));
+}
+
 // Combine JavaScript into one file
 // In production, the file is minified
 function javascript() {
@@ -148,9 +163,9 @@ function images() {
 
 // Start a server with BrowserSync to preview the site in
 function server(done) {
-  browser.init({
-    server: PATHS.dist, port: PORT
-  }, done);
+//  browser.init({
+//    server: PATHS.dist, port: PORT
+//  }, done);
 }
 
 // Reload the browser with BrowserSync
