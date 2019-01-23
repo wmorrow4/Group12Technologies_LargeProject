@@ -18,7 +18,7 @@ Open a browser (inside the VM) and go to http://localhost:8080 to see your chang
 
 In the terminal window with the server running, press CTRL+C to stop the server process.
 
-Edit "src/assets/pages/index.html" and change some text.
+Edit "src/pages/index.html" and change some text.
 
 Edit "src/assets/js/app.js" and add some code.
 
