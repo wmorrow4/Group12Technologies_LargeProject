@@ -1,70 +1,44 @@
-# ZURB WebApp Template
+### Initial installation
 
-[![devDependency Status](https://david-dm.org/zurb/foundation-zurb-template/dev-status.svg)](https://david-dm.org/zurb/foundation-zurb-template#info=devDependencies)
+From an ubuntu 18.04 installation:
 
-**Please open all issues with this template on the main [Foundation for Sites](https://github.com/zurb/foundation-sites/issues) repo.**
+Install git:
 
-This is the official ZURB Template for use with [Foundation for Sites](http://foundation.zurb.com/sites). We use this template at ZURB to deliver static code to our clients. It has a Gulp-powered build system with these features:
+sudo apt install git
 
-- Handlebars HTML templates with Panini
-- Sass compilation and prefixing
-- JavaScript module bundling with webpack
-- Built-in BrowserSync server
-- For production builds:
-  - CSS compression
-  - JavaScript module bundling with webpack
-  - Image compression
+Install node v11.x:
 
-## Installation
+curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+sudo apt-get install -y nodejs
 
-To use this template, your computer needs:
+Install mongoDB:
 
-- [NodeJS](https://nodejs.org/en/) (Version 6 or greater recommended, tested with 6.11.4 and 8.12.0)
-- [Git](https://git-scm.com/)
+sudo apt install mongodb
 
-This template can be installed with the Foundation CLI, or downloaded and set up manually.
+Install yarn:
 
-### Using the CLI
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update && sudo apt-get install yarn
 
-Install the Foundation CLI with this command:
+Clone the project:
 
-```bash
-npm install foundation-cli --global
-```
+cd ~/
+git clone https://github.com/wmorrow4/group12_SmallProject.git
 
-Use this command to set up a blank Foundation for Sites project with this template:
+Build the project and install dependencies:
 
-```bash
-foundation new --framework sites --template zurb
-```
-
-The CLI will prompt you to give your project a name. The template will be downloaded into a folder with this name.
-
-Now `cd` to your project name and to start your project run 
-
-```bash
-foundation watch
-```
-
-### Manual Setup
-
-To manually set up the template, first download it with Git:
-
-```bash
-git clone https://github.com/zurb/foundation-zurb-template projectname
-```
-
-Then open the folder in your command line, and install the needed dependencies:
-
-```bash
-cd projectname
+cd group12_SmallProject
 yarn
-```
 
-Finally, run `yarn start` to run Gulp. Your finished site will be created in a folder called `dist`, viewable at this URL:
+### Building the project
 
-```
-http://localhost:8000
-```
+gulp
 
-To create compressed, production-ready assets, run `yarn run build`.
+### Running the project
+
+node dist/server/index.js
+
+Open browser and go to: http://localhost:8080
+
+
