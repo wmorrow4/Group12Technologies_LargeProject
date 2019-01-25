@@ -1,13 +1,109 @@
 {
     "swagger": "2.0",
     "info": {
-      "title": "Simple Weather API",
+      "title": "Awesome Client API",
       "description": "API for getting the current weather information.",
       "version": "1.0"
     },
     "produces": ["application/json"],
     "basePath": "/api",
     "paths": {
+      "/signup": {
+        "post": {
+          "x-swagger-router-controller": "login",
+          "operationId": "signup",
+          "tags": ["/signup"],
+          "description": "Creates a new user",
+          "parameters": [
+            {
+              "name": "userinfo",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "required": [
+                  "username",
+                  "password",
+                  "email"
+                ],
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "default": {
+              "description": "Invalid request.",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "200": {
+              "description": "Successful request.",
+              "schema": {
+                "$ref": "#/definitions/Success"
+              }
+            }
+          }
+        }
+      },
+      "/login": {
+        "post": {
+          "x-swagger-router-controller": "login",
+          "operationId": "login",
+          "tags": ["/login"],
+          "description": "Logs in a new user",
+          "parameters": [
+            {
+              "name": "userinfo",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "required": [
+                  "username",
+                  "password",
+                  "email"
+                ],
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "default": {
+              "description": "Invalid request.",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "200": {
+              "description": "Successful request.",
+              "schema": {
+                "$ref": "#/definitions/Success"
+              }
+            }
+          }
+        }
+      },
       "/weather": {
         "get": {
           "x-swagger-router-controller": "Weather",
@@ -96,6 +192,14 @@
         "required": ["temperature", "skycode", "skytext", "date", "observationtime", "observationpoint", "feelslike", "humidity", "winddisplay", "day", "shortday", "windspeed", "imageUrl"]
       },
       "Error": {
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": ["message"]
+      },
+      "Success": {
         "properties": {
           "message": {
             "type": "string"
