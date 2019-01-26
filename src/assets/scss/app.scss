@@ -10,8 +10,8 @@
 @include foundation-typography;
 
 // Grids (choose one)
-@include foundation-xy-grid-classes;
-// @include foundation-grid;
+// @include foundation-xy-grid-classes;
+@include foundation-grid;
 // @include foundation-flex-grid;
 
 // Generic components
@@ -62,3 +62,9 @@
 // Motion UI
 @include motion-ui-transitions;
 @include motion-ui-animations;
+
+.login-form {
+    border: 1px solid #cacaca;
+    padding: 1rem;
+    border-radius: 0;
+}

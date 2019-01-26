@@ -16,4 +16,22 @@ require('foundation-sites');
 
 $(document).foundation();
 
-alert('foo');
+$('#loginForm').submit(() => {
+    alert('you clicked the submit button')
+    $.ajax({
+        url: '/api/login',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            alert(data)
+        },
+        data: JSON.stringify({
+            username: $('#username').val(),
+            password: $('#password').val()
+        })
+    })
+
+    // cancel the actual submit...we'll take it from here
+    return false
+})
