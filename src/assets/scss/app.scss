@@ -3,6 +3,7 @@
 @import 'settings';
 @import 'foundation';
 @import 'motion-ui';
+@import 'animate';
 
 // Global styles
 @include foundation-global-styles;
@@ -63,8 +64,22 @@
 @include motion-ui-transitions;
 @include motion-ui-animations;
 
+
+
 .login-form {
     border: 1px solid #cacaca;
     padding: 1rem;
     border-radius: 0;
+}
+
+.top-bar {
+    margin-bottom: 3em;
+}
+
+.top-bar li:not(:last-child) button {
+    margin-right: 1em;
+}
+
+.grid-x {
+    justify-content: center;
 }

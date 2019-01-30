@@ -1,288 +1,538 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "title": "Awesome Client API",
-      "description": "API for getting the current weather information.",
-      "version": "1.0"
-    },
-    "produces": ["application/json"],
-    "basePath": "/api",
-    "paths": {
-      "/signup": {
-        "post": {
-          "x-swagger-router-controller": "login",
-          "operationId": "signup",
-          "tags": ["/signup"],
-          "description": "Creates a new user",
-          "parameters": [
-            {
-              "name": "userinfo",
-              "in": "body",
-              "required": true,
-              "schema": {
-                "type": "object",
-                "required": [
-                  "username",
-                  "password",
-                  "email"
-                ],
-                "properties": {
-                  "username": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  }
+  "swagger": "2.0",
+  "info": {
+    "title": "Simple Weather API",
+    "description": "API for getting the current weather information.",
+    "version": "1.0"
+  },
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/api",
+  "paths": {
+    "/signup": {
+      "post": {
+        "x-swagger-router-controller": "login",
+        "operationId": "signup",
+        "tags": [
+          "/signup"
+        ],
+        "description": "Creates a new user",
+        "parameters": [
+          {
+            "name": "userinfo",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "username",
+                "password"
+              ],
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
                 }
               }
             }
-          ],
-          "responses": {
-            "default": {
-              "description": "Invalid request.",
-              "schema": {
-                "$ref": "#/definitions/Error"
-              }
-            },
-            "200": {
-              "description": "Successful request.",
-              "schema": {
-                "$ref": "#/definitions/Success"
-              }
-            }
           }
-        }
-      },
-      "/login": {
-        "post": {
-          "x-swagger-router-controller": "login",
-          "operationId": "login",
-          "tags": ["/login"],
-          "description": "Logs in a new user",
-          "parameters": [
-            {
-              "name": "userinfo",
-              "in": "body",
-              "required": true,
-              "schema": {
-                "type": "object",
-                "required": [
-                  "username",
-                  "password",
-                  "email"
-                ],
-                "properties": {
-                  "username": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  }
-                }
-              }
+        ],
+        "responses": {
+          "default": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
             }
-          ],
-          "responses": {
-            "default": {
-              "description": "Invalid request.",
-              "schema": {
-                "$ref": "#/definitions/Error"
-              }
-            },
-            "200": {
-              "description": "Successful request.",
-              "schema": {
-                "$ref": "#/definitions/Success"
-              }
-            }
-          }
-        }
-      },
-      "/weather": {
-        "get": {
-          "x-swagger-router-controller": "Weather",
-          "operationId": "getWeather",
-          "tags": ["/weather"],
-          "description": "Returns the current weather for the requested location using the requested unit.",
-          "parameters": [
-            {
-              "name": "location",
-              "in": "query",
-              "description": "The MSN Weather location search string.",
-              "required": true,
-              "type": "string"
-            },
-            {
-              "name": "unit",
-              "in": "query",
-              "description": "The unit, either 'C' or 'F'.",
-              "required": true,
-              "type": "string",
-              "enum": ["C", "F"],
-              "default": "F"
-            }
-          ],
-          "responses": {
-            "default": {
-              "description": "Invalid request.",
-              "schema": {
-                "$ref": "#/definitions/Error"
-              }
-            },
-            "200": {
-              "description": "Successful request.",
-              "schema": {
-                "$ref": "#/definitions/Weather"
-              }
+          },
+          "200": {
+            "description": "Successful request.",
+            "schema": {
+              "$ref": "#/definitions/Success"
             }
           }
         }
       }
     },
-    "definitions": {
-      "CurrentWeather": {
-        "properties": {
-          "temperature": {
-            "type": "string"
-          },
-          "skycode": {
-            "type": "string"
-          },
-          "skytext": {
-            "type": "string"
-          },
-          "date": {
-            "type": "string"
-          },
-          "observationtime": {
-            "type": "string"
-          },
-          "observationpoint": {
-            "type": "string"
-          },
-          "feelslike": {
-            "type": "string"
-          },
-          "humidity": {
-            "type": "string"
-          },
-          "winddisplay": {
-            "type": "string"
-          },
-          "day": {
-            "type": "string"
-          },
-          "shortday": {
-            "type": "string"
-          },
-          "windspeed": {
-            "type": "string"
-          },
-          "imageUrl": {
-            "type": "string"
-          }
-  
-        },
-        "required": ["temperature", "skycode", "skytext", "date", "observationtime", "observationpoint", "feelslike", "humidity", "winddisplay", "day", "shortday", "windspeed", "imageUrl"]
-      },
-      "Error": {
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        },
-        "required": ["message"]
-      },
-      "Success": {
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        },
-        "required": ["message"]
-      },
-      "Forecast": {
-        "properties": {
-          "low": {
-            "type": "string"
-          },
-          "high": {
-            "type": "string"
-          },
-          "skycodeday": {
-            "type": "string"
-          },
-          "skytextday": {
-            "type": "string"
-          },
-          "date": {
-            "type": "string"
-          },
-          "day": {
-            "type": "string"
-          },
-          "shortday": {
-            "type": "string"
-          },
-          "precip": {
-            "type": "string"
-          }
-        },
-        "required": ["low", "high", "skycodeday", "skytextday", "date", "day", "shortday", "precip"]
-      },
-      "Location": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "zipcode": {
-            "type": "string"
-          },
-          "lat": {
-            "type": "string"
-          },
-          "long": {
-            "type": "string"
-          },
-          "timezone": {
-            "type": "string"
-          },
-          "alert": {
-            "type": "string"
-          },
-          "degreetype": {
-            "type": "string",
-            "enum": ["C", "F"]
-          },
-          "imagerelativeurl": {
-            "type": "string"
-          }
-        },
-        "required": ["name", "lat", "long", "timezone", "degreetype"]
-      },
-      "Weather": {
-        "properties": {
-          "location": {
-            "$ref": "#/definitions/Location"
-          },
-          "current": {
-            "$ref": "#/definitions/CurrentWeather"
-          },
-          "forecast": {
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/Forecast"
+    "/createContact": {
+      "post": {
+        "x-swagger-router-controller": "contacts",
+        "operationId": "createContact",
+        "tags": [
+          "/createContact"
+        ],
+        "description": "Creates a new contact",
+        "parameters": [
+          {
+            "name": "createContact",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "FirstName",
+                "LastName",
+                "Email",
+                "PhoneNumber"
+              ],
+              "properties": {
+                "FirstName": {
+                  "type": "string"
+                },
+                "LastName": {
+                  "type": "string"
+                },
+                "Email": {
+                  "type": "string"
+                },
+                "PhoneNumber": {
+                  "type": "string"
+                }
+              }
             }
           }
-        },
-        "required": ["current", "location", "forecast"]
+        ],
+        "responses": {
+          "default": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "200": {
+            "description": "Successful request.",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          }
+        }
+      }
+    },
+    "/userLogin": {
+      "post": {
+        "x-swagger-router-controller": "login",
+        "operationId": "userLogin",
+        "tags": [
+          "/userLogin"
+        ],
+        "description": "Login as an existing user.",
+        "parameters": [
+          {
+            "name": "userinfo",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "username",
+                "password"
+              ],
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "200": {
+            "description": "Successful request.",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          }
+        }
+      }
+    },
+    "/deleteContact": {
+      "post": {
+        "x-swagger-router-controller": "contacts",
+        "operationId": "deleteContact",
+        "tags": [
+          "/deleteContact"
+        ],
+        "description": "Delete a contact",
+        "parameters": [
+          {
+            "name": "userinfo",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "FirstName",
+                "LastName",
+                "email",
+                "phone"
+              ],
+              "properties": {
+                "FirstName": {
+                  "type": "string"
+                },
+                "LastName": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "200": {
+            "description": "Successful request.",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          }
+        }
+      }
+    },
+    "/listContacts": {
+      "post": {
+        "x-swagger-router-controller": "contacts",
+        "operationId": "listContacts",
+        "tags": [
+          "/listContacts"
+        ],
+        "description": "List current contacts.",
+        "parameters": [
+          {
+            "name": "contactinfo",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "search",
+                "searchType"
+              ],
+              "properties": {
+                "search": {
+                  "type": "string"
+                },
+                "searchType": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "200": {
+            "description": "Successful request.",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          }
+        }
+      }
+    },
+    "/updateContact": {
+      "post": {
+        "x-swagger-router-controller": "contacts",
+        "operationId": "updateContact",
+        "tags": [
+          "/updateContact"
+        ],
+        "description": "Apply changes to current contact info",
+        "parameters": [
+          {
+            "name": "userinfo",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "FirstName",
+                "LastName",
+                "email",
+                "phone"
+              ],
+              "properties": {
+                "FirstName": {
+                  "type": "string"
+                },
+                "LastName": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "200": {
+            "description": "Successful request.",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          }
+        }
+      }
+    },
+    "/weather": {
+      "get": {
+        "x-swagger-router-controller": "Weather",
+        "operationId": "getWeather",
+        "tags": [
+          "/weather"
+        ],
+        "description": "Returns the current weather for the requested location using the requested unit.",
+        "parameters": [
+          {
+            "name": "location",
+            "in": "query",
+            "description": "The MSN Weather location search string.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "unit",
+            "in": "query",
+            "description": "The unit, either 'C' or 'F'.",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "C",
+              "F"
+            ],
+            "default": "F"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "200": {
+            "description": "Successful request.",
+            "schema": {
+              "$ref": "#/definitions/Weather"
+            }
+          }
+        }
       }
     }
+  },
+  "definitions": {
+    "Success": {
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "message"
+      ]
+    },
+    "CurrentWeather": {
+      "properties": {
+        "temperature": {
+          "type": "string"
+        },
+        "skycode": {
+          "type": "string"
+        },
+        "skytext": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "observationtime": {
+          "type": "string"
+        },
+        "observationpoint": {
+          "type": "string"
+        },
+        "feelslike": {
+          "type": "string"
+        },
+        "humidity": {
+          "type": "string"
+        },
+        "winddisplay": {
+          "type": "string"
+        },
+        "day": {
+          "type": "string"
+        },
+        "shortday": {
+          "type": "string"
+        },
+        "windspeed": {
+          "type": "string"
+        },
+        "imageUrl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "temperature",
+        "skycode",
+        "skytext",
+        "date",
+        "observationtime",
+        "observationpoint",
+        "feelslike",
+        "humidity",
+        "winddisplay",
+        "day",
+        "shortday",
+        "windspeed",
+        "imageUrl"
+      ]
+    },
+    "Error": {
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "message"
+      ]
+    },
+    "Forecast": {
+      "properties": {
+        "low": {
+          "type": "string"
+        },
+        "high": {
+          "type": "string"
+        },
+        "skycodeday": {
+          "type": "string"
+        },
+        "skytextday": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "day": {
+          "type": "string"
+        },
+        "shortday": {
+          "type": "string"
+        },
+        "precip": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "low",
+        "high",
+        "skycodeday",
+        "skytextday",
+        "date",
+        "day",
+        "shortday",
+        "precip"
+      ]
+    },
+    "Location": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "zipcode": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "string"
+        },
+        "long": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "alert": {
+          "type": "string"
+        },
+        "degreetype": {
+          "type": "string",
+          "enum": [
+            "C",
+            "F"
+          ]
+        },
+        "imagerelativeurl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "lat",
+        "long",
+        "timezone",
+        "degreetype"
+      ]
+    },
+    "Weather": {
+      "properties": {
+        "location": {
+          "$ref": "#/definitions/Location"
+        },
+        "current": {
+          "$ref": "#/definitions/CurrentWeather"
+        },
+        "forecast": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Forecast"
+          }
+        }
+      },
+      "required": [
+        "current",
+        "location",
+        "forecast"
+      ]
+    }
   }
+}

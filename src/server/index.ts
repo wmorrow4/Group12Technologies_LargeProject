@@ -1,6 +1,5 @@
 import express = require('express')
 import swaggerTools = require('swagger-tools')
-import bodyParser = require('body-parser')
 import cookieParser = require('cookie-parser')
 import session = require('express-session')
 
@@ -16,16 +15,13 @@ var options = {
     useStubs: process.env.NODE_ENV === 'development' ? true : false // Conditionally turn on stubs (mock mode)
 }
 
-// initialize body-parser to parse incoming parameters requests to req.body
-app.use(bodyParser.urlencoded({ extended: true }));
-
 // initialize cookie-parser to allow us access the cookies stored in the browser. 
 app.use(cookieParser());
 
 // initialize express-session to allow us track the logged-in user across sessions.
 app.use(session({
-    name: 'user_sid',
-    secret: 'somerandomstuffs',
+    name: 'sid',
+    secret: 'somerandomstuff',
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -38,7 +34,9 @@ app.use(session({
 // This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
 app.use((req, res, next) => {
     if (req.cookies.user_sid && req.session && !req.session.user) {
-        res.clearCookie('user_sid');        
+        // set during a successful login
+        res.clearCookie('sid');
+        res.clearCookie('username')
     }
     next();
 });
@@ -49,12 +47,7 @@ app.use('/', (req, res, next) => {
         return res.status(403).end('403 Forbidden')
     }
 
-    var result = req.url.match(/^.*login.*$/) || req.url.match(/^.*docs.*$/) || req.url.match(/^.*css$/) || req.url.match(/^.*js$/) || req.url.match(/^\/api\/.*$/)
-    if (!result && (!req.session || !req.session.user || !req.cookies.user_sid)) {
-        res.redirect('/login.html')
-    } else {
-        next()
-    }    
+    next()
 })
 app.use('/', express.static('dist'))
 
