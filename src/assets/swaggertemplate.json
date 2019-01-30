@@ -1,0 +1,48 @@
+  "/signup": {
+    "post": {
+      "x-swagger-router-controller": "login",
+      "operationId": "signup",
+      "tags": ["/signup"],
+      "description": "Creates a new user",
+      "parameters": [
+        {
+          "name": "userinfo",
+          "in": "body",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "required": [
+              "username",
+              "password",
+              "email"
+            ],
+            "properties": {
+              "username": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ],
+      "responses": {
+        "default": {
+          "description": "Invalid request.",
+          "schema": {
+            "$ref": "#/definitions/Error"
+          }
+        },
+        "200": {
+          "description": "Successful request.",
+          "schema": {
+            "$ref": "#/definitions/Success"
+          }
+        }
+      }
+    }
+  },
