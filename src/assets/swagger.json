@@ -56,6 +56,77 @@
         }
       }
     },
+    "/userLogin": {
+      "post": {
+        "x-swagger-router-controller": "login",
+        "operationId": "userLogin",
+        "tags": [
+          "/userLogin"
+        ],
+        "description": "Login as an existing user.",
+        "parameters": [
+          {
+            "name": "userinfo",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "username",
+                "password"
+              ],
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "200": {
+            "description": "Successful request.",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          }
+        }
+      }
+    },
+    "/userLogout": {
+      "post": {
+        "x-swagger-router-controller": "login",
+        "operationId": "userLogout",
+        "tags": [
+          "/userLogout"
+        ],
+        "description": "Logout user.",
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "Invalid request.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "200": {
+            "description": "Successful request.",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          }
+        }
+      }
+    },
     "/createContact": {
       "post": {
         "x-swagger-router-controller": "contacts",
@@ -88,52 +159,6 @@
                   "type": "string"
                 },
                 "PhoneNumber": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": "Invalid request.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "200": {
-            "description": "Successful request.",
-            "schema": {
-              "$ref": "#/definitions/Success"
-            }
-          }
-        }
-      }
-    },
-    "/userLogin": {
-      "post": {
-        "x-swagger-router-controller": "login",
-        "operationId": "userLogin",
-        "tags": [
-          "/userLogin"
-        ],
-        "description": "Login as an existing user.",
-        "parameters": [
-          {
-            "name": "userinfo",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "required": [
-                "username",
-                "password"
-              ],
-              "properties": {
-                "username": {
-                  "type": "string"
-                },
-                "password": {
                   "type": "string"
                 }
               }

@@ -1,7 +1,7 @@
 import express = require('express')
 import swaggerTools = require('swagger-tools')
-import cookieParser = require('cookie-parser')
 import session = require('express-session')
+import cookieParser = require('cookie-parser')
 
 // The Swagger document (require it, build it programmatically, fetch it from a URL, ...)
 const swaggerDoc = require('../assets/swagger.json')
@@ -15,27 +15,27 @@ var options = {
     useStubs: process.env.NODE_ENV === 'development' ? true : false // Conditionally turn on stubs (mock mode)
 }
 
-// initialize cookie-parser to allow us access the cookies stored in the browser. 
-app.use(cookieParser());
+const secret = 'somerandomstuff'
+
+app.use(cookieParser(secret))
 
 // initialize express-session to allow us track the logged-in user across sessions.
 app.use(session({
     name: 'sid',
-    secret: 'somerandomstuff',
+    secret: secret,
     resave: false,
-    saveUninitialized: false,
-    cookie: {
-        expires: false
-    }
+    saveUninitialized: true,
 }));
 
 
 // This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
 // This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
 app.use((req, res, next) => {
-    if (req.cookies.user_sid && req.session && !req.session.user) {
-        // set during a successful login
-        res.clearCookie('sid');
+    // convert user session into user cookie
+    if (req.session && req.session.username) {
+        res.cookie('username', req.session.username)
+    }
+    else {
         res.clearCookie('username')
     }
     next();

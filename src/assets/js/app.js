@@ -40,7 +40,7 @@ $('#loginForm').submit(() => {
 })
 
 $(document).ready(() => {
-    if (cookies.get('sid') && cookies.get('username')) {
+    if (cookies.get('username')) {
         $('#signupButton').hide()
         $('#loginButton').hide()
         $('#logoutButton').text(`Logout (${cookies.get('username')})`)
@@ -55,6 +55,7 @@ $(document).ready(() => {
         $('#searchContainer').hide()
         $('#createContactButton').hide()
     }
+    cookies.erase('username')
 
     $('#signupButton').on('click', (evt) => {
         window.location.replace('/signup.html')
@@ -62,6 +63,27 @@ $(document).ready(() => {
 
     $('#loginButton').on('click', (evt) => {
         window.location.replace('/login.html')
+    })
+
+    $('#logoutButton').on('click', (evt) => {
+        $.ajax({
+            url: '/api/userLogout',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            error: function (err) {
+                alert('error: ' + util.inspect(err))
+            },
+            success: function (data) {
+                alert('success: ' + util.inspect(data))
+                $('body').on('animationend', () => {
+                    window.location.replace('/index.html')
+                })
+                $('body').addClass('animated hinge')
+            }
+        })
+
+        return false
     })
 
     $('#termsAndConditions').on('change', () => {
