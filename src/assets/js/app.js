@@ -16,25 +16,98 @@ const cookies = require('browser-cookies');
 // the line below
 //import './lib/foundation-explicit-pieces';
 
+function doError(err) {
+    $('#errorDiv').empty()
+    $('#errorDiv').append(`<code>${util.inspect(err)}</code>`)
+    $('#errorModal').foundation('open')
+}
 
 $(document).foundation();
 
-$('#loginForm').submit(() => {
-    alert('you clicked the submit button')
+$("#loginForm").on("formvalid.zf.abide", function (ev, frm) {
     $.ajax({
-        url: '/api/login',
+        url: '/api/userLogin',
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
+        error: function (err) {
+            doError(err)
+        },
         success: function (data) {
-            alert(data)
+            $('#loginForm').on('animationend', () => {
+                window.location.replace('/index.html')
+            })
+            $('#loginForm').removeClass('bounceInUp')
+            $('#loginForm').addClass('rotateOut')
         },
         data: JSON.stringify({
             username: $('#username').val(),
             password: $('#password').val()
         })
     })
+});
 
+$('#loginForm').submit(() => {
+    // cancel the actual submit...we'll take it from here
+    return false
+})
+
+$('#createContactButton').on('click', (evt) => {
+    $('#createContactModal').foundation('open')
+})
+
+$("#createContactForm").on("formvalid.zf.abide", function (ev, frm) {
+    $.ajax({
+        url: '/api/createContact',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        error: function (err) {
+            doError(err)
+        },
+        success: function (data) {
+            $('#createContactModal').foundation('close')
+        },
+        data: JSON.stringify({
+            username: $('#username').val(),
+            password: $('#password').val()
+        })
+    })
+});
+
+$('#createContactForm').submit(() => {
+    // cancel the actual submit...we'll take it from here
+    return false
+})
+
+$("#signupForm").on("formvalid.zf.abide", function (ev, frm) {
+    $.ajax({
+        url: '/api/signup',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        error: function (err) {
+            doError(err)
+        },
+        success: function (data) {
+            alert('success: ' + util.inspect(data))
+            $('#signupForm').on('animationend', () => {
+                window.location.replace('/index.html')
+            })
+            $('#signupForm').removeClass('rollIn')
+            $('#signupForm').addClass('hinge')
+        },
+        data: JSON.stringify({
+            username: $('#username').val(),
+            password: $('#password').val(),
+            email: $('#password').val()
+        })
+    })
+
+    return false
+})
+
+$('#signupForm').on('submit', () => {
     // cancel the actual submit...we'll take it from here
     return false
 })
@@ -46,14 +119,14 @@ $(document).ready(() => {
         $('#logoutButton').text(`Logout (${cookies.get('username')})`)
         $('#logoutButton').show()
         $('#searchContainer').show()
-        $('#createContactButton').show()
+        $('#createContactContainer').show()
     }
     else {
         $('#signupButton').show()
         $('#loginButton').show()
         $('#logoutButton').hide()
         $('#searchContainer').hide()
-        $('#createContactButton').hide()
+        $('#createContactContainer').hide()
     }
     cookies.erase('username')
 
@@ -72,10 +145,9 @@ $(document).ready(() => {
             dataType: 'json',
             contentType: 'application/json',
             error: function (err) {
-                alert('error: ' + util.inspect(err))
+                doError(err)
             },
             success: function (data) {
-                alert('success: ' + util.inspect(data))
                 $('body').on('animationend', () => {
                     window.location.replace('/index.html')
                 })
@@ -106,30 +178,7 @@ $(document).ready(() => {
         }
     })
 
-    $('#signupForm').on('submit', () => {
-        $.ajax({
-            url: '/api/signup',
-            type: 'post',
-            dataType: 'json',
-            contentType: 'application/json',
-            error: function (err) {
-                alert('error: ' + util.inspect(err))
-            },
-            success: function (data) {
-                alert('success: ' + util.inspect(data))
-                $('#signupForm').on('animationend', () => {
-                    window.location.replace('/index.html')
-                })
-                $('#signupForm').removeClass('rollIn')
-                $('#signupForm').addClass('hinge')
-            },
-            data: JSON.stringify({
-                username: $('#username').val(),
-                password: $('#password').val(),
-                email: $('#password').val()
-            })
-        })
-
-        return false
-    })
+    $('.animated').one('animationend', function(){
+        $('body').removeAttr('style');
+    });
 })

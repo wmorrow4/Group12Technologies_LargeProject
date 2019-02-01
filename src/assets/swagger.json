@@ -143,22 +143,22 @@
             "schema": {
               "type": "object",
               "required": [
-                "FirstName",
-                "LastName",
-                "Email",
-                "PhoneNumber"
+                "firstName",
+                "lastName",
+                "email",
+                "phoneNumber"
               ],
               "properties": {
-                "FirstName": {
+                "firstName": {
                   "type": "string"
                 },
-                "LastName": {
+                "lastName": {
                   "type": "string"
                 },
-                "Email": {
+                "email": {
                   "type": "string"
                 },
-                "PhoneNumber": {
+                "phoneNumber": {
                   "type": "string"
                 }
               }
