@@ -137,28 +137,32 @@
         "description": "Creates a new contact",
         "parameters": [
           {
-            "name": "createContact",
+            "name": "userinfo",
             "in": "body",
             "required": true,
             "schema": {
               "type": "object",
               "required": [
-                "firstName",
-                "lastName",
+                "FirstName",
+                "LastName",
                 "email",
-                "phoneNumber"
+                "phone",
+                "UserID"
               ],
               "properties": {
-                "firstName": {
+                "FirstName": {
                   "type": "string"
                 },
-                "lastName": {
+                "LastName": {
                   "type": "string"
                 },
                 "email": {
                   "type": "string"
                 },
-                "phoneNumber": {
+                "phone": {
+                  "type": "string"
+                },
+                "UserID": {
                   "type": "string"
                 }
               }
@@ -200,7 +204,8 @@
                 "FirstName",
                 "LastName",
                 "email",
-                "phone"
+                "phone",
+                "UserID"
               ],
               "properties": {
                 "FirstName": {
@@ -214,7 +219,11 @@
                 },
                 "phone": {
                   "type": "string"
+                },
+                "UserID": {
+                  "type": "string"
                 }
+
               }
             }
           }
