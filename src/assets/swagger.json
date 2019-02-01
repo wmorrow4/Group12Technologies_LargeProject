@@ -282,9 +282,35 @@
             }
           },
           "200": {
-            "description": "Successful request.",
+            "description": "return array of contact objects",
             "schema": {
-              "$ref": "#/definitions/Success"
+              "type": "array"
+			  "items":
+			    "type": "object"
+				"required": [
+                  "FirstName",
+                  "LastName",
+                  "email",
+                  "phone"
+				  "ContactID"
+                  ],
+				"properties": {
+				  "FirstName": {
+				    "type": "string"
+				  },
+				  "LastName": {
+				    "type": "string"
+				  },
+				  "email": {
+				    "type": "string"
+				  },
+				  "phone": {
+				    "type": "string"
+				  }
+				  "ContactID": {
+				    "type": "string"
+				  }
+				  
             }
           }
         }
@@ -310,6 +336,8 @@
                 "LastName",
                 "email",
                 "phone"
+				"userID"
+				"contactID"
               ],
               "properties": {
                 "FirstName": {
@@ -323,7 +351,13 @@
                 },
                 "phone": {
                   "type": "string"
-                }
+                },
+				"userID": {
+				  "type": "string"
+				}
+				"contactID": {
+				  "type": "string"
+				}
               }
             }
           }
@@ -336,7 +370,7 @@
             }
           },
           "200": {
-            "description": "Successful request.",
+            "description": "Successful request and contact id.",
             "schema": {
               "$ref": "#/definitions/Success"
             }
