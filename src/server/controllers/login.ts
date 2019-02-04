@@ -60,7 +60,7 @@ module.exports.userLogin = function(req:any, res:any, next:any) {
 
     MongoClient.connect(url, function(err:any, db:any) {
     if (err) throw err;
-    var dbo = db.db("mean");    
+    var dbo = db.db("mean");
     dbo.collection("users").find( req.swagger.params.userinfo.value , function(err:any, res:any) {
         if (err) throw err;
         console.log("User exist, Logging In");
