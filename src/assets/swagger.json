@@ -307,107 +307,106 @@
 					}
 				}
 			}
-			},
-			"/updateContact": {
-				"post": {
-					"x-swagger-router-controller": "contacts",
-					"operationId": "updateContact",
-					"tags": [
-						"/updateContact"
-					],
-					"description": "Apply changes to current contact info",
-					"parameters": [{
-						"name": "userinfo",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"type": "object",
-							"required": [
-								"FirstName",
-								"LastName",
-								"email",
-								"phone",
-								"userID",
-								"contactID"
-							],
-							"properties": {
-								"FirstName": {
-									"type": "string"
-								},
-								"LastName": {
-									"type": "string"
-								},
-								"email": {
-									"type": "string"
-								},
-								"phone": {
-									"type": "string"
-								},
-								"userID": {
-									"type": "string"
-								},
-								"contactID": {
-									"type": "string"
-								}
-							}
-						}
-					}],
-					"responses": {
-						"default": {
-							"description": "Invalid request.",
-							"schema": {
-								"$ref": "#/definitions/Error"
-							}
-						},
-						"200": {
-							"description": "Successful request and contact id.",
-							"schema": {
-								"$ref": "#/definitions/Success"
+		},
+		"/updateContact": {
+			"post": {
+				"x-swagger-router-controller": "contacts",
+				"operationId": "updateContact",
+				"tags": [
+					"/updateContact"
+				],
+				"description": "Apply changes to current contact info",
+				"parameters": [{
+					"name": "userinfo",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"required": [
+							"FirstName",
+							"LastName",
+							"email",
+							"phone",
+							"userID",
+							"contactID"
+						],
+						"properties": {
+							"FirstName": {
+								"type": "string"
+							},
+							"LastName": {
+								"type": "string"
+							},
+							"email": {
+								"type": "string"
+							},
+							"phone": {
+								"type": "string"
+							},
+							"userID": {
+								"type": "string"
+							},
+							"contactID": {
+								"type": "string"
 							}
 						}
 					}
-				}
-			},
-			"/weather": {
-				"get": {
-					"x-swagger-router-controller": "Weather",
-					"operationId": "getWeather",
-					"tags": [
-						"/weather"
-					],
-					"description": "Returns the current weather for the requested location using the requested unit.",
-					"parameters": [{
-							"name": "location",
-							"in": "query",
-							"description": "The MSN Weather location search string.",
-							"required": true,
-							"type": "string"
-						},
-						{
-							"name": "unit",
-							"in": "query",
-							"description": "The unit, either 'C' or 'F'.",
-							"required": true,
-							"type": "string",
-							"enum": [
-								"C",
-								"F"
-							],
-							"default": "F"
+				}],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
 						}
-					],
-					"responses": {
-						"default": {
-							"description": "Invalid request.",
-							"schema": {
-								"$ref": "#/definitions/Error"
-							}
-						},
-						"200": {
-							"description": "Successful request.",
-							"schema": {
-								"$ref": "#/definitions/Weather"
-							}
+					},
+					"200": {
+						"description": "Successful request and contact id.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		},
+		"/weather": {
+			"get": {
+				"x-swagger-router-controller": "Weather",
+				"operationId": "getWeather",
+				"tags": [
+					"/weather"
+				],
+				"description": "Returns the current weather for the requested location using the requested unit.",
+				"parameters": [{
+						"name": "location",
+						"in": "query",
+						"description": "The MSN Weather location search string.",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "unit",
+						"in": "query",
+						"description": "The unit, either 'C' or 'F'.",
+						"required": true,
+						"type": "string",
+						"enum": [
+							"C",
+							"F"
+						],
+						"default": "F"
+					}
+				],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "Successful request.",
+						"schema": {
+							"$ref": "#/definitions/Weather"
 						}
 					}
 				}
