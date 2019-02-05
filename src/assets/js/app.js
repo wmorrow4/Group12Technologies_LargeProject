@@ -10,6 +10,12 @@ import 'what-input';
 window.jQuery = $;
 require('foundation-sites');
 
+if (!window.load) {
+    window.load = function () {
+        $('body').css('overflow-y', 'initial')
+    }
+}
+
 const cookies = require('browser-cookies');
 
 // If you want to pick and choose which modules to include, comment out the above and uncomment
@@ -178,7 +184,5 @@ $(document).ready(() => {
         }
     })
 
-    $('.animated').one('animationend', function(){
-        $('body').removeAttr('style');
-    });
+    window.load()
 })

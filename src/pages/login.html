@@ -1,3 +1,11 @@
+<script>
+  window.load = function () {
+    var $ = window.jQuery
+    $('.animated').one('animationend', function(){
+        $('body').css('overflow-y', 'initial');
+    });
+  }
+</script>
 <div class="grid-container">
   <div class="grid-x grid-padding-x">
     <div class="cell small-12 medium-8 large-6">
