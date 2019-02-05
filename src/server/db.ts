@@ -1,6 +1,6 @@
 import mongodb = require('mongodb')
 
-class Database {
+class Database {    
 
     private static client:mongodb.MongoClient
     private static db:mongodb.Db
