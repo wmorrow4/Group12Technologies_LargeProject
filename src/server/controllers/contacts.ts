@@ -1,6 +1,7 @@
 'use strict';
 
 import util = require('util')
+import db = require('../db')
 
 var url = "mongodb://localhost:27017/";
 

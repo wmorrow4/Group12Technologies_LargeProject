@@ -3,6 +3,13 @@
 import util = require('util')
 import session = require('express-session')
 import swaggerTools = require('swagger-tools')
+import db = require('../db')
+
+const OK = 200
+const BadRequest = 400
+const InternalServerError = 500
+
+const inspect = (input: any) => util.inspect(input, false, Infinity, true)
 
 interface UserInfo {
     username: string,
@@ -12,87 +19,99 @@ interface UserInfo {
 // Make sure this matches the Swagger.json body parameter for the /signup API
 interface SignupPayload {
     userinfo: swaggerTools.SwaggerRequestParameter<UserInfo>
-    [paramName: string]: swaggerTools.SwaggerRequestParameter<UserInfo> | undefined;    
+    [paramName: string]: swaggerTools.SwaggerRequestParameter<UserInfo> | undefined;
 }
 
-module.exports.signup = function(req:Express.Request & swaggerTools.Swagger20Request<SignupPayload>, res:any, next:any) {
-
+module.exports.signup = function (req: Express.Request & swaggerTools.Swagger20Request<SignupPayload>, res: any, next: any) {
     // print out the params
-    console.log(util.inspect(req.swagger.params, false, Infinity, true))
-    const loginSucceeded = true
+    console.log(inspect(req.swagger.params))
+    res.setHeader('Content-Type', 'application/json')
 
-    var MongoClient = require('mongodb').MongoClient;
-    var url = "mongodb://localhost:27017/";
+    // These should always be filled out because of the swagger validation, but we should still
+    // probably check them.
+    if (req.swagger.params.userinfo.value.username && req.swagger.params.userinfo.value.password) {
+        db.users.findOne({ 'username': req.swagger.params.userinfo.value.username }).then((user) => {
+            if (user) {
+                res.status(BadRequest)
+                res.send(JSON.stringify({ message: `Username ${req.swagger.params.userinfo.value.username} is already in use.` }, null, 2))
+                res.end()
+            }
+            else {
+                db.users.insertOne(req.swagger.params.userinfo.value).then((user) => {
+                    if (req.session) {
+                        req.session.username = req.swagger.params.userinfo.value.username
+                    }
 
-    MongoClient.connect(url, function(err:any, db:any) {
-    if (err) throw err;
-    var dbo = db.db("mean");    
-    dbo.collection("users").insert( req.swagger.params.userinfo.value , function(err:any, res:any) {
-        if (err) throw err;
-        console.log("1 document inserted");
-        db.close();
-  });
-})
-
-
-    if (loginSucceeded) {
-        if (req.session) {
-            req.session.username = req.swagger.params.userinfo.value.username
-        }
-
-        res.setHeader('Content-Type', 'application/json')
-        res.status(200)
-        res.send(JSON.stringify({message: "It worked!"}, null, 2))
-        res.end()
+                    res.status(OK)
+                    res.send(JSON.stringify({ message: "It worked!" }, null, 2))
+                    res.end()
+                }).catch((err) => {
+                    res.status(InternalServerError)
+                    res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+                    res.end()
+                })
+            }
+        }).catch((err) => {
+            res.status(InternalServerError)
+            res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+            res.end()
+        })
     }
     else {
-
-    }
-};
-
-module.exports.userLogin = function(req:any, res:any, next:any) {
-    // print out the params
-    console.log(util.inspect(req.swagger.params, false, Infinity, true))
-    const loginSucceeded = true
-
-    var MongoClient = require('mongodb').MongoClient;
-    var url = "mongodb://localhost:27017/";
-
-    MongoClient.connect(url, function(err:any, db:any) {
-    if (err) throw err;
-    var dbo = db.db("mean");
-    dbo.collection("users").find( req.swagger.params.userinfo.value , function(err:any, res:any) {
-        if (err) throw err;
-        console.log("User exist, Logging In");
-        db.close();
-      });
-})
-
-    if (loginSucceeded) {
-        if (req.session) {
-            req.session.username = req.swagger.params.userinfo.value.username
-        }
-    
-        res.setHeader('Content-Type', 'application/json')
-        res.status(200)
-        res.send(JSON.stringify({message: "It worked!"}, null, 2))
+        res.status(BadRequest)
+        res.send(JSON.stringify({ message: "Username and password are required" }, null, 2))
         res.end()
     }
-    else {
+}
 
+module.exports.userLogin = function (req: any, res: any, next: any) {
+    // print out the params
+    console.log(inspect(req.swagger.params))
+    res.setHeader('Content-Type', 'application/json')
+
+    // These should always be filled out because of the swagger validation, but we should still
+    // probably check them.
+    if (req.swagger.params.userinfo.value.username && req.swagger.params.userinfo.value.password) {
+        db.users.findOne(req.swagger.params.userinfo.value).then((user) => {
+            if (user) {
+                if (req.session) {
+                    req.session.username = req.swagger.params.userinfo.value.username
+                }
+
+                res.status(OK)
+                res.send(JSON.stringify({ message: "It worked!" }, null, 2))
+                res.end()
+            }
+            else {
+                res.status(BadRequest)
+                res.send(JSON.stringify({ message: "Username and password did not match any known user" }, null, 2))
+                res.end()
+            }
+        }).catch((err) => {
+            res.status(InternalServerError)
+            res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+            res.end()
+        })
     }
-};
+    else {
+        res.status(BadRequest)
+        res.send(JSON.stringify({ message: "Username and password are required" }, null, 2))
+        res.end()
+    }
+}
 
-module.exports.userLogout = function(req:any, res:any, next:any) {
+module.exports.userLogout = function (req: any, res: any, next: any) {
     // print out the params
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
 
+    let username
     if (req.session) {
+        username = req.session.username
         delete req.session.username
     }
 
     res.setHeader('Content-Type', 'application/json')
-    res.status(200)
-    res.send(JSON.stringify({message: "It worked!"}, null, 2))
+    res.status(OK)
+    res.send(JSON.stringify({ message: `Logged out user: ${username}` }, null, 2))
     res.end()
-};
+}

@@ -1,7 +1,9 @@
+import 'source-map-support/register'
 import express = require('express')
 import swaggerTools = require('swagger-tools')
 import session = require('express-session')
 import cookieParser = require('cookie-parser')
+import db = require('./db')
 
 // The Swagger document (require it, build it programmatically, fetch it from a URL, ...)
 const swaggerDoc = require('../assets/swagger.json')
@@ -85,4 +87,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}...`)
+    db.connectToMongo().then(() => {
+        console.log(`Server connected to MongoDB...`)
+    })
 })
