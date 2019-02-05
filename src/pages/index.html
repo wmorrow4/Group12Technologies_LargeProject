@@ -4,22 +4,43 @@
     <div data-abide-error class="alert callout" style="display: none;">
       <p><i class="fi-alert"></i> There are some errors in your form.</p>
     </div>
+
     <label>First Name
       <input type="text" id="firstname" placeholder="John" aria-describedby="firstnameHint" aria-errormessage="firstnameError"
         required>
-      <span class="form-error" id="usernameError">
-        Yo, you had better fill this out, it's required.
+      <span class="form-error" id="firstnameError">
+        Required!
       </span>
     </label>
-    <p class="help-text" id="firstnameHint">What's their first name?</p>
+    <p class="help-text" id="firstnameHint">Enter a first name please.</p>
+
     <label>Last Name
       <input type="text" id="lastname" placeholder="Wick" aria-describedby="lastnameHint" aria-errormessage="lastnameError"
         required>
       <span class="form-error" id="lastnameError">
-        I'm required!
+        Required!
       </span>
     </label>
     <p class="help-text" id="lastnameHint">Enter a last name please.</p>
+
+    <label>Email
+      <input type="text" id="email" placeholder="jWick@aol.com" aria-describedby="emailHint" aria-errormessage="emailError"
+        required>
+      <span class="form-error" id="emailError">
+        Required!
+      </span>
+    </label>
+    <p class="help-text" id="emailHint">Enter a active email please.</p>
+
+    <label>Phone Number 
+      <input type="text" id="phone" placeholder="(123) 456 8901" aria-describedby="phoneHint" aria-errormessage="phoneError"
+        required>
+      <span class="form-error" id="phoneError">
+        Required!
+      </span>
+    </label>
+    <p class="help-text" id="phoneHint">Enter your phone number please.</p>
+
     <p><input type="submit" class="button expanded" value="Create Contact"></input></p>
   </form>
   <button class="close-button" data-close aria-label="Close modal" type="button">
