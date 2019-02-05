@@ -47,9 +47,26 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
 
     res.setHeader('Content-Type', 'application/json')
-    res.status(200)
-    res.send(JSON.stringify({message: "It worked!"}, null, 2))
-    res.end()
+	
+	if(req.swagger.params.search) {
+
+		var incomingSearch = req.swagger.params.search;
+		
+		if(incomingSearch == "") {
+			contactsArray = db.contacts.find($eq: req.session.username).toArray();
+		}
+		else {
+			contactsArray = db.contacts.find($and: [{$eq: req.session.username}, {$eq: incomingSearch}]).toarray().
+		}
+				res.status(OK)
+				res.send(JSON.stringify(contactsArray));
+				res.end()     
+	}
+	else {
+			res.status(BadRequest)
+			res.send(JSON.stringify({ message: "search should not be null" }, null, 2))
+			res.end()
+	}
 };
 
 module.exports.updateContact = function(req:any, res:any, next:any) {
