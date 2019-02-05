@@ -141,8 +141,7 @@
 							"FirstName",
 							"LastName",
 							"email",
-							"phone",
-							"UserID"
+							"phone"
 						],
 						"properties": {
 							"FirstName": {
@@ -155,9 +154,6 @@
 								"type": "string"
 							},
 							"phone": {
-								"type": "string"
-							},
-							"UserID": {
 								"type": "string"
 							}
 						}
@@ -197,8 +193,7 @@
 							"FirstName",
 							"LastName",
 							"email",
-							"phone",
-							"UserID"
+							"phone"
 						],
 						"properties": {
 							"FirstName": {
@@ -211,9 +206,6 @@
 								"type": "string"
 							},
 							"phone": {
-								"type": "string"
-							},
-							"UserID": {
 								"type": "string"
 							}
 
@@ -327,7 +319,6 @@
 							"LastName",
 							"email",
 							"phone",
-							"userID",
 							"contactID"
 						],
 						"properties": {
@@ -341,9 +332,6 @@
 								"type": "string"
 							},
 							"phone": {
-								"type": "string"
-							},
-							"userID": {
 								"type": "string"
 							},
 							"contactID": {
