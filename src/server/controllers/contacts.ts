@@ -24,21 +24,37 @@ module.exports.createContact = function(req:Express.Request & swaggerTools.Swagg
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
     res.setHeader('Content-Type', 'application/json')
     
+    
         
-    if(req.swagger.params.contact.value.firstname) {
+    if(req.swagger.params.contact.value.firstname && req.session) {
 
         var myobj = req.swagger.params.contact.value;
+        
         if (req.session) {
             myobj.belongsTo = req.session.username;
         }
 
-        db.contacts.insertOne( req.swagger.params.contact.value , function(err:any, res:any) {
-            if (err) throw err;
-            console.log("1 document inserted");                       
-      });   
-        res.status(OK)
-        res.send(JSON.stringify({ message: "It worked!" }, null, 2))
-        res.end()     
+        //myobj.UserID = req.session.username;
+
+        db.contacts.insertOne( myobj , function(err:any, result:any) {
+            if (err){
+                res.status(InternalServerError)
+                res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+                res.end()
+            }
+            if(!result){
+                res.status(BadRequest)
+                res.send(JSON.stringify({ message: "Create Contact Failed" }, null, 2))
+                res.end()
+            }
+            else{
+                res.status(OK)
+                res.send(JSON.stringify({ message: "Contact Inserted Successfully " }, null, 2))
+                res.end()
+                console.log("1 document inserted"); 
+            }                     
+      });  
+            
     }
     else {
         res.status(BadRequest)
@@ -77,25 +93,42 @@ module.exports.deleteContact = function(req:any, res:any, next:any) {
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
     res.setHeader('Content-Type', 'application/json')
 
-    var myobj = req.swagger.params.userinfo.value;
-    myobj.UserID = req.session.username;
-
-    var temp = true;
-    db.contacts.findOne(req.swagger.params.userinfo.value, function(err:any,result) {
-        if (err){}            
+    var myobj = req.swagger.params.contact.value;
+        
+    if (req.session) {
+        myobj.belongsTo = req.session.username;
+    }
+    
+    db.contacts.findOne(myobj, function(err:any,result:any) {
+        if (err){
+            res.status(InternalServerError)
+            res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+            res.end()
+        }            
         if(!result){
             res.status(BadRequest)
             res.send(JSON.stringify({ message: "Contact Doesnt Exist" }, null, 2))
             res.end()
         }
         else{
-            db.contacts.deleteOne( myobj , function(err:any, res:any) {
-                if (err) throw err;
-                console.log("1 document deleted");                       
-            });   
-            res.status(OK)
-            res.send(JSON.stringify({ message: "It worked!" }, null, 2))
-            res.end()
+            db.contacts.deleteOne( myobj , function(err:any, result:any) {
+                if (err){
+                    res.status(InternalServerError)
+                    res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+                    res.end()
+                }
+                if(!result){
+                    res.status(BadRequest)
+                    res.send(JSON.stringify({ message: "Delete Function Failed" }, null, 2))
+                    res.end()
+                }
+                else{
+                    res.status(OK)
+                    res.send(JSON.stringify({ message: "Contact Deleted Successfully " }, null, 2))
+                    res.end()
+                    console.log("1 document deleted"); 
+                }                                      
+            });     
         }
             
     });
