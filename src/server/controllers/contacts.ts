@@ -51,6 +51,7 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
 	if(req.swagger.params.search) {
 
 		var incomingSearch = req.swagger.params.search;
+		var contactsArray;
 		
 		if(incomingSearch == "") {
 			contactsArray = db.contacts.find($eq: req.session.username).toArray();
