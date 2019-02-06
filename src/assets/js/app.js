@@ -75,8 +75,10 @@ $("#createContactForm").on("formvalid.zf.abide", function (ev, frm) {
             $('#createContactModal').foundation('close')
         },
         data: JSON.stringify({
-            username: $('#username').val(),
-            password: $('#password').val()
+            firstname: $('#firstname').val(),
+            lastname: $('#lastname').val(),
+            email: $('#email').val(),
+            phone: $('#phone').val()
         })
     })
 });

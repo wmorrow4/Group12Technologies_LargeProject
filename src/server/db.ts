@@ -1,13 +1,26 @@
 import mongodb = require('mongodb')
 
-class Database {    
+namespace Database {
 
-    private static client:mongodb.MongoClient
-    private static db:mongodb.Db
-    public static users:mongodb.Collection
-    public static contacts:mongodb.Collection
+    export interface Contact {
+        belongsTo: string,
+        firstname: string,
+        lastname: string,
+        email: string,
+        phone: string
+    }
 
-    static async connectToMongo():Promise<mongodb.Db> {
+    export interface UserInfo {
+        username: string,
+        password: string
+    }
+
+    export var client:mongodb.MongoClient
+    export var db:mongodb.Db
+    export var users:mongodb.Collection
+    export var contacts:mongodb.Collection
+
+    export async function connectToMongo():Promise<mongodb.Db> {
         if ( this.db ) return Promise.resolve(this.db)
         return mongodb.connect('mongodb://127.0.0.1:27017', {
             bufferMaxEntries:   0,

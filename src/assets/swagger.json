@@ -18,26 +18,28 @@
 					"/signup"
 				],
 				"description": "Creates a new user",
-				"parameters": [{
-					"name": "userinfo",
-					"in": "body",
-					"required": true,
-					"schema": {
-						"type": "object",
-						"required": [
-							"username",
-							"password"
-						],
-						"properties": {
-							"username": {
-								"type": "string"
-							},
-							"password": {
-								"type": "string"
+				"parameters": [
+					{
+						"name": "userinfo",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"required": [
+								"username",
+								"password"
+							],
+							"properties": {
+								"username": {
+									"type": "string"
+								},
+								"password": {
+									"type": "string"
+								}
 							}
 						}
 					}
-				}],
+				],
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -62,26 +64,28 @@
 					"/userLogin"
 				],
 				"description": "Login as an existing user.",
-				"parameters": [{
-					"name": "userinfo",
-					"in": "body",
-					"required": true,
-					"schema": {
-						"type": "object",
-						"required": [
-							"username",
-							"password"
-						],
-						"properties": {
-							"username": {
-								"type": "string"
-							},
-							"password": {
-								"type": "string"
+				"parameters": [
+					{
+						"name": "userinfo",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"required": [
+								"username",
+								"password"
+							],
+							"properties": {
+								"username": {
+									"type": "string"
+								},
+								"password": {
+									"type": "string"
+								}
 							}
 						}
 					}
-				}],
+				],
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -131,34 +135,16 @@
 					"/createContact"
 				],
 				"description": "Creates a new contact",
-				"parameters": [{
-					"name": "userinfo",
-					"in": "body",
-					"required": true,
-					"schema": {
-						"type": "object",
-						"required": [
-							"FirstName",
-							"LastName",
-							"email",
-							"phone"
-						],
-						"properties": {
-							"FirstName": {
-								"type": "string"
-							},
-							"LastName": {
-								"type": "string"
-							},
-							"email": {
-								"type": "string"
-							},
-							"phone": {
-								"type": "string"
-							}
+				"parameters": [
+					{
+						"name": "contact",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Contact"
 						}
 					}
-				}],
+				],
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -183,35 +169,36 @@
 					"/deleteContact"
 				],
 				"description": "Delete a contact",
-				"parameters": [{
-					"name": "userinfo",
-					"in": "body",
-					"required": true,
-					"schema": {
-						"type": "object",
-						"required": [
-							"FirstName",
-							"LastName",
-							"email",
-							"phone"
-						],
-						"properties": {
-							"FirstName": {
-								"type": "string"
-							},
-							"LastName": {
-								"type": "string"
-							},
-							"email": {
-								"type": "string"
-							},
-							"phone": {
-								"type": "string"
+				"parameters": [
+					{
+						"name": "userinfo",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"required": [
+								"FirstName",
+								"LastName",
+								"email",
+								"phone"
+							],
+							"properties": {
+								"FirstName": {
+									"type": "string"
+								},
+								"LastName": {
+									"type": "string"
+								},
+								"email": {
+									"type": "string"
+								},
+								"phone": {
+									"type": "string"
+								}
 							}
-
 						}
 					}
-				}],
+				],
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -236,26 +223,21 @@
 					"/listContacts"
 				],
 				"description": "List current contacts.",
-				"parameters": [{
-					"name": "contactinfo",
-					"in": "body",
-					"required": true,
-					"schema": {
-						"type": "object",
-						"required": [
-							"search",
-							"searchType"
-						],
-						"properties": {
-							"search": {
-								"type": "string"
-							},
-							"searchType": {
-								"type": "string"
+				"parameters": [
+					{
+						"name": "contactinfo",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"search": {
+									"type": "string"
+								}
 							}
 						}
 					}
-				}],
+				],
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -268,32 +250,7 @@
 						"schema": {
 							"type": "array",
 							"items": {
-								"type": "object"
-							},
-							"required": [
-								"FirstName",
-								"LastName",
-								"email",
-								"phone",
-								"ContactID"
-							],
-							"properties": {
-								"FirstName": {
-									"type": "string"
-								},
-								"LastName": {
-									"type": "string"
-								},
-								"email": {
-									"type": "string"
-								},
-								"phone": {
-									"type": "string"
-								},
-								"ContactID": {
-									"type": "string"
-								}
-
+								"$ref": "#/definitions/Contact"
 							}
 						}
 					}
@@ -308,38 +265,23 @@
 					"/updateContact"
 				],
 				"description": "Apply changes to current contact info",
-				"parameters": [{
-					"name": "userinfo",
-					"in": "body",
-					"required": true,
-					"schema": {
-						"type": "object",
-						"required": [
-							"FirstName",
-							"LastName",
-							"email",
-							"phone",
-							"contactID"
-						],
-						"properties": {
-							"FirstName": {
-								"type": "string"
-							},
-							"LastName": {
-								"type": "string"
-							},
-							"email": {
-								"type": "string"
-							},
-							"phone": {
-								"type": "string"
-							},
-							"contactID": {
-								"type": "string"
-							}
+				"parameters": [
+					{
+						"name": "userinfo",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"allOf": [
+								{
+									"$ref": "#/definitions/ObjectID"
+								},
+								{
+									"$ref": "#/definitions/Contact"
+								}
+							]
 						}
 					}
-				}],
+				],
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -358,6 +300,38 @@
 		}
 	},
 	"definitions": {
+		"ObjectID": {
+			"properties": {
+				"_id": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"_id"
+			]
+		},
+		"Contact": {
+			"properties": {
+				"firstname": {
+					"type": "string"
+				},
+				"lastname": {
+					"type": "string"
+				},
+				"phone": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"firstname",
+				"lastname",
+				"phone",
+				"email"
+			]
+		},
 		"Success": {
 			"properties": {
 				"message": {

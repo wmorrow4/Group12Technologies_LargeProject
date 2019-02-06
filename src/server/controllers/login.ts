@@ -4,17 +4,13 @@ import util = require('util')
 import session = require('express-session')
 import swaggerTools = require('swagger-tools')
 import db = require('../db')
+import UserInfo = db.UserInfo
 
 const OK = 200
 const BadRequest = 400
 const InternalServerError = 500
 
 const inspect = (input: any) => util.inspect(input, false, Infinity, true)
-
-interface UserInfo {
-    username: string,
-    password: string
-}
 
 // Make sure this matches the Swagger.json body parameter for the /signup API
 interface SignupPayload {

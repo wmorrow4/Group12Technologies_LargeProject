@@ -4,6 +4,7 @@ import util = require('util')
 import session = require('express-session')
 import swaggerTools = require('swagger-tools')
 import db = require('../db')
+import Contact = db.Contact
 
 const OK = 200
 const BadRequest = 400
@@ -11,20 +12,27 @@ const InternalServerError = 500
 
 const inspect = (input: any) => util.inspect(input, false, Infinity, true)
 
+// Make sure this matches the Swagger.json body parameter for the /signup API
+interface CreateContactPayload {
+    contact: swaggerTools.SwaggerRequestParameter<Contact>
+    [paramName: string]: swaggerTools.SwaggerRequestParameter<Contact> | undefined;
+}
 
-module.exports.createContact = function(req:any, res:any, next:any) {
+module.exports.createContact = function(req:Express.Request & swaggerTools.Swagger20Request<CreateContactPayload>, res:any, next:any) {
 
     // print out the params
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
     res.setHeader('Content-Type', 'application/json')
     
         
-    if(req.swagger.params.userinfo.value.FirstName) {
+    if(req.swagger.params.contact.value.firstname) {
 
-        var myobj = req.swagger.params.userinfo.value;
-        myobj.UserID = req.session.username;
+        var myobj = req.swagger.params.contact.value;
+        if (req.session) {
+            myobj.belongsTo = req.session.username;
+        }
 
-        db.contacts.insertOne( req.swagger.params.userinfo.value , function(err:any, res:any) {
+        db.contacts.insertOne( req.swagger.params.contact.value , function(err:any, res:any) {
             if (err) throw err;
             console.log("1 document inserted");                       
       });   
