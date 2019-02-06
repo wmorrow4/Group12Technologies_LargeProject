@@ -106,36 +106,59 @@ module.exports.deleteContact = function(req:express.Request & swaggerTools.Swagg
     // Check that we're logged in
     if (!req.session || !req.session.username) {
         // no session or yes session and no username
-
-        // TODO: respond to the client that we're apparently not logged in.
+        res.status(BadRequest)
+        res.send(JSON.stringify({ message: "You are not currently logged in, login in order to add contacts" }, null, 2))
+        res.end()
     }
 
     // Check that the contact exists and actually belongs to this user.
-    db.contacts.findOne( {_id: new MongoObjectID(myobj._id)} , function(err:MongoError, result:ApiContact | null) {
+    db.contacts.findOne( {_id: new MongoObjectID(myobj._id)} , function(err:MongoError, result:ApiContact | null)
+     {
         // TODO: check to see if result is a thing.
-
-
+        if(err)
+        {
+            res.status(InternalServerError)
+            res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+            res.end()
+        }
+        if(!result){
+            res.status(BadRequest)
+            res.send(JSON.stringify({ message: "Contact Doesnt Exist" }, null, 2))
+            res.end()
+        }
+        else{
         // TODO: check to see if Contact belongs to this user.
-
-
-        db.contacts.deleteOne( {_id: new MongoObjectID(myobj._id)} , function(err:MongoError, result:DeleteWriteOpResultObject) {
-            if (err){
-                res.status(InternalServerError)
-                res.send(JSON.stringify({ message: inspect(err) }, null, 2))
-                res.end()
-            }
-            if(!result){
+        if (req.session) {
+            if(result.belongsTo != req.session.userid)
+            {
                 res.status(BadRequest)
-                res.send(JSON.stringify({ message: "Delete Function Failed" }, null, 2))
+                res.send(JSON.stringify({ message: "This contact doesnt belong to the current user" }, null, 2))
                 res.end()
             }
-            else{
-                res.status(OK)
-                res.send(JSON.stringify({ message: "Contact Deleted Successfully " }, null, 2))
-                res.end()
-                console.log("1 document deleted"); 
-            }                                      
-        })
+            else
+            {
+                db.contacts.deleteOne( {_id: new MongoObjectID(myobj._id)} , function(err:MongoError, result:DeleteWriteOpResultObject) {
+                    if (err){
+                        res.status(InternalServerError)
+                        res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+                        res.end()
+                    }
+                    if(!result){
+                        res.status(BadRequest)
+                        res.send(JSON.stringify({ message: "Delete Function Failed" }, null, 2))
+                        res.end()
+                    }
+                    else{
+                        res.status(OK)
+                        res.send(JSON.stringify({ message: "Contact Deleted Successfully " }, null, 2))
+                        res.end()
+                        console.log("1 document deleted"); 
+                    }                                      
+                })
+            }
+        }
+
+    }
     })
 }
 
