@@ -36,6 +36,7 @@ module.exports.signup = function (req: Express.Request & swaggerTools.Swagger20R
                 db.users.insertOne(req.swagger.params.userinfo.value).then((user) => {
                     if (req.session) {
                         req.session.username = req.swagger.params.userinfo.value.username
+                        req.session.userid = user.insertedId
                     }
 
                     res.status(OK)
@@ -72,6 +73,7 @@ module.exports.userLogin = function (req: any, res: any, next: any) {
             if (user) {
                 if (req.session) {
                     req.session.username = req.swagger.params.userinfo.value.username
+                    req.session.userid = user._id
                 }
 
                 res.status(OK)
@@ -100,14 +102,16 @@ module.exports.userLogout = function (req: any, res: any, next: any) {
     // print out the params
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
 
-    let username
+    let username, userid
     if (req.session) {
         username = req.session.username
+        userid = req.session.userid
+        delete req.session.userid
         delete req.session.username
     }
 
     res.setHeader('Content-Type', 'application/json')
     res.status(OK)
-    res.send(JSON.stringify({ message: `Logged out user: ${username}` }, null, 2))
+    res.send(JSON.stringify({ message: `Logged out user: ${username} ${userid}` }, null, 2))
     res.end()
 }
