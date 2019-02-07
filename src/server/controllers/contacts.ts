@@ -71,7 +71,7 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
             {lastname: {$eq: incomingSearch}}, {phone: {$eq: incomingSearch}}]}]}).toArray().then((data) => {
                 if (data) {
                     res.status(OK)
-                    res.send(JSON.stringify(data));
+                    res.send(JSON.stringify(contactsArray));
                     res.end()
                 }
                 else {
@@ -92,7 +92,7 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
             contactsArray = db.contacts.find({$eq: req.session.username}).toArray().then((data) => {
                 if (data) {
                     res.status(OK)
-                    res.send(JSON.stringify(data));
+                    res.send(JSON.stringify(contactsArray));
                     res.end()
                 }
                 else {
