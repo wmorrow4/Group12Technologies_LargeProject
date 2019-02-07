@@ -75,13 +75,68 @@ module.exports.createContact = function(req:express.Request & swaggerTools.Swagg
 
 module.exports.listContacts = function(req:any, res:any, next:any) {
 
+    //capture search in variable
+	var incomingSearch = req.swagger.params.search;
+    var contactsArray;
+    console.log(incomingSearch)
+
     // print out the params
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
 
     res.setHeader('Content-Type', 'application/json')
-    res.status(200)
-    res.send(JSON.stringify({message: "It worked!"}, null, 2))
-    res.end()
+    
+    //if there is a search, match with database docs that belong to that user and put them in array.
+    //returned items must belong to the user AND match what was searched in any field belonging to that doc
+	if(incomingSearch) {
+
+        //yes I know this looks disgusting
+            contactsArray = db.contacts.find({$and: [{belongsTo: {$eq: req.session.userID}}, 
+            {$or: [{email: {$eq: incomingSearch}}, {firstname: {$eq: incomingSearch}}, 
+            {lastname: {$eq: incomingSearch}}, {phone: {$eq: incomingSearch}}]}]}).toArray().then((data) => {
+                if (data) {
+                    res.status(OK)
+                    res.send(JSON.stringify(contactsArray));
+                    res.end()
+                }
+                else {
+                    res.status(OK)
+                    res.send(JSON.stringify({ message: "no contacts" }, null, 2))
+                    res.end()
+                }
+            }).catch((err) => {
+                res.status(InternalServerError)
+                res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+                res.end()
+            })
+            }
+  
+    
+    //otherwise return all documents belonging to that user
+	else {
+            contactsArray = db.contacts.find({$eq: req.session.username}).toArray().then((data) => {
+                if (data) {
+                    res.status(OK)
+                    res.send(JSON.stringify(contactsArray));
+                    res.end()
+                }
+                else {
+                    res.status(OK)
+                    res.send(JSON.stringify({ message: "no contacts" }, null, 2))
+                    res.end()
+                }
+            }).catch((err) => {
+                res.status(InternalServerError)
+                res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+                res.end()
+            })
+        }
+    
+    console.log(contactsArray);
+
+    //package array and return
+    res.status(OK)
+    res.send(JSON.stringify(contactsArray));
+    res.end()     
 };
 
 module.exports.updateContact = function(req:any, res:any, next:any) {
