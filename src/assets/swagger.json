@@ -171,31 +171,11 @@
 				"description": "Delete a contact",
 				"parameters": [
 					{
-						"name": "userinfo",
+						"name": "contact",
 						"in": "body",
 						"required": true,
 						"schema": {
-							"type": "object",
-							"required": [
-								"FirstName",
-								"LastName",
-								"email",
-								"phone"
-							],
-							"properties": {
-								"FirstName": {
-									"type": "string"
-								},
-								"LastName": {
-									"type": "string"
-								},
-								"email": {
-									"type": "string"
-								},
-								"phone": {
-									"type": "string"
-								}
-							}
+							"$ref": "#/definitions/ObjectID"
 						}
 					}
 				],

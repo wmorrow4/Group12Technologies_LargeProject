@@ -2,8 +2,12 @@ import mongodb = require('mongodb')
 
 namespace Database {
 
+    export interface ObjectID {
+        _id: string
+    }
+
     export interface Contact {
-        belongsTo: string,
+        belongsTo: mongodb.ObjectID,
         firstname: string,
         lastname: string,
         email: string,
@@ -11,14 +15,15 @@ namespace Database {
     }
 
     export interface UserInfo {
+        _id: mongodb.ObjectID
         username: string,
         password: string
     }
 
     export var client:mongodb.MongoClient
     export var db:mongodb.Db
-    export var users:mongodb.Collection
-    export var contacts:mongodb.Collection
+    export var users:mongodb.Collection<UserInfo>
+    export var contacts:mongodb.Collection<Contact>
 
     export async function connectToMongo():Promise<mongodb.Db> {
         if ( this.db ) return Promise.resolve(this.db)

@@ -1,10 +1,17 @@
 'use strict';
 
 import util = require('util')
+import express = require('express')
 import session = require('express-session')
 import swaggerTools = require('swagger-tools')
 import db = require('../db')
-import Contact = db.Contact
+import ApiContact = db.Contact
+import ApiObjectID = db.ObjectID
+import {
+    MongoError,
+    DeleteWriteOpResultObject,
+    ObjectID as MongoObjectID, 
+    InsertOneWriteOpResult} from 'mongodb';
 
 const OK = 200
 const BadRequest = 400
@@ -14,39 +21,56 @@ const inspect = (input: any) => util.inspect(input, false, Infinity, true)
 
 // Make sure this matches the Swagger.json body parameter for the /signup API
 interface CreateContactPayload {
-    contact: swaggerTools.SwaggerRequestParameter<Contact>
-    [paramName: string]: swaggerTools.SwaggerRequestParameter<Contact> | undefined;
+    contact: swaggerTools.SwaggerRequestParameter<ApiContact>
+    [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiContact> | undefined;
 }
 
-module.exports.createContact = function(req:Express.Request & swaggerTools.Swagger20Request<CreateContactPayload>, res:any, next:any) {
+interface DeleteContactPayload {
+    contact: swaggerTools.SwaggerRequestParameter<ApiObjectID>
+    [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiObjectID> | undefined;
+}
+
+
+module.exports.createContact = function(req:express.Request & swaggerTools.Swagger20Request<CreateContactPayload>, res:express.Response) {
 
     // print out the params
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
     res.setHeader('Content-Type', 'application/json')
     
         
-    if(req.swagger.params.contact.value.firstname) {
+    if(req.swagger.params.contact.value.firstname && req.session) {
 
         var myobj = req.swagger.params.contact.value;
+        
         if (req.session) {
-            myobj.belongsTo = req.session.username;
+            myobj.belongsTo = req.session.userid;
         }
 
-        db.contacts.insertOne( req.swagger.params.contact.value , function(err:any, res:any) {
-            if (err) throw err;
-            console.log("1 document inserted");                       
-      });   
-        res.status(OK)
-        res.send(JSON.stringify({ message: "It worked!" }, null, 2))
-        res.end()     
+        db.contacts.insertOne(myobj, function(err:MongoError, result:InsertOneWriteOpResult) {
+            if (err){
+                res.status(InternalServerError)
+                res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+                res.end()
+            }
+            if(!result){
+                res.status(BadRequest)
+                res.send(JSON.stringify({ message: "Create Contact Failed" }, null, 2))
+                res.end()
+            }
+            else{
+                res.status(OK)
+                res.send(JSON.stringify({ message: "Contact Inserted Successfully " }, null, 2))
+                res.end()
+                console.log("1 document inserted"); 
+            }                     
+      });  
+            
     }
     else {
         res.status(BadRequest)
         res.send(JSON.stringify({ message: "At least a first name is required" }, null, 2))
         res.end()
     }
-    
-    
 };
 
 module.exports.listContacts = function(req:any, res:any, next:any) {
@@ -71,38 +95,48 @@ module.exports.updateContact = function(req:any, res:any, next:any) {
     res.end()
 };
 
-module.exports.deleteContact = function(req:any, res:any, next:any) {
+module.exports.deleteContact = function(req:express.Request & swaggerTools.Swagger20Request<DeleteContactPayload>, res:express.Response) {
     
     // print out the params 
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
     res.setHeader('Content-Type', 'application/json')
 
-    var myobj = req.swagger.params.userinfo.value;
-    myobj.UserID = req.session.username;
+    var myobj = req.swagger.params.contact.value;
+        
+    // Check that we're logged in
+    if (!req.session || !req.session.username) {
+        // no session or yes session and no username
 
-    var temp = true;
-    db.contacts.findOne(req.swagger.params.userinfo.value, function(err:any,result) {
-        if (err){}            
-        if(!result){
-            res.status(BadRequest)
-            res.send(JSON.stringify({ message: "Contact Doesnt Exist" }, null, 2))
-            res.end()
-        }
-        else{
-            db.contacts.deleteOne( myobj , function(err:any, res:any) {
-                if (err) throw err;
-                console.log("1 document deleted");                       
-            });   
-            res.status(OK)
-            res.send(JSON.stringify({ message: "It worked!" }, null, 2))
-            res.end()
-        }
-            
-    });
-    
+        // TODO: respond to the client that we're apparently not logged in.
+    }
 
-   
-    
-};
+    // Check that the contact exists and actually belongs to this user.
+    db.contacts.findOne( {_id: new MongoObjectID(myobj._id)} , function(err:MongoError, result:ApiContact | null) {
+        // TODO: check to see if result is a thing.
+
+
+        // TODO: check to see if Contact belongs to this user.
+
+
+        db.contacts.deleteOne( {_id: new MongoObjectID(myobj._id)} , function(err:MongoError, result:DeleteWriteOpResultObject) {
+            if (err){
+                res.status(InternalServerError)
+                res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+                res.end()
+            }
+            if(!result){
+                res.status(BadRequest)
+                res.send(JSON.stringify({ message: "Delete Function Failed" }, null, 2))
+                res.end()
+            }
+            else{
+                res.status(OK)
+                res.send(JSON.stringify({ message: "Contact Deleted Successfully " }, null, 2))
+                res.end()
+                console.log("1 document deleted"); 
+            }                                      
+        })
+    })
+}
 
 

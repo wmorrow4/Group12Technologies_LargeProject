@@ -5,6 +5,7 @@
     "target": "esnext",
     "noImplicitAny": true,
     "strictNullChecks": true,
+    "strictFunctionTypes": true,
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
