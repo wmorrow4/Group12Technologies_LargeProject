@@ -68,12 +68,12 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
         //yes I know this looks disgusting
             contactsArray = db.contacts.find({$and: [{belongsTo: {$eq: req.session.userID}}, 
             {$or: [{email: {$eq: incomingSearch}}, {firstname: {$eq: incomingSearch}}, 
-            {lastname: {$eq: incomingSearch}}, {phone: {$eq: incomingSearch}}]}]}).cursor.toArray();
+            {lastname: {$eq: incomingSearch}}, {phone: {$eq: incomingSearch}}]}]}).toArray();
   
     }
     //otherwise return all documents belonging to that user
 	else {
-            contactsArray = db.contacts.find({$eq: req.session.username}).cursor.toArray();
+            contactsArray = db.contacts.find({$eq: req.session.username}).toArray();
     }
     
     console.log(contactsArray);
