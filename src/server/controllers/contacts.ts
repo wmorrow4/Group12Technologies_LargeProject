@@ -53,7 +53,7 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
 
     //capture search in variable
 	var incomingSearch = req.swagger.params.search;
-    var contactsArray;
+    var data:any
     console.log(incomingSearch)
 
     // print out the params
@@ -66,12 +66,12 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
 	if(incomingSearch) {
 
         //yes I know this looks disgusting
-            contactsArray = db.contacts.find({$and: [{belongsTo: {$eq: req.session.userID}}, 
+            db.contacts.find({$and: [{belongsTo: {$eq: req.session.userID}}, 
             {$or: [{email: {$eq: incomingSearch}}, {firstname: {$eq: incomingSearch}}, 
             {lastname: {$eq: incomingSearch}}, {phone: {$eq: incomingSearch}}]}]}).toArray().then((data) => {
                 if (data) {
                     res.status(OK)
-                    res.send(JSON.stringify(contactsArray));
+                    res.send(JSON.stringify(data));
                     res.end()
                 }
                 else {
@@ -89,10 +89,10 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
     
     //otherwise return all documents belonging to that user
 	else {
-            contactsArray = db.contacts.find({$eq: req.session.username}).toArray().then((data) => {
+            db.contacts.find({$eq: req.session.username}).toArray().then((data) => {
                 if (data) {
                     res.status(OK)
-                    res.send(JSON.stringify(contactsArray));
+                    res.send(JSON.stringify(data));
                     res.end()
                 }
                 else {
