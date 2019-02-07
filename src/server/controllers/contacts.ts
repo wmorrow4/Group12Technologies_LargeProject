@@ -56,9 +56,9 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
 
     res.setHeader('Content-Type', 'application/json')
 	
-	if(req.swagger.params.search) {
+	if(req.swagger.params.search.value) {
 
-		var incomingSearch = req.swagger.params.search;
+		var incomingSearch = req.swagger.params.search.value;
 		var contactsArray;
 		
 		if(incomingSearch == "") {
