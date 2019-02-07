@@ -113,10 +113,10 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
     
     //otherwise return all documents belonging to that user
 	else {
-            contactsArray = db.contacts.find({$eq: req.session.username}).toArray().then((data) => {
+            db.contacts.find({$eq: req.session.username}).toArray().then((data) => {
                 if (data) {
                     res.status(OK)
-                    res.send(JSON.stringify(contactsArray));
+                    res.send(JSON.stringify(data));
                     res.end()
                 }
                 else {
@@ -131,11 +131,9 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
             })
         }
     
-    console.log(contactsArray);
 
     //package array and return
     res.status(OK)
-    res.send(JSON.stringify(contactsArray));
     res.end()     
 };
 
