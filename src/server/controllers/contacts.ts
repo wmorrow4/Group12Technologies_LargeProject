@@ -86,42 +86,50 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
 
 module.exports.updateContact = function(req:any, res:any, next:any) {
 	
-	// Capture contact to be updated
+	// Capture contact to be updated and set fields to a new object.
 	var myobj = db.contacts.find();
+	var req.swagger.params.contact.value;
 	
 	// print out the params
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
     res.setHeader('Content-Type', 'application/json')
         
-    if((req.swagger.params.contact.value.firstname || req.swagger.params.contact.value.lastname
-	    || req.swagger.params.contact.value.email || req.swagger.params.contact.value.phonenumber) && req.session) {
-        
-		var updateobj = req.swagger.params.contact.value;
+	if(req.swagger.params.contact.value.firstname && req.session) {
+		db.contacts.updateOne(myobj, {$set: {"firstname": updateobj."firstname"}});
+	}
+	
+	if(req.swagger.params.contact.value.lastname && req.session) {
+		db.contacts.updateOne(myobj, {$set: {"lastname": updateobj."lastname"}});
+	}
 
-        db.contacts.updateOne(myobj, {$set: {"firstname": updateobj."firstname", "lastname": updateobj."lastname", "phonenumber": updateobj."phonenumber", "email": updateobj."email"}) {
-            if (err){
-                res.status(InternalServerError)
-                res.send(JSON.stringify({ message: inspect(err) }, null, 2))
-                res.end()
-            }
-            if(!result){
-                res.status(BadRequest)
-                res.send(JSON.stringify({ message: "Contact update failed." }, null, 2))
-                res.end()
-            }
-            else{
-                res.status(OK)
-                res.send(JSON.stringify({ message: "Contact updated successfully." }, null, 2))
-                res.end()
-                console.log("Contact updated."); 
-            }                     
-      });  
-            
-    }
-    else {
-        res.status(BadRequest)
+	if(req.swagger.params.contact.value.phonenumber && req.session) {
+		db.contacts.updateOne(myobj, {$set: {"phonenumber": updateobj."phonenumber"}});
+	}
+	
+	if(req.swagger.params.contact.value.email && req.session) {
+		db.contacts.updateOne(myobj, {$set: {"email": updateobj."email"}});
+	} else{
+		res.status(BadRequest)
         res.send(JSON.stringify({ message: "At least one field must be filled to update." }, null, 2))
         res.end()
+	}
+
+    if (err){
+		res.status(InternalServerError)
+        res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+        res.end()
+    }
+    
+	if(!result){
+        res.status(BadRequest)
+        res.send(JSON.stringify({ message: "Contact update failed." }, null, 2))
+        res.end()
+    }
+    else{
+    	res.status(OK)
+        res.send(JSON.stringify({ message: "Contact updated successfully." }, null, 2))
+        res.end()
+        console.log("Contact updated."); 
     }
 };
 
