@@ -51,29 +51,34 @@ module.exports.createContact = function(req:Express.Request & swaggerTools.Swagg
 
 module.exports.listContacts = function(req:any, res:any, next:any) {
 
+    //capture search in variable
 	var incomingSearch = req.swagger.params.search;
-	var contactsArray;
+    var contactsArray;
+    
     // print out the params
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
 
     res.setHeader('Content-Type', 'application/json')
-	
+    
+    //if there is a search, match with database docs that belong to that user and put them in array.
+    //returned items must belong to the user AND match what was searched in any field belonging to that doc
 	if(incomingSearch) {
 
+        //yes I know this looks disgusting
             contactsArray = db.contacts.find({$and: [{belongsTo: {$eq: req.session.userID}}, 
             {$or: [{email: {$eq: incomingSearch}}, {firstname: {$eq: incomingSearch}}, 
             {lastname: {$eq: incomingSearch}}, {phone: {$eq: incomingSearch}}]}]}).toArray();
-
-            res.status(OK)
-            res.send(JSON.stringify(contactsArray));
-            res.end()     
+  
     }
+    //otherwise return all documents belonging to that user
 	else {
-            res.status(OK)
             contactsArray = db.contacts.find({$eq: req.session.username}).toArray();
-			res.send(JSON.stringify(contactsArray));
-			res.end()
-	}
+    }
+    
+    //package array and return
+    res.status(OK)
+    res.send(JSON.stringify(contactsArray));
+    res.end()     
 };
 
 module.exports.updateContact = function(req:any, res:any, next:any) {
