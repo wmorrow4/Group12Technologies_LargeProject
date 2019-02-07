@@ -90,25 +90,34 @@ module.exports.updateContact = function(req:any, res:any, next:any) {
 	var myobj = db.contacts.find();
 	var req.swagger.params.contact.value;
 	
+	// Check if a field has been filled.
+	var fieldFilled = false;
+	
 	// print out the params
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
     res.setHeader('Content-Type', 'application/json')
-        
+    
 	if(req.swagger.params.contact.value.firstname && req.session) {
 		db.contacts.updateOne(myobj, {$set: {"firstname": updateobj."firstname"}});
+		fieldFilled = true;
 	}
 	
 	if(req.swagger.params.contact.value.lastname && req.session) {
 		db.contacts.updateOne(myobj, {$set: {"lastname": updateobj."lastname"}});
+		fieldFilled = true;
 	}
 
 	if(req.swagger.params.contact.value.phonenumber && req.session) {
 		db.contacts.updateOne(myobj, {$set: {"phonenumber": updateobj."phonenumber"}});
+		fieldFilled = true;
 	}
 	
 	if(req.swagger.params.contact.value.email && req.session) {
 		db.contacts.updateOne(myobj, {$set: {"email": updateobj."email"}});
-	} else{
+		fieldFilled = true;
+	} 
+	
+	if(!fieldFilled){
 		res.status(BadRequest)
         res.send(JSON.stringify({ message: "At least one field must be filled to update." }, null, 2))
         res.end()
