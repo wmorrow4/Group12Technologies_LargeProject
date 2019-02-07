@@ -87,8 +87,8 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
 module.exports.updateContact = function(req:any, res:any, next:any) {
 	
 	// Capture contact to be updated and set fields to a new object.
-	var myobj = db.contacts.find();
-	var req.swagger.params.contact.value;
+	var myobj = db.contacts.findOne({_id: new MongoObjectID(myobj._id)}, function(err:MongoError, result:ApiContact | null));
+	var updateobj = req.swagger.params.contact.value;
 	
 	// Check if a field has been filled.
 	var fieldFilled = false;
