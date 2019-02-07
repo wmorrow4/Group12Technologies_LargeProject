@@ -68,13 +68,44 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
         //yes I know this looks disgusting
             contactsArray = db.contacts.find({$and: [{belongsTo: {$eq: req.session.userID}}, 
             {$or: [{email: {$eq: incomingSearch}}, {firstname: {$eq: incomingSearch}}, 
-            {lastname: {$eq: incomingSearch}}, {phone: {$eq: incomingSearch}}]}]}).toArray();
+            {lastname: {$eq: incomingSearch}}, {phone: {$eq: incomingSearch}}]}]}).toArray().then((data) => {
+                if (data) {
+                    res.status(OK)
+                    res.send(JSON.stringify(data));
+                    res.end()
+                }
+                else {
+                    res.status(OK)
+                    res.send(JSON.stringify({ message: "no contacts" }, null, 2))
+                    res.end()
+                }
+            }).catch((err) => {
+                res.status(InternalServerError)
+                res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+                res.end()
+            })
+            }
   
-    }
+    
     //otherwise return all documents belonging to that user
 	else {
-            contactsArray = db.contacts.find({$eq: req.session.username}).toArray();
-    }
+            contactsArray = db.contacts.find({$eq: req.session.username}).toArray().then((data) => {
+                if (data) {
+                    res.status(OK)
+                    res.send(JSON.stringify(data));
+                    res.end()
+                }
+                else {
+                    res.status(OK)
+                    res.send(JSON.stringify({ message: "no contacts" }, null, 2))
+                    res.end()
+                }
+            }).catch((err) => {
+                res.status(InternalServerError)
+                res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+                res.end()
+            })
+        }
     
     console.log(contactsArray);
 
