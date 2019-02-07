@@ -51,31 +51,27 @@ module.exports.createContact = function(req:Express.Request & swaggerTools.Swagg
 
 module.exports.listContacts = function(req:any, res:any, next:any) {
 
+	var incomingSearch = req.swagger.params.search;
+	var contactsArray;
     // print out the params
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
 
     res.setHeader('Content-Type', 'application/json')
 	
-	if(req.swagger.params.search.value) {
+	if(incomingSearch) {
 
-		var incomingSearch = req.swagger.params.search.value;
-		var contactsArray;
-		
-		if(incomingSearch == "") {
-			contactsArray = db.contacts.find({$eq: req.session.username}).toArray();
-		}
-		else {
-			contactsArray = db.contacts.find({$and: [{belongsTo: {$eq: req.session.userID}}, 
-			{$or: [{email: {$eq: incomingSearch}}, {firstname: {$eq: incomingSearch}}, 
-			{lastname: {$eq: incomingSearch}}, {phone: {$eq: incomingSearch}}]}]}).toArray();
-		}
-				res.status(OK)
-				res.send(JSON.stringify(contactsArray));
-				res.end()     
-	}
+            contactsArray = db.contacts.find({$and: [{belongsTo: {$eq: req.session.userID}}, 
+            {$or: [{email: {$eq: incomingSearch}}, {firstname: {$eq: incomingSearch}}, 
+            {lastname: {$eq: incomingSearch}}, {phone: {$eq: incomingSearch}}]}]}).toArray();
+
+            res.status(OK)
+            res.send(JSON.stringify(contactsArray));
+            res.end()     
+    }
 	else {
-			res.status(BadRequest)
-			res.send(JSON.stringify({ message: "search should not be null" }, null, 2))
+            res.status(OK)
+            contactsArray = db.contacts.find({$eq: req.session.username}).toArray();
+			res.send(JSON.stringify(contactsArray));
 			res.end()
 	}
 };
