@@ -87,33 +87,35 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
 module.exports.updateContact = function(req:any, res:any, next:any) {
 	
 	// Capture contact to be updated and set fields to a new object.
-	var myobj = db.contacts.findOne({_id: new MongoObjectID(myobj._id)}, function(err:MongoError, result:ApiContact | null));
-	var updateobj = req.swagger.params.contact.value;
+	if(req.session){
+		var myobj = db.contacts.findOne({_id: new MongoObjectID(myobj._id)}, function(err:MongoError, result:ApiContact | null));
+		var updateobj = myobj;
+	}
 	
 	// Check if a field has been filled.
 	var fieldFilled = false;
 	
 	// print out the params
-    console.log(util.inspect(req.swagger.params, false, Infinity, true))
-    res.setHeader('Content-Type', 'application/json')
+    console.log(util.inspect(req.swagger.params, false, Infinity, true));
+    res.setHeader('Content-Type', 'application/json');
     
 	if(req.swagger.params.contact.value.firstname && req.session) {
-		db.contacts.updateOne(myobj, {$set: {"firstname": updateobj."firstname"}});
+		updateobj.firstname = req.swagger.params.contact.value.firstname;
 		fieldFilled = true;
 	}
 	
 	if(req.swagger.params.contact.value.lastname && req.session) {
-		db.contacts.updateOne(myobj, {$set: {"lastname": updateobj."lastname"}});
+		updateobj.lastname = req.swagger.params.contact.value.lastname;
 		fieldFilled = true;
 	}
 
 	if(req.swagger.params.contact.value.phonenumber && req.session) {
-		db.contacts.updateOne(myobj, {$set: {"phonenumber": updateobj."phonenumber"}});
+		updateobj.phonenumber = req.swagger.params.contact.value.phonenumber;
 		fieldFilled = true;
 	}
 	
 	if(req.swagger.params.contact.value.email && req.session) {
-		db.contacts.updateOne(myobj, {$set: {"email": updateobj."email"}});
+		updateobj.email = req.swagger.params.contact.value.email;
 		fieldFilled = true;
 	} 
 	
@@ -123,23 +125,25 @@ module.exports.updateContact = function(req:any, res:any, next:any) {
         res.end()
 	}
 
-    if (err){
-		res.status(InternalServerError)
-        res.send(JSON.stringify({ message: inspect(err) }, null, 2))
-        res.end()
-    }
-    
-	if(!result){
-        res.status(BadRequest)
-        res.send(JSON.stringify({ message: "Contact update failed." }, null, 2))
-        res.end()
-    }
-    else{
-    	res.status(OK)
-        res.send(JSON.stringify({ message: "Contact updated successfully." }, null, 2))
-        res.end()
-        console.log("Contact updated."); 
-    }
+	try{
+		db.contacts.updateOne( 
+		{ myobj },
+		{ updateobj },
+		{ upsert: false }
+		);
+	} catch(err)
+	{
+    	if (err){
+			res.status(InternalServerError)
+        	res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+        	res.end()
+    	} else{
+    		res.status(OK)
+        	res.send(JSON.stringify({ message: "Contact updated successfully." }, null, 2))
+        	res.end()
+        	console.log("Contact updated."); 
+    	}
+	}
 };
 
 module.exports.deleteContact = function(req:express.Request & swaggerTools.Swagger20Request<DeleteContactPayload>, res:express.Response) {
