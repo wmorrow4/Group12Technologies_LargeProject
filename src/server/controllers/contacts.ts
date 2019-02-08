@@ -78,6 +78,7 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
     //capture search in variable
 	var incomingSearch = req.swagger.params.search;
     var data;
+    var nullArray =[];
     console.log(incomingSearch)
 
     // print out the params
@@ -100,7 +101,7 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
                 }
                 else {
                     res.status(OK)
-                    res.send(JSON.stringify({ message: "no contacts" }, null, 2))
+                    res.send(JSON.stringify(nullArray))
                     res.end()
                 }
             }).catch((err) => {
@@ -121,7 +122,7 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
                 }
                 else {
                     res.status(OK)
-                    res.send(JSON.stringify({ message: "no contacts" }, null, 2))
+                    res.send(JSON.stringify(nullArray))
                     res.end()
                 }
             }).catch((err) => {
