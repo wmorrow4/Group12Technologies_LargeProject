@@ -93,7 +93,7 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
             db.contacts.find({$and: [{belongsTo: {$eq: req.session.userID}}, 
             {$or: [{email: {$eq: incomingSearch}}, {firstname: {$eq: incomingSearch}}, 
             {lastname: {$eq: incomingSearch}}, {phone: {$eq: incomingSearch}}]}]}).toArray().then((data) => {
-                if (data) {
+                if (data != undefined) {
                     res.status(OK)
                     res.send(JSON.stringify(data));
                     res.end()
