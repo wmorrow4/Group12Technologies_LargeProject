@@ -78,7 +78,7 @@ module.exports.listContacts = function(req:any, res:any, next:any) {
     //capture search in variable
 	var incomingSearch = req.swagger.params.search;
     var data;
-    var nullArray =[];
+    var nullArray:any =[];
     console.log(incomingSearch)
 
     // print out the params
