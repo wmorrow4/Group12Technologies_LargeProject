@@ -20,6 +20,10 @@ namespace Database {
         password: string
     }
 
+    export interface Search {
+        search: string
+    }
+
     export var client:mongodb.MongoClient
     export var db:mongodb.Db
     export var users:mongodb.Collection<UserInfo>

@@ -205,7 +205,7 @@
 				"description": "List current contacts.",
 				"parameters": [
 					{
-						"name": "contactinfo",
+						"name": "searchInfo",
 						"in": "body",
 						"required": true,
 						"schema": {
@@ -247,7 +247,7 @@
 				"description": "Apply changes to current contact info",
 				"parameters": [
 					{
-						"name": "userinfo",
+						"name": "contact",
 						"in": "body",
 						"required": true,
 						"schema": {

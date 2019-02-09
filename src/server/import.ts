@@ -3,27 +3,27 @@ import db = require('./db')
 
 const users = [
     {
-        "_id": new mongodb.ObjectID(),
+        "_id": mongodb.ObjectID.createFromTime(new Date().getTime()),
         "username": "nik",
         "password": "password",
     },
     {
-        "_id": new mongodb.ObjectID(),
+        "_id": mongodb.ObjectID.createFromTime(new Date().getTime()),
         "username": "nik2",
         "password": "password",
     },
     {
-        "_id": new mongodb.ObjectID(),
+        "_id": mongodb.ObjectID.createFromTime(new Date().getTime()),
         "username": "nik3",
         "password": "password",
     },
     {
-        "_id": new mongodb.ObjectID(),
+        "_id": mongodb.ObjectID.createFromTime(new Date().getTime()),
         "username": "nik4",
         "password": "password",
     },
     {
-        "_id": new mongodb.ObjectID(),
+        "_id": mongodb.ObjectID.createFromTime(new Date().getTime()),
         "username": "nik5",
         "password": "password",
     },
