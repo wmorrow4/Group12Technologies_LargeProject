@@ -1,9 +1,11 @@
 import 'source-map-support/register'
 import express = require('express')
 import swaggerTools = require('swagger-tools')
-import session = require('express-session')
 import cookieParser = require('cookie-parser')
 import db = require('./db')
+import api = require('./api')
+
+const session = require('express-session')
 
 // The Swagger document (require it, build it programmatically, fetch it from a URL, ...)
 const swaggerDoc = require('../assets/swagger.json')
@@ -33,9 +35,10 @@ app.use(session({
 // This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
 // This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
 app.use((req, res, next) => {
+    const apiRequest = (<api.Request>req)
     // convert user session into user cookie
-    if (req.session && req.session.username) {
-        res.cookie('username', req.session.username)
+    if (apiRequest.session && apiRequest.session.username) {
+        res.cookie('username', apiRequest.session.username)
     }
     else {
         res.clearCookie('username')
@@ -79,6 +82,10 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
         } else {
             // Ensure that err.message is enumerable (It is not by default)
             Object.defineProperty(err, 'message', { enumerable: true });
+
+            if (Buffer.isBuffer(err.originalResponse)) {
+                err.originalResponse = err.originalResponse.toString()
+            }
         }
         res.statusCode = 500;
         res.json(err);

@@ -39,6 +39,10 @@ namespace Database {
             return this.db
         })
     }
+
+    export function disconnectFromMongo() {
+        client.close()
+    }
 }
 
 export = Database
