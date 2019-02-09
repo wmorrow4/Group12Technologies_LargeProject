@@ -634,8 +634,8 @@ const contacts = [
 
 async function go() {
     await db.connectToMongo()
-    await db.users.deleteMany({})
-    await db.contacts.deleteMany({})
+    await db.users.drop()
+    await db.contacts.drop()
     await Promise.all(users.map(async user => {
         return await db.users.insertOne(user)
     }))
