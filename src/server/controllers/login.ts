@@ -1,9 +1,9 @@
 'use strict';
 
 import util = require('util')
-import session = require('express-session')
 import swaggerTools = require('swagger-tools')
 import db = require('../db')
+import api = require('../api')
 import UserInfo = db.UserInfo
 
 const OK = 200
@@ -18,7 +18,7 @@ interface SignupPayload {
     [paramName: string]: swaggerTools.SwaggerRequestParameter<UserInfo> | undefined;
 }
 
-module.exports.signup = function (req: Express.Request & swaggerTools.Swagger20Request<SignupPayload>, res: any, next: any) {
+module.exports.signup = function (req: api.Request & swaggerTools.Swagger20Request<SignupPayload>, res: any, next: any) {
     // print out the params
     console.log(inspect(req.swagger.params))
     res.setHeader('Content-Type', 'application/json')
@@ -33,10 +33,10 @@ module.exports.signup = function (req: Express.Request & swaggerTools.Swagger20R
                 res.end()
             }
             else {
-                db.users.insertOne(req.swagger.params.userinfo.value).then((user) => {
+                db.users.insertOne(req.swagger.params.userinfo.value).then((writeOpResult) => {
                     if (req.session) {
                         req.session.username = req.swagger.params.userinfo.value.username
-                        req.session.userid = user.insertedId
+                        req.session.userid = writeOpResult.insertedId.toHexString()
                     }
 
                     res.status(OK)
