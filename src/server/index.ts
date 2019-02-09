@@ -11,7 +11,7 @@ const session = require('express-session')
 const swaggerDoc = require('../assets/swagger.json')
 
 const app = express()
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 80
 
 // swaggerRouter configuration
 var options = {
