@@ -83,7 +83,12 @@ module.exports.userLogin = function (req: any, res: any, next: any) {
             if (success) {
                 req.swagger.params.userinfo.value.password = hash;
             }
-        }
+            
+        }).catch((err) => {
+            res.status(InternalServerError)
+            res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+            res.end()
+        })
         
         db.users.findOne(req.swagger.params.userinfo.value).then((user) => {
             if (user) {
