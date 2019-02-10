@@ -179,9 +179,10 @@ module.exports.updateContact = function (req: api.Request & swaggerTools.Swagger
                     }, {
                             belongsTo: data[0].belongsTo,
                             firstname: req.swagger.params.contact.value.firstname,
-                            lastname: req.swagger.params.contact.value.firstname,
-                            email: req.swagger.params.contact.value.firstname,
-                            phone: req.swagger.params.contact.value.firstname,
+                            lastname: req.swagger.params.contact.value.lastname,
+                            email: req.swagger.params.contact.value.email,
+                            phone: req.swagger.params.contact.value.phone,
+                            pic: req.swagger.params.contact.value.pic,
                         }).then(updateWriteOpResult => {
                             res.status(OK)
                             res.send(JSON.stringify({ message: "Update successful!" }, null, 2))
