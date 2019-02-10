@@ -80,10 +80,11 @@ module.exports.userLogin = function (req: any, res: any, next: any) {
         
         db.users.findOne({ 'username': req.swagger.params.userinfo.value.username }).then((user) => {
             var bcrypt = require('bcryptjs');
-            
+            console.log('I made it this far!');
             if (user != null)
             {
                 var hash = user.password;
+                console.log(hash);
                 var success = bcrypt.compare(req.swagger.params.userinfo.value.password, hash);
 
                 if (success) {
