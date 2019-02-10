@@ -215,7 +215,7 @@
 							"properties": {
 								"search": {
 									"type": "string",
-									"example": "Powers"
+									"example": "Wick"
 								}
 							}
 						}
