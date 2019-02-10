@@ -31,7 +31,7 @@ namespace Database {
 
     export async function connectToMongo():Promise<mongodb.Db> {
         if ( this.db ) return Promise.resolve(this.db)
-        return mongodb.connect('mongodb://127.0.0.1:27017', {
+        return mongodb.connect('mongodb://localhost:27017', {
             bufferMaxEntries:   0,
             reconnectTries:     5000,
             useNewUrlParser: true

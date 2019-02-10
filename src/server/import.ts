@@ -3,27 +3,27 @@ import db = require('./db')
 
 const users = [
     {
-        "_id": mongodb.ObjectID.createFromTime(new Date().getTime()),
+        "_id": new mongodb.ObjectID(),
         "username": "nik",
         "password": "password",
     },
     {
-        "_id": mongodb.ObjectID.createFromTime(new Date().getTime()),
+        "_id": new mongodb.ObjectID(),
         "username": "nik2",
         "password": "password",
     },
     {
-        "_id": mongodb.ObjectID.createFromTime(new Date().getTime()),
+        "_id": new mongodb.ObjectID(),
         "username": "nik3",
         "password": "password",
     },
     {
-        "_id": mongodb.ObjectID.createFromTime(new Date().getTime()),
+        "_id": new mongodb.ObjectID(),
         "username": "nik4",
         "password": "password",
     },
     {
-        "_id": mongodb.ObjectID.createFromTime(new Date().getTime()),
+        "_id": new mongodb.ObjectID(),
         "username": "nik5",
         "password": "password",
     },
@@ -634,8 +634,10 @@ const contacts = [
 
 async function go() {
     await db.connectToMongo()
-    await db.users.drop()
-    await db.contacts.drop()
+    if (await db.db.listCollections({ name: 'users' }).hasNext())
+        await db.users.drop()
+    if (await db.db.listCollections({ name: 'contacts' }).hasNext())
+        await db.contacts.drop()
     await Promise.all(users.map(async user => {
         return await db.users.insertOne(user)
     }))

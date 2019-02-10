@@ -134,7 +134,7 @@ module.exports.listContacts = function (req: api.Request & swaggerTools.Swagger2
     //otherwise return all documents belonging to that user
     else {
         db.contacts.find({
-            belongsTo:  new ObjectID(req.session.userid)
+            belongsTo: new ObjectID(req.session.userid)
         }).toArray().then((data) => {
             if (data) {
                 res.status(OK)
@@ -154,82 +154,57 @@ module.exports.listContacts = function (req: api.Request & swaggerTools.Swagger2
     }
 };
 
-module.exports.updateContact = function(req: api.Request & swaggerTools.Swagger20Request<UpdateContactPayload>, res: express.Response) {
-/*	
-	if(req.session){
-		
-		// myobj is the contact that will be updated.
-		// MAIN ISSUE. Can't figure out what the correct findOne parameters are.
-		// Even an empty input isn't accepted.
-		var myobj = db.contacts.findOne({$and: [
-			{firstname: {$eq: req.swagger.params.contact.value.firstname}},
-			{lastname: {$eq: req.swagger.params.contact.value.lastname}},
-		    {email: {$eq: req.swagger.params.contact.value.email}},
-		    {phone: {$eq: req.swagger.params.contact.value.phone}}]});
-		
-		// updateobj will store the new fields the user entered and then will
-		// be pushed to the contacts database.
-		var updateobj = myobj;
-	
-		// Check if a field has been filled.
-		var fieldFilled = false;
+module.exports.updateContact = function (req: api.Request & swaggerTools.Swagger20Request<UpdateContactPayload>, res: express.Response) {
+    // print out the params 
+    console.log(util.inspect(req.swagger.params, false, Infinity, true))
+    res.setHeader('Content-Type', 'application/json')
 
-		// print out the params
-		console.log(util.inspect(req.swagger.params, false, Infinity, true));
-        res.setHeader('Content-Type', 'application/json');
-        res.json({})
-
-		// Check all fields for input and update the updateobject file.
-		if(req.swagger.params.contact.value.firstname && req.session) {
-			updateobj.firstname = req.swagger.params.contact.value.firstname;
-			fieldFilled = true;
-		}
-
-		if(req.swagger.params.contact.value.lastname && req.session) {
-			updateobj.lastname = req.swagger.params.contact.value.lastname;
-			fieldFilled = true;
-		}
-
-		if(req.swagger.params.contact.value.phonenumber && req.session) {
-			updateobj.phonenumber = req.swagger.params.contact.value.phonenumber;
-			fieldFilled = true;
-		}
-
-		if(req.swagger.params.contact.value.email && req.session) {
-			updateobj.email = req.swagger.params.contact.value.email;
-			fieldFilled = true;
-		} 
-
-		// If no field was filled, print an error.
-		if(!fieldFilled){
-			res.status(BadRequest)
-			res.send(JSON.stringify({ message: "At least one field must be filled to update." }, null, 2))
-			res.end()
-		}
-
-/*        
-		// Update the contact.
-		try{
-			db.contacts.updateOne( 
-			{ myobj },
-			{ $rename: {firstname:updateobj.firstname, lastname:updateobj.lastname, phone:updateobj.phone, email:updateobj.email }},
-			{ upsert: false }
-			);
-		} catch(err)
-		{
-			if (err){
-				res.status(InternalServerError)
-				res.send(JSON.stringify({ message: inspect(err) }, null, 2))
-				res.end()
-			} else{
-				res.status(OK)
-				res.send(JSON.stringify({ message: "Contact updated successfully." }, null, 2))
-				res.end()
-				console.log("Contact updated."); 
-			}
-		}
+    if (req.session && req.session.userid) {
+        db.contacts.find({
+            _id: new ObjectID(req.swagger.params.contact.value._id)
+        }).toArray().then((data) => {
+            if (data.length) {
+                if (data[0].belongsTo.equals(new ObjectID(req.session.userid))) {
+                    db.contacts.replaceOne({
+                        _id: new ObjectID(req.swagger.params.contact.value._id)
+                    }, {
+                            belongsTo: data[0].belongsTo,
+                            firstname: req.swagger.params.contact.value.firstname,
+                            lastname: req.swagger.params.contact.value.firstname,
+                            email: req.swagger.params.contact.value.firstname,
+                            phone: req.swagger.params.contact.value.firstname,
+                        }).then(updateWriteOpResult => {
+                            res.status(OK)
+                            res.send(JSON.stringify({ message: "Update successful!" }, null, 2))
+                            res.end()
+                        }).catch(err => {
+                            res.status(InternalServerError)
+                            res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+                            res.end()
+                        })
+                }
+                else {
+                    res.status(BadRequest)
+                    res.send(JSON.stringify({ message: `This contact does not belong to you ${req.session.username}:${req.session.userid}` }, null, 2))
+                    res.end()
+                }
+            }
+            else {
+                res.status(BadRequest)
+                res.send(JSON.stringify({ message: `There no contact in the database with id: ${req.swagger.params.contact.value._id}` }, null, 2))
+                res.end()
+            }
+        }).catch((err) => {
+            res.status(InternalServerError)
+            res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+            res.end()
+        })
     }
-    */
+    else {
+        res.status(BadRequest)
+        res.send(JSON.stringify({ message: "You must be logged in to use this feature." }, null, 2))
+        res.end()
+    }
 };
 
 module.exports.deleteContact = function (req: api.Request & swaggerTools.Swagger20Request<DeleteContactPayload>, res: express.Response) {
@@ -246,6 +221,7 @@ module.exports.deleteContact = function (req: api.Request & swaggerTools.Swagger
         res.status(BadRequest)
         res.send(JSON.stringify({ message: "You are not currently logged in, login in order to add contacts" }, null, 2))
         res.end()
+        return;
     }
 
     // Check that the contact exists and actually belongs to this user.
@@ -264,7 +240,7 @@ module.exports.deleteContact = function (req: api.Request & swaggerTools.Swagger
         else {
             // TODO: check to see if Contact belongs to this user.
             if (req.session) {
-                if (result.belongsTo.equals(req.session.userid)) {
+                if (!result.belongsTo.equals(req.session.userid)) {
                     res.status(BadRequest)
                     res.send(JSON.stringify({ message: "This contact doesnt belong to the current user" }, null, 2))
                     res.end()

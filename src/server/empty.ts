@@ -3,8 +3,10 @@ import db = require('./db')
 
 async function go() {
     await db.connectToMongo()
-    await db.users.deleteMany({})
-    await db.contacts.deleteMany({})
+    if (await db.db.listCollections({ name: 'users' }).hasNext())
+        await db.users.drop()
+    if (await db.db.listCollections({ name: 'contacts' }).hasNext())
+        await db.contacts.drop()
     db.disconnectFromMongo()
     return "Success!!"
 }
