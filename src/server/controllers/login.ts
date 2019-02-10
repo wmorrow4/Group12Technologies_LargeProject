@@ -81,6 +81,7 @@ module.exports.userLogin = function (req: any, res: any, next: any) {
             if (user != null)
             {
                 var hash = user.password;
+                hash.print();
                 var success = bcrypt.compareSync(req.swagger.params.userinfo.value.password, hash);
 
                 if (success) {
