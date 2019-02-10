@@ -80,7 +80,7 @@ module.exports.userLogin = function (req: any, res: any, next: any) {
         
         db.users.findOne({ 'username': req.swagger.params.userinfo.value.username }).then((user) => {
             var bcrypt = require('bcryptjs');
-            console.log('I made it this far!');
+
             if (user != null)
             {
                 var hash = user.password;
@@ -88,16 +88,17 @@ module.exports.userLogin = function (req: any, res: any, next: any) {
                 var success = bcrypt.compare(req.swagger.params.userinfo.value.password, hash);
 
                 if (success) {
-                console.log('I was a success');
-                req.swagger.params.userinfo.value.password = hash;
-                console.log(req.swagger.params.userinfo.value.password);
+                    console.log('I was a success');
+                    req.swagger.params.userinfo.value.password = hash;
+                    console.log(req.swagger.params.userinfo.value.password);
+                }
             }
-
         }).catch((err) => {
             res.status(InternalServerError)
             res.send(JSON.stringify({ message: inspect(err) }, null, 2))
             res.end()
         })
+        
         console.log(req.swagger.params.userinfo.value.username);
         console.log(req.swagger.params.userinfo.value.password);
         
