@@ -159,6 +159,12 @@ $('#searchButton').on('click', (evt) => {
     search($('#searchInput').val())
 })
 
+$("#searchInput").on('keyup', function (e) {
+    if (e.keyCode == 13) {
+        search($('#searchInput').val())
+    }
+});
+
 $(document).ready(() => {
     if (cookies.get('username')) {
         $('#signupButton').hide()
@@ -167,6 +173,7 @@ $(document).ready(() => {
         $('#logoutButton').show()
         $('#searchContainer').show()
         $('#createContactContainer').show()
+        $('#splashDiv').hide()
         search()
     }
     else {
