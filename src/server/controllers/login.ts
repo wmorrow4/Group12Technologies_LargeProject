@@ -76,6 +76,7 @@ module.exports.userLogin = function (req: any, res: any, next: any) {
     // probably check them.
     if (req.swagger.params.userinfo.value.username && req.swagger.params.userinfo.value.password) {
         db.users.findOne({ 'username': req.swagger.params.userinfo.value.username }).then((user) => {
+            var bcrypt = require('bcryptjs');
             var hash = user.value.password;
             var success = bcrypt.compareSync(req.swagger.params.userinfo.value.password, hash);
 
