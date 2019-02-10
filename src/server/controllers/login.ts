@@ -71,6 +71,8 @@ module.exports.userLogin = function (req: any, res: any, next: any) {
     // print out the params
     console.log(inspect(req.swagger.params))
     res.setHeader('Content-Type', 'application/json')
+    
+    var hash;
 
     // These should always be filled out because of the swagger validation, but we should still
     // probably check them.
@@ -80,7 +82,7 @@ module.exports.userLogin = function (req: any, res: any, next: any) {
             var bcrypt = require('bcryptjs');
             if (user != null)
             {
-                var hash = user.password;
+                hash = user.password;
                 hash.print();
                 var success = bcrypt.compareSync(req.swagger.params.userinfo.value.password, hash);
 
@@ -109,6 +111,7 @@ module.exports.userLogin = function (req: any, res: any, next: any) {
             else {
                 res.status(BadRequest)
                 res.send(JSON.stringify({ message: "Username and password did not match any known user" }, null, 2))
+                res.send(JSON.stringify({ message: hash}, null, 2))
                 res.end()
             }
         }).catch((err) => {
