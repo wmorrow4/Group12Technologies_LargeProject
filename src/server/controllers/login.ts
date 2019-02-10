@@ -71,8 +71,6 @@ module.exports.userLogin = function (req: any, res: any, next: any) {
     // print out the params
     console.log(inspect(req.swagger.params))
     res.setHeader('Content-Type', 'application/json')
-    
-    
 
     // These should always be filled out because of the swagger validation, but we should still
     // probably check them.
@@ -84,13 +82,10 @@ module.exports.userLogin = function (req: any, res: any, next: any) {
             if (user != null)
             {
                 var hash = user.password;
-                console.log(hash);
                 var success = bcrypt.compare(req.swagger.params.userinfo.value.password, hash);
 
                 if (success) {
-                    console.log('I was a success');
                     req.swagger.params.userinfo.value.password = hash;
-                    console.log(req.swagger.params.userinfo.value.password);
                 }
             }
 
