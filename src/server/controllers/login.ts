@@ -112,7 +112,6 @@ module.exports.userLogin = function (req: any, res: any, next: any) {
             else {
                 res.status(BadRequest)
                 res.send(JSON.stringify({ message: "Username and password did not match any known user" }, null, 2))
-                res.send(JSON.stringify({ message: hash}, null, 2))
                 res.end()
             }
         }).catch((err) => {
