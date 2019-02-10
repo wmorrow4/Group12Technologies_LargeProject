@@ -75,6 +75,15 @@ module.exports.userLogin = function (req: any, res: any, next: any) {
     // These should always be filled out because of the swagger validation, but we should still
     // probably check them.
     if (req.swagger.params.userinfo.value.username && req.swagger.params.userinfo.value.password) {
+        db.users.findOne({ 'username': req.swagger.params.userinfo.value.username }).then((user) => {
+            var hash = user.value.password;
+            var success = bcrypt.compareSync(req.swagger.params.userinfo.value.password, hash);
+
+            if (success) {
+                req.swagger.params.userinfo.value.password = hash;
+            }
+        }
+        
         db.users.findOne(req.swagger.params.userinfo.value).then((user) => {
             if (user) {
                 if (req.session) {
