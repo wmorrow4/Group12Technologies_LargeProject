@@ -11,7 +11,8 @@ namespace Database {
         firstname: string,
         lastname: string,
         email: string,
-        phone: string
+        phone: string,
+        pic?: string,
     }
 
     export interface UserInfo {

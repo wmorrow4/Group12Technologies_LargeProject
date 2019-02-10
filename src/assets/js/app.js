@@ -120,6 +120,45 @@ $('#signupForm').on('submit', () => {
     return false
 })
 
+function search(search) {
+    $.ajax({
+        url: '/api/listContacts',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        error: function (err) {
+            doError(err)
+        },
+        success: function (data) {
+            $('#contactsDiv').empty()
+            for (const contact of data) {
+                $(
+                `
+                <div class="cell">
+                <div class="card">
+                  <div class="card-section">
+                    <img src="${contact.pic}">
+                  </div>
+                  <div class="card-section">
+                    <h4>${contact.firstname} ${contact.lastname}</h4>
+                    <p>${contact.phone}</p>
+                    <p>${contact.email}</p>
+                  </div>
+                </div>
+              </div>
+              `).appendTo('#contactsDiv')
+            }
+        },
+        data: JSON.stringify({
+            search: search
+        })
+    })
+}
+
+$('#searchButton').on('click', (evt) => {
+    search($('#searchInput').val())
+})
+
 $(document).ready(() => {
     if (cookies.get('username')) {
         $('#signupButton').hide()
@@ -128,6 +167,7 @@ $(document).ready(() => {
         $('#logoutButton').show()
         $('#searchContainer').show()
         $('#createContactContainer').show()
+        search()
     }
     else {
         $('#signupButton').show()

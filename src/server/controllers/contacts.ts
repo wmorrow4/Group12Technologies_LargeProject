@@ -94,6 +94,15 @@ module.exports.listContacts = function (req: api.Request & swaggerTools.Swagger2
         return
     }
 
+    function patchContacts(contacts: ApiContact[]) {
+        contacts.forEach(contact => {
+            if (!contact.pic) {
+                contact.pic = '/assets/img/nopic.png'
+            }
+        })
+        return contacts
+    }
+
     //capture search in variable
     const incomingSearch = req.swagger.params.searchInfo.value.search;
     //if there is a search, match with database docs that belong to that user and put them in array.
@@ -117,7 +126,7 @@ module.exports.listContacts = function (req: api.Request & swaggerTools.Swagger2
         }).toArray().then((data) => {
             if (data) {
                 res.status(OK)
-                res.send(JSON.stringify(data));
+                res.send(JSON.stringify(patchContacts(data)))
                 res.end()
             }
             else {
@@ -138,7 +147,7 @@ module.exports.listContacts = function (req: api.Request & swaggerTools.Swagger2
         }).toArray().then((data) => {
             if (data) {
                 res.status(OK)
-                res.send(JSON.stringify(data));
+                res.send(JSON.stringify(patchContacts(data)))
                 res.end()
             }
             else {

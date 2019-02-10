@@ -306,6 +306,9 @@
 				},
 				"email": {
 					"type": "string"
+				},
+				"pic": {
+					"type": "string"
 				}
 			},
 			"required": [

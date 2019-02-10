@@ -31,10 +31,11 @@ const users = [
 
 const contacts = [
 	{
-		"firstname": "Geraldine",
-		"lastname": "Kemp",
-		"email": "mauris.sapien@hendrerit.org",
-		"phone": "746-8985"
+		"firstname": "John",
+		"lastname": "Wick",
+		"email": "john.wick@gmail.com",
+		"phone": "746-8985",
+		"pic": "/assets/img/wick.jpg"
 	},
 	{
 		"firstname": "Aladdin",
@@ -61,10 +62,11 @@ const contacts = [
 		"phone": "1-730-852-6453"
 	},
 	{
-		"firstname": "Cairo",
-		"lastname": "Strong",
-		"email": "Donec.tempus@rutrummagna.ca",
-		"phone": "1-538-603-7575"
+		"firstname": "Lara",
+		"lastname": "Croft",
+		"email": "lara.croft@gmail.com",
+		"phone": "1-538-603-7575",
+		"pic": "/assets/img/croft.jpg"
 	},
 	{
 		"firstname": "Troy",
@@ -91,10 +93,11 @@ const contacts = [
 		"phone": "1-147-781-7548"
 	},
 	{
-		"firstname": "Oscar",
-		"lastname": "Powers",
-		"email": "arcu@dolor.ca",
-		"phone": "1-744-985-0726"
+		"firstname": "Bryan",
+		"lastname": "Mills",
+		"email": "bryan.mills@cia.gov",
+		"phone": "1-800-99-SPOOK",
+		"pic": "/assets/img/neeson.jpg"
 	},
 	{
 		"firstname": "Willow",
@@ -121,10 +124,11 @@ const contacts = [
 		"phone": "1-276-886-4628"
 	},
 	{
-		"firstname": "Shaine",
-		"lastname": "Larson",
-		"email": "porttitor.vulputate@eget.edu",
-		"phone": "1-455-270-2591"
+		"firstname": "Bajirao",
+		"lastname": "Singham",
+		"email": "singham@shivgarhpd.gov",
+		"phone": "+91 1800 102 4455",
+		"pic": "/assets/img/singham.jpg"
 	},
 	{
 		"firstname": "Daniel",
@@ -151,10 +155,11 @@ const contacts = [
 		"phone": "816-9895"
 	},
 	{
-		"firstname": "Nigel",
-		"lastname": "Cain",
-		"email": "eu@dictummi.ca",
-		"phone": "934-0979"
+		"firstname": "John",
+		"lastname": "Lee",
+		"email": "john.lee@replacement-killers.edu",
+		"phone": "555-6832",
+		"pic": "/assets/img/fat.jpg"
 	},
 	{
 		"firstname": "Kieran",
@@ -181,10 +186,11 @@ const contacts = [
 		"phone": "136-4990"
 	},
 	{
-		"firstname": "Rooney",
-		"lastname": "Oliver",
-		"email": "aliquet@Vivamusnisi.org",
-		"phone": "374-7649"
+		"firstname": "Ahmed",
+		"lastname": "Ibn Fahdlan",
+		"email": "Ahmed@The13thWarrior.net",
+		"phone": "123-456-7890",
+		"pic": "/assets/img/banderas.jpg"
 	},
 	{
 		"firstname": "Anika",
@@ -211,10 +217,11 @@ const contacts = [
 		"phone": "755-8501"
 	},
 	{
-		"firstname": "Colby",
-		"lastname": "Schmidt",
-		"email": "interdum@ac.co.uk",
-		"phone": "1-343-729-7297"
+		"firstname": "The",
+		"lastname": "Bride",
+		"email": "killbill@themovies.com",
+		"phone": "1-343-729-7297",
+		"pic": "/assets/img/uma.jpg"
 	},
 	{
 		"firstname": "Nolan",
@@ -241,10 +248,11 @@ const contacts = [
 		"phone": "1-145-579-2479"
 	},
 	{
-		"firstname": "Liberty",
-		"lastname": "Campbell",
-		"email": "sem@tortornibh.org",
-		"phone": "1-568-648-7461"
+		"firstname": "Sgt.",
+		"lastname": "Vasquez",
+		"email": "vasquez@spacemarines.mil",
+		"phone": "1-568-648-7461",
+		"pic": "/assets/img/vasquez.jpg"
 	},
 	{
 		"firstname": "Reece",
@@ -271,10 +279,11 @@ const contacts = [
 		"phone": "1-750-429-2853"
 	},
 	{
-		"firstname": "Beau",
-		"lastname": "Wallace",
-		"email": "natoque.penatibus.et@mitempor.edu",
-		"phone": "523-0679"
+		"firstname": "Mr.",
+		"lastname": "Machete",
+		"email": "mr.machete@ohno.org",
+		"phone": "523-0679",
+		"pic": "/assets/img/machete.jpg"
 	},
 	{
 		"firstname": "Urielle",
@@ -647,7 +656,8 @@ async function go() {
             firstname: contact.firstname,
             lastname: contact.lastname,
             email: contact.email,
-            phone: contact.phone,
+			phone: contact.phone,
+			pic: contact.pic
         })
     }))
     db.disconnectFromMongo()
