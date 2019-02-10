@@ -34,8 +34,8 @@ module.exports.signup = function (req: api.Request & swaggerTools.Swagger20Reque
             }
             else {
                 var bcrypt = require('bcryptjs');
-                var salt = bcrypt.genSaltSync(10);
-                var hash = bcrypt.hashSync(req.swagger.params.userinfo.value.password, salt);
+                var salt = bcrypt.genSalt(10);
+                var hash = bcrypt.hash(req.swagger.params.userinfo.value.password, salt);
 
                 req.swagger.params.userinfo.value.password = hash;
                 
@@ -77,17 +77,14 @@ module.exports.userLogin = function (req: any, res: any, next: any) {
     // These should always be filled out because of the swagger validation, but we should still
     // probably check them.
     if (req.swagger.params.userinfo.value.username && req.swagger.params.userinfo.value.password) {
-        var hash = req.swagger.params.userinfo.value.password;
+        
         db.users.findOne({ 'username': req.swagger.params.userinfo.value.username }).then((user) => {
             var bcrypt = require('bcryptjs');
-            if (user != null)
-            {
-                hash = user.password;
-                var success = bcrypt.compareSync(req.swagger.params.userinfo.value.password, hash);
+            var hash = user.password;
+            var success = bcrypt.compare(req.swagger.params.userinfo.value.password, hash);
 
-                if (success) {
-                    req.swagger.params.userinfo.value.password = hash;
-                }
+            if (success) {
+                req.swagger.params.userinfo.value.password = hash;
             }
 
         }).catch((err) => {
