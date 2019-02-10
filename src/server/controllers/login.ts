@@ -93,31 +93,27 @@ module.exports.userLogin = function (req: any, res: any, next: any) {
                     console.log(req.swagger.params.userinfo.value.password);
                 }
             }
-        }).catch((err) => {
-            res.status(InternalServerError)
-            res.send(JSON.stringify({ message: inspect(err) }, null, 2))
-            res.end()
-        })
-        
-        console.log(req.swagger.params.userinfo.value.username);
-        console.log(req.swagger.params.userinfo.value.password);
-        
-        db.users.findOne(req.swagger.params.userinfo.value).then((user) => {
-            if (user) {
-                if (req.session) {
-                    req.session.username = req.swagger.params.userinfo.value.username
-                    req.session.userid = user._id
-                }
 
-                res.status(OK)
-                res.send(JSON.stringify({ message: "It worked!" }, null, 2))
+            db.users.findOne(req.swagger.params.userinfo.value).then((user) => {
+                if (user) {
+                    if (req.session) {
+                        req.session.username = req.swagger.params.userinfo.value.username
+                    }
+    
+                    res.status(OK)
+                    res.send(JSON.stringify({ message: "It worked!" }, null, 2))
+                    res.end()
+                }
+                else {
+                    res.status(BadRequest)
+                    res.send(JSON.stringify({ message: "Username and password did not match any known user, your hash is: "}, null, 2))
+                    res.end()
+                }
+            }).catch((err) => {
+                res.status(InternalServerError)
+                res.send(JSON.stringify({ message: inspect(err) }, null, 2))
                 res.end()
-            }
-            else {
-                res.status(BadRequest)
-                res.send(JSON.stringify({ message: "Username and password did not match any known user" }, null, 2))
-                res.end()
-            }
+            })
         }).catch((err) => {
             res.status(InternalServerError)
             res.send(JSON.stringify({ message: inspect(err) }, null, 2))
