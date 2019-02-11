@@ -92,6 +92,7 @@ module.exports.userLogin = function (req: any, res: any, next: any) {
                 if (user) {
                     if (req.session) {
                         req.session.username = req.swagger.params.userinfo.value.username
+                        req.session.userid = user._id
                     }
     
                     res.status(OK)
