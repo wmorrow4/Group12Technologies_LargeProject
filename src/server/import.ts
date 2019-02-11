@@ -5,27 +5,28 @@ const users = [
     {
         "_id": new mongodb.ObjectID(),
         "username": "nik",
-        "password": "password",
+	 //this hash is for "password"
+        "password": "$2a$10$xh3LdNOsFwzCSga4yAJ0oekXaVpMCqCfmZOlCehVX/z0MLFIb2ac2",
     },
     {
         "_id": new mongodb.ObjectID(),
         "username": "nik2",
-        "password": "password",
+        "password": "$2a$10$xh3LdNOsFwzCSga4yAJ0oekXaVpMCqCfmZOlCehVX/z0MLFIb2ac2",
     },
     {
         "_id": new mongodb.ObjectID(),
         "username": "nik3",
-        "password": "password",
+        "password": "$2a$10$xh3LdNOsFwzCSga4yAJ0oekXaVpMCqCfmZOlCehVX/z0MLFIb2ac2",
     },
     {
         "_id": new mongodb.ObjectID(),
         "username": "nik4",
-        "password": "password",
+        "password": "$2a$10$xh3LdNOsFwzCSga4yAJ0oekXaVpMCqCfmZOlCehVX/z0MLFIb2ac2",
     },
     {
         "_id": new mongodb.ObjectID(),
         "username": "nik5",
-        "password": "password",
+        "password": "$2a$10$xh3LdNOsFwzCSga4yAJ0oekXaVpMCqCfmZOlCehVX/z0MLFIb2ac2",
     },
 ]
 
