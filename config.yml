@@ -29,6 +29,10 @@ PATHS:
     - "node_modules/foundation-sites/scss"
     - "node_modules/motion-ui/src"
     - "node_modules/animate.css"
+    - "node_modules/font-awesome/scss"
+  # Paths to fonts
+  fonts:
+    - "node_modules/font-awesome/fonts/**/*"
   # Paths to JavaScript entry points for webpack to bundle modules
   entries:
     - "src/assets/js/app.js"

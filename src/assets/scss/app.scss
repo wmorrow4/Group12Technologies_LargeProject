@@ -4,6 +4,7 @@
 @import 'foundation';
 @import 'motion-ui';
 @import 'animate';
+@import 'font-awesome';
 
 // Global styles
 @include foundation-global-styles;
@@ -82,4 +83,16 @@
 
 .grid-x {
     justify-content: center;
+}
+
+.card-section {
+    position: relative;
+}
+
+.floating-menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1rem;
+    opacity: 0.5;
 }

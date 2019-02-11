@@ -72,18 +72,49 @@ $("#createContactForm").on("formvalid.zf.abide", function (ev, frm) {
             doError(err)
         },
         success: function (data) {
+            search($('#searchInput').val())
             $('#createContactModal').foundation('close')
         },
         data: JSON.stringify({
             firstname: $('#firstname').val(),
             lastname: $('#lastname').val(),
             email: $('#email').val(),
-            phone: $('#phone').val()
+            phone: $('#phone').val(),
+            pic: $('#pic').val()
         })
     })
 });
 
 $('#createContactForm').submit(() => {
+    // cancel the actual submit...we'll take it from here
+    return false
+})
+
+$("#updateContactForm").on("formvalid.zf.abide", function (ev, frm) {
+    $.ajax({
+        url: '/api/updateContact',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        error: function (err) {
+            doError(err)
+        },
+        success: function (data) {
+            search($('#searchInput').val())
+            $('#updateContactModal').foundation('close')
+        },
+        data: JSON.stringify({
+            _id: $('#idUpdate').val(),
+            firstname: $('#firstnameUpdate').val(),
+            lastname: $('#lastnameUpdate').val(),
+            email: $('#emailUpdate').val(),
+            phone: $('#phoneUpdate').val(),
+            pic: $('#picUpdate').val()
+        })
+    })
+});
+
+$('#updateContactForm').submit(() => {
     // cancel the actual submit...we'll take it from here
     return false
 })
@@ -120,7 +151,7 @@ $('#signupForm').on('submit', () => {
     return false
 })
 
-function search(search) {
+function search(searchTerm) {
     $.ajax({
         url: '/api/listContacts',
         type: 'post',
@@ -131,26 +162,68 @@ function search(search) {
         },
         success: function (data) {
             $('#contactsDiv').empty()
-            for (const contact of data) {
+            data.forEach((contact, idx) => {
                 $(
-                `
-                <div class="cell">
-                <div class="card">
-                  <div class="card-section">
-                    <img src="${contact.pic}">
-                  </div>
-                  <div class="card-section">
-                    <h4>${contact.firstname} ${contact.lastname}</h4>
-                    <p>${contact.phone}</p>
-                    <p>${contact.email}</p>
-                  </div>
-                </div>
-              </div>
-              `).appendTo('#contactsDiv')
-            }
+`
+<div class="cell">
+    <div class="card">
+    <div class="card-section">
+        <img src="${contact.pic}">
+        <button class="button floating-menu" type="button" data-toggle="contactMenuDropdown${idx}"><i class="fa fa-bars"></i></button>
+    </div>
+    <div class="card-section">
+        <h4>${contact.firstname} ${contact.lastname}</h4>
+        <p>${contact.phone}</p>
+        <p>${contact.email}</p>
+    </div>
+    </div>
+</div>
+<div class="dropdown-pane" id="contactMenuDropdown${idx}" data-dropdown data-close-on-click="true" data-auto-focus="true">
+    <div class="button-group stacked">
+    <a class="button" id="updateContactButton${idx}" contact="${idx}">Update</a>
+    <a class="alert button" id="deleteContactButton${idx}" contact="${idx}">Delete</a>
+    </div>
+</div>
+                `).appendTo('#contactsDiv')
+                $(`#updateContactButton${idx}`).on('click', elem => {
+                    $('#idUpdate').val(contact._id)
+                    $('#firstnameUpdate').val(contact.firstname)
+                    $('#lastnameUpdate').val(contact.lastname)
+                    $('#emailUpdate').val(contact.email)
+                    $('#phoneUpdate').val(contact.phone)
+                    $('#picUpdate').val(contact.pic)
+                    $('#updateContactModal').foundation('open')
+                })
+                $(`#deleteContactButton${idx}`).on('click', elem => {
+                    $('#firstnameDelete').text(contact.firstname)
+                    $('#lastnameDelete').text(contact.lastname)
+                    $('#deleteContactButton').off('click')
+                    $('#deleteContactButton').on('click', event => {
+                        $.ajax({
+                            url: '/api/deleteContact',
+                            type: 'post',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            error: function (err) {
+                                doError(err)
+                            },
+                            success: function (data) {
+                                search($('#searchInput').val())
+                                $('#deleteContactModal').foundation('close')
+                            },
+                            data: JSON.stringify({
+                                _id: contact._id,
+                            })
+                        })
+                    })
+                    $('#deleteContactModal').foundation('open')
+                })
+
+            })
+            $('#contactsDiv').foundation()
         },
         data: JSON.stringify({
-            search: search
+            search: searchTerm
         })
     })
 }

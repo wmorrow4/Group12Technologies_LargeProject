@@ -41,13 +41,71 @@
     </label>
     <p class="help-text" id="phoneHint">Enter your phone number please.</p>
 
+    <label>Contact Picture
+      <input type="text" id="pic" placeholder="http://www.google.com/your-photo-here.jpg" aria-describedby="picHint">
+    </label>
+    <p class="help-text" id="picHint">Enter url of a photo for this contact.</p>
+
     <p><input type="submit" class="button expanded" value="Create Contact"></input></p>
   </form>
   <button class="close-button" data-close aria-label="Close modal" type="button">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<div id="splashDiv" class="grid-container">
+<div class="reveal" id="updateContactModal" data-reveal>
+    <h1>Update Contact</h1>
+    <form data-abide novalidate id="updateContactForm">
+      <div data-abide-error class="alert callout" style="display: none;">
+        <p><i class="fi-alert"></i> There are some errors in your form.</p>
+      </div>
+      <input type="hidden" id="idUpdate"/>
+      <label>First Name
+        <input type="text" id="firstnameUpdate" placeholder="John" aria-errormessage="firstnameUpdateError"
+          required>
+        <span class="form-error" id="firstnameUpdateError">
+          Required!
+        </span>
+      </label>
+      <label>Last Name
+        <input type="text" id="lastnameUpdate" placeholder="Wick" aria-errormessage="lastnameUpdateError"
+          required>
+        <span class="form-error" id="lastnameUpdateError">
+          Required!
+        </span>
+      </label>
+      <label>Email
+        <input type="text" id="emailUpdate" placeholder="jWick@aol.com" aria-errormessage="emailUpdateError"
+          required>
+        <span class="form-error" id="emailError">
+          Required!
+        </span>
+      </label>
+      <label>Phone Number
+        <input type="text" id="phoneUpdate" placeholder="(123) 456 8901" aria-errormessage="phoneUpdateError"
+          required>
+        <span class="form-error" id="phoneUpdateError">
+          Required!
+        </span>
+      </label>
+      <label>Contact Picture
+        <input type="text" id="picUpdate" placeholder="http://www.google.com/your-photo-here.jpg">
+      </label>
+  
+      <p><input type="submit" class="button expanded" value="Update Contact"></input></p>
+    </form>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="reveal" id="deleteContactModal" data-reveal>
+      <h1>Delete Contact</h1>
+      <p>Are you sure you want to permanently delete <span id="firstnameDelete"></span> <span id="lastnameDelete"></span>? They look like they might be handy in a fight...</p>
+      <p><button id="deleteContactButton" class="button alert">Delete Contact</button></p>
+      <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div id="splashDiv" class="grid-container">
   <div class="grid-x grid-padding-x">
     <div class="large-12 cell">
       <h1>Welcome to The Bestest Contacts Web Application Ever Implemented In The History Of The Universe</h1>
