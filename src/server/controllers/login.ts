@@ -34,8 +34,8 @@ module.exports.signup = function (req: api.Request & swaggerTools.Swagger20Reque
             }
             else {
                 var bcrypt = require('bcryptjs');
-                var salt = bcrypt.genSalt(10);
-                var hash = bcrypt.hash(req.swagger.params.userinfo.value.password, salt);
+                var salt = bcrypt.genSaltSync(10);
+                var hash = bcrypt.hashSync(req.swagger.params.userinfo.value.password, salt);
 
                 req.swagger.params.userinfo.value.password = hash;
                 
