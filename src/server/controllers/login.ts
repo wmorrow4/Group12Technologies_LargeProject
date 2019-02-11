@@ -33,6 +33,12 @@ module.exports.signup = function (req: api.Request & swaggerTools.Swagger20Reque
                 res.end()
             }
             else {
+                var bcrypt = require('bcryptjs');
+                var salt = bcrypt.genSaltSync(10);
+                var hash = bcrypt.hashSync(req.swagger.params.userinfo.value.password, salt);
+
+                req.swagger.params.userinfo.value.password = hash;
+                
                 db.users.insertOne(req.swagger.params.userinfo.value).then((writeOpResult) => {
                     if (req.session) {
                         req.session.username = req.swagger.params.userinfo.value.username
