@@ -129,7 +129,6 @@ $("#signupForm").on("formvalid.zf.abide", function (ev, frm) {
             doError(err)
         },
         success: function (data) {
-            alert('success: ' + util.inspect(data))
             $('#signupForm').on('animationend', () => {
                 window.location.replace('/index.html')
             })
