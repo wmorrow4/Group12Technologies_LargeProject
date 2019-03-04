@@ -29,6 +29,9 @@ namespace Database {
     export var db:mongodb.Db
     export var users:mongodb.Collection<UserInfo>
     export var contacts:mongodb.Collection<Contact>
+    //export var schedulers:mongodb.Collection<Schedulers>    THESE LINES ARE OUR DATABSE COLLECTIONS
+    //export var schedulers:mongodb.Collection<Schedules>
+    //export var schedulers:mongodb.Collection<reservations>
 
     export async function connectToMongo():Promise<mongodb.Db> {
         if ( this.db ) return Promise.resolve(this.db)
