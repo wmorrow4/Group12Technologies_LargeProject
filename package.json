@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "description": "Official ZURB Template for Foundation for Sites.",
   "main": "gulpfile.babel.js",
+  "engines": {
+    "node": "11.x"
+  },
   "scripts": {
-    "start": "gulp",
-    "build": "gulp build --production"
+    "build": "gulp build --production",
+    "start": "node dist/server/index.js"
   },
   "author": "ZURB <foundation@zurb.com>",
   "license": "MIT",
   "dependencies": {
+    "node":"^11.10.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/body-parser": "^1.17.0",
     "@types/cookie-parser": "^1.4.1",
@@ -23,7 +27,6 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
-    "font-awesome": "^4.7.0",
     "foundation-sites": "^6.5.1",
     "gulp-typescript": "^5.0.0",
     "jquery": "^3.2.1",
