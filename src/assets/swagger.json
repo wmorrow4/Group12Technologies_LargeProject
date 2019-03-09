@@ -26,12 +26,12 @@
 						"schema": {
 							"type": "object",
 							"required": [								
-								"group_name",
+								"group",
 								"email",
 								"password"								
 							],
 							"properties": {
-								"group_name": {
+								"group": {
 									"type": "string",
 									"example": "company"
 								},								
@@ -172,7 +172,7 @@
 		"/UserLogin": {
 			"post": {
 				"x-swagger-router-controller": "login",
-				"operationId": "user_login",
+				"operationId": "Userlogin",
 				"tags": [
 					"/userLogin"
 				],
