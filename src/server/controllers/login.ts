@@ -136,7 +136,7 @@ module.exports.UserSignup = function (req: api.Request & swaggerTools.Swagger20R
 
     // These should always be filled out because of the swagger validation, but we should still
     // probably check them.
-    if (req.swagger.params.userinfo.value.email && req.swagger.params.userinfo.value.password) {
+    if (req.swagger.params.userinfo.value.firstname && req.swagger.params.userinfo.value.lastname && req.swagger.params.userinfo.value.email && req.swagger.params.userinfo.value.password) {
         db.users.findOne({ 'email': req.swagger.params.userinfo.value.email }).then((user) => {
             if (user) {
                 res.status(BadRequest)
@@ -154,6 +154,7 @@ module.exports.UserSignup = function (req: api.Request & swaggerTools.Swagger20R
                     if (req.session) {
                         req.session.email = req.swagger.params.userinfo.value.email
                         req.session.logid = writeOpResult.insertedId.toHexString()
+                        req.session.type = "User"
                     }
 
                     res.status(OK)
@@ -173,7 +174,7 @@ module.exports.UserSignup = function (req: api.Request & swaggerTools.Swagger20R
     }
     else {
         res.status(BadRequest)
-        res.send(JSON.stringify({ message: "Username and password are required" }, null, 2))
+        res.send(JSON.stringify({ message: "Name, email, and password are required" }, null, 2))
         res.end()
     }
 }
@@ -204,6 +205,7 @@ module.exports.UserLogin = function (req: any, res: any, next: any) {
                     if (req.session) {
                         req.session.email = req.swagger.params.userinfo.value.email
                         req.session.userid = user._id
+                        req.session.type = "User"
                     }
     
                     res.status(OK)
@@ -212,7 +214,7 @@ module.exports.UserLogin = function (req: any, res: any, next: any) {
                 }
                 else {
                     res.status(BadRequest)
-                    res.send(JSON.stringify({ message: "Username and password did not match any known user, your hash is: "}, null, 2))
+                    res.send(JSON.stringify({ message: "Email and password did not match any known user, your hash is: "}, null, 2))
                     res.end()
                 }
             }).catch((err) => {
@@ -228,7 +230,7 @@ module.exports.UserLogin = function (req: any, res: any, next: any) {
     }
     else {
         res.status(BadRequest)
-        res.send(JSON.stringify({ message: "Username and password are required" }, null, 2))
+        res.send(JSON.stringify({ message: "Email and password are required" }, null, 2))
         res.end()
     }
 }
