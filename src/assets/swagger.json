@@ -110,14 +110,14 @@
 				}
 			}
 		}
-		"/addSchedule": {
+		"/removeInterval": {
 			"post": {
 				"x-swagger-router-controller": "schedule",
-				"operationId": "addSchedule",
+				"operationId": "removeInterval",
 				"tags": [
-					"/addSchedule"
+					"/removeInterval"
 				],
-				"description": "Adds a new schedule",
+				"description": "Removes a schedules interval",
 				"parameters": [
 					{
 						"name": "scheduleName",
@@ -126,26 +126,26 @@
 						"schema": {
 							"type": "object",
 							"required": [
-								"range",
-								"open",
-								"close",
-								"length",
-								"capacity"
+								"schedulerID",
+								"scheduleID",
+								"date",
+								"start",
+								"stop"
 							],
 							"properties": {
-								"range": {
+								"schedulerID": {
 									"type": "string"
 								},
-								"open": {
+								"scheduleID": {
 									"type": "string"
 								},
-								"close": {
+								"date": {
 									"type": "string"
 								},
-								"length": {
+								"start": {
 									"type": "string"
 								},
-								"capacity": {
+								"stop": {
 									"type": "string"
 								}
 							}
