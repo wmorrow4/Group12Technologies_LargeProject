@@ -1,8 +1,8 @@
 {
 	"swagger": "2.0",
 	"info": {
-		"title": "Contact Manager API",
-		"description": "API for storing and retrieving contacts",
+		"title": "Schedule API",
+		"description": "API our schedule app",
 		"version": "1.0"
 	},
 	"produces": [
@@ -10,75 +10,34 @@
 	],
 	"basePath": "/api",
 	"paths": {
-		"/signup": {
+		"/SchedulerSignup": {
 			"post": {
 				"x-swagger-router-controller": "login",
-				"operationId": "signup",
+				"operationId": "SchedulerSignup",
 				"tags": [
-					"/signup"
+					"/SchedulerSignup"
 				],
-				"description": "Creates a new user",
+				"description": "Creates a new scheduler",
 				"parameters": [
 					{
-						"name": "userinfo",
+						"name": "schedulerinfo",
 						"in": "body",
 						"required": true,
 						"schema": {
 							"type": "object",
-							"required": [
-								"username",
-								"password"
+							"required": [								
+								"group",
+								"email",
+								"password"								
 							],
 							"properties": {
-								"username": {
-									"type": "string"
-								},
-								"password": {
-									"type": "string"
-								}
-							}
-						}
-					}
-				],
-				"responses": {
-					"default": {
-						"description": "Invalid request.",
-						"schema": {
-							"$ref": "#/definitions/Error"
-						}
-					},
-					"200": {
-						"description": "Successful request.",
-						"schema": {
-							"$ref": "#/definitions/Success"
-						}
-					}
-				}
-			}
-		},
-		"/userLogin": {
-			"post": {
-				"x-swagger-router-controller": "login",
-				"operationId": "userLogin",
-				"tags": [
-					"/userLogin"
-				],
-				"description": "Login as an existing user.",
-				"parameters": [
-					{
-						"name": "userinfo",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"type": "object",
-							"required": [
-								"username",
-								"password"
-							],
-							"properties": {
-								"username": {
+								"group": {
 									"type": "string",
-									"example": "nik"
+									"example": "company"
+								},								
+								"email": {
+									"type": "string",
+									"example": "gmail@gmail.com"
 								},
 								"password": {
 									"type": "string",
@@ -96,7 +55,7 @@
 						}
 					},
 					"200": {
-						"description": "Successful request.",
+						"description": "Scheduler signup request successful.",
 						"schema": {
 							"$ref": "#/definitions/Success"
 						}
@@ -104,12 +63,191 @@
 				}
 			}
 		},
-		"/userLogout": {
+		"/UserSignup": {
 			"post": {
 				"x-swagger-router-controller": "login",
-				"operationId": "userLogout",
+				"operationId": "UserSignup",
 				"tags": [
-					"/userLogout"
+					"/UserSignup"
+				],
+				"description": "Creates a new user",
+				"parameters": [
+					{
+						"name": "userinfo",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"required": [
+								"firstname",
+								"lastname",
+								"email",
+								"password"								
+							],
+							"properties": {
+								"firstname": {
+									"type": "string",
+									"example": "firstname"
+								},
+								"lastname": {
+									"type": "string",
+									"example": "lastname"
+								},
+								"email": {
+									"type": "string",
+									"example": "gmail@gmail.com"
+								},
+								"password": {
+									"type": "string",
+									"example": "password"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "User signup request successful.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		},
+		"/SchedulerLogin": {
+			"post": {
+				"x-swagger-router-controller": "login",
+				"operationId": "SchedulerLogin",
+				"tags": [
+					"/SchedulerLogin"
+				],
+				"description": "Login as an existing scheduler.",
+				"parameters": [
+					{
+						"name": "schedulerinfo",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"required": [								
+								"email",
+								"password"								
+							],
+							"properties": {								
+								"email": {
+									"type": "string",
+									"example": "gmail@gmail.com"
+								},
+								"password": {
+									"type": "string",
+									"example": "password"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "Scheduler log in request successful.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		},
+		"/UserLogin": {
+			"post": {
+				"x-swagger-router-controller": "login",
+				"operationId": "Userlogin",
+				"tags": [
+					"/userLogin"
+				],
+				"description": "Login as an existing user.",
+				"parameters": [
+					{
+						"name": "userinfo",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"required": [								
+								"email",
+								"password"								
+							],
+							"properties": {								
+								"email": {
+									"type": "string",
+									"example": "gmail@gmail.com"
+								},
+								"password": {
+									"type": "string",
+									"example": "password"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "User log in request successful.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		},
+		"/SchedulerLogout": {
+			"post": {
+				"x-swagger-router-controller": "login",
+				"operationId": "SchedulerLogout",
+				"tags": [
+					"/SchedulerLogout"
+				],
+				"description": "Logout scheduler.",
+				"parameters": [],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "Scheduler log out request successful.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		},
+		"/UserLogout": {
+			"post": {
+				"x-swagger-router-controller": "login",
+				"operationId": "UserLogout",
+				"tags": [
+					"/UserLogout"
 				],
 				"description": "Logout user.",
 				"parameters": [],
@@ -121,7 +259,7 @@
 						}
 					},
 					"200": {
-						"description": "Successful request.",
+						"description": "User log out request successful.",
 						"schema": {
 							"$ref": "#/definitions/Success"
 						}

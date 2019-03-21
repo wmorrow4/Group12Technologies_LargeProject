@@ -4,28 +4,28 @@ import db = require('./db')
 const users = [
     {
         "_id": new mongodb.ObjectID(),
-        "username": "nik",
+        "email": "nik",
 	 //this hash is for "password"
         "password": "$2a$10$xh3LdNOsFwzCSga4yAJ0oekXaVpMCqCfmZOlCehVX/z0MLFIb2ac2",
     },
     {
         "_id": new mongodb.ObjectID(),
-        "username": "nik2",
+        "email": "nik2",
         "password": "$2a$10$xh3LdNOsFwzCSga4yAJ0oekXaVpMCqCfmZOlCehVX/z0MLFIb2ac2",
     },
     {
         "_id": new mongodb.ObjectID(),
-        "username": "nik3",
+        "email": "nik3",
         "password": "$2a$10$xh3LdNOsFwzCSga4yAJ0oekXaVpMCqCfmZOlCehVX/z0MLFIb2ac2",
     },
     {
         "_id": new mongodb.ObjectID(),
-        "username": "nik4",
+        "email": "nik4",
         "password": "$2a$10$xh3LdNOsFwzCSga4yAJ0oekXaVpMCqCfmZOlCehVX/z0MLFIb2ac2",
     },
     {
         "_id": new mongodb.ObjectID(),
-        "username": "nik5",
+        "email": "nik5",
         "password": "$2a$10$xh3LdNOsFwzCSga4yAJ0oekXaVpMCqCfmZOlCehVX/z0MLFIb2ac2",
     },
 ]
@@ -641,7 +641,7 @@ const contacts = [
 		"phone": "1-476-651-3008"
 	}
 ]
-
+/*
 async function go() {
     await db.connectToMongo()
     if (await db.db.listCollections({ name: 'users' }).hasNext())
@@ -663,5 +663,5 @@ async function go() {
     }))
     db.disconnectFromMongo()
     return "Success!!"
-}
-go().then(console.log).catch(console.error)
+} 
+go().then(console.log).catch(console.error) */

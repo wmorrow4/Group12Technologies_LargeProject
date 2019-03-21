@@ -17,7 +17,9 @@ namespace Database {
 
     export interface UserInfo {
         _id: mongodb.ObjectID
-        username: string,
+        firstname: string,
+        lastname: string,
+        email: string,
         password: string
     }
 
@@ -25,10 +27,27 @@ namespace Database {
         search: string
     }
 
+    export interface SchedulersInfo{
+        _id: mongodb.ObjectID
+        group: string,
+        email: string,
+        password: string
+    }
+    export interface Schedules{
+        /* ToDo */
+        
+    }
+    export interface Reservations{
+        /* ToDo */
+    }
+
     export var client:mongodb.MongoClient
     export var db:mongodb.Db
     export var users:mongodb.Collection<UserInfo>
-    export var contacts:mongodb.Collection<Contact>
+    export var contacts:mongodb.Collection<Contact>  //dont need this anymore but left for reference idk why
+    export var schedulers:mongodb.Collection<SchedulersInfo>   // THESE LINES ARE OUR DATABSE COLLECTIONS
+    export var schedules:mongodb.Collection<Schedules>
+    export var reservations:mongodb.Collection<Reservations>
 
     export async function connectToMongo():Promise<mongodb.Db> {
         if ( this.db ) return Promise.resolve(this.db)
@@ -40,7 +59,9 @@ namespace Database {
             this.client = client
             this.db = this.client.db("mean")
             this.users = this.db.collection('users')
-            this.contacts = this.db.collection('contacts')
+            this.schedulers = this.db.collection('schedulers')
+            this.schedules = this.db.collection('schedules')
+            this.reservations = this.db.collection('reservations')
             return this.db
         })
     }

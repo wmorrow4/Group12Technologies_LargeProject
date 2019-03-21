@@ -54,7 +54,7 @@ module.exports.createContact = function (req: api.Request & swaggerTools.Swagger
         var myobj = req.swagger.params.contact.value;
 
         if (req.session) {
-            myobj.belongsTo = new ObjectID(req.session.userid);
+            myobj.belongsTo = new ObjectID(req.session.logid);
         }
 
         db.contacts.insertOne(myobj, function (err: MongoError, result: InsertOneWriteOpResult) {
@@ -112,7 +112,7 @@ module.exports.listContacts = function (req: api.Request & swaggerTools.Swagger2
         db.contacts.find({
             $and: [
                 {
-                    belongsTo: new ObjectID(req.session.userid)
+                    belongsTo: new ObjectID(req.session.logid)
                 },
                 {
                     $or: [
@@ -143,7 +143,7 @@ module.exports.listContacts = function (req: api.Request & swaggerTools.Swagger2
     //otherwise return all documents belonging to that user
     else {
         db.contacts.find({
-            belongsTo: new ObjectID(req.session.userid)
+            belongsTo: new ObjectID(req.session.logid)
         }).toArray().then((data) => {
             if (data) {
                 res.status(OK)
@@ -168,12 +168,12 @@ module.exports.updateContact = function (req: api.Request & swaggerTools.Swagger
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
     res.setHeader('Content-Type', 'application/json')
 
-    if (req.session && req.session.userid) {
+    if (req.session && req.session.logid) {
         db.contacts.find({
             _id: new ObjectID(req.swagger.params.contact.value._id)
         }).toArray().then((data) => {
             if (data.length) {
-                if (data[0].belongsTo.equals(new ObjectID(req.session.userid))) {
+                if (data[0].belongsTo.equals(new ObjectID(req.session.logid))) {
                     db.contacts.replaceOne({
                         _id: new ObjectID(req.swagger.params.contact.value._id)
                     }, {
@@ -195,7 +195,7 @@ module.exports.updateContact = function (req: api.Request & swaggerTools.Swagger
                 }
                 else {
                     res.status(BadRequest)
-                    res.send(JSON.stringify({ message: `This contact does not belong to you ${req.session.username}:${req.session.userid}` }, null, 2))
+                    res.send(JSON.stringify({ message: `This contact does not belong to you ${req.session.email}:${req.session.logid}` }, null, 2))
                     res.end()
                 }
             }
@@ -226,7 +226,7 @@ module.exports.deleteContact = function (req: api.Request & swaggerTools.Swagger
     var myobj = req.swagger.params.contact.value;
 
     // Check that we're logged in
-    if (!req.session || !req.session.username) {
+    if (!req.session || !req.session.logid) {
         // no session or yes session and no username
         res.status(BadRequest)
         res.send(JSON.stringify({ message: "You are not currently logged in, login in order to add contacts" }, null, 2))
@@ -250,7 +250,7 @@ module.exports.deleteContact = function (req: api.Request & swaggerTools.Swagger
         else {
             // TODO: check to see if Contact belongs to this user.
             if (req.session) {
-                if (!result.belongsTo.equals(req.session.userid)) {
+                if (!result.belongsTo.equals(req.session.logid)) {
                     res.status(BadRequest)
                     res.send(JSON.stringify({ message: "This contact doesnt belong to the current user" }, null, 2))
                     res.end()

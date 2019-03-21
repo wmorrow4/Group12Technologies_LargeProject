@@ -37,7 +37,7 @@ $("#loginForm").on("formvalid.zf.abide", function (ev, frm) {
         dataType: 'json',
         contentType: 'application/json',
         error: function (err) {
-            doError(err)
+            doError(err.responseJSON.message)
         },
         success: function (data) {
             $('#loginForm').on('animationend', () => {
@@ -69,7 +69,7 @@ $("#createContactForm").on("formvalid.zf.abide", function (ev, frm) {
         dataType: 'json',
         contentType: 'application/json',
         error: function (err) {
-            doError(err)
+            doError(err.responseJSON.message)
         },
         success: function (data) {
             search($('#searchInput').val())
@@ -126,7 +126,7 @@ $("#signupForm").on("formvalid.zf.abide", function (ev, frm) {
         dataType: 'json',
         contentType: 'application/json',
         error: function (err) {
-            doError(err)
+            doError(err.responseJSON.message)
         },
         success: function (data) {
             $('#signupForm').on('animationend', () => {
@@ -157,7 +157,7 @@ function search(searchTerm) {
         dataType: 'json',
         contentType: 'application/json',
         error: function (err) {
-            doError(err)
+            doError(err.responseJSON.message)
         },
         success: function (data) {
             $('#contactsDiv').empty()
