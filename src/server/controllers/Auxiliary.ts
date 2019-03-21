@@ -10,9 +10,48 @@
 	],
 	"basePath": "/api",
 	"paths": {
+		"/ClaimAppointment": {
+			"post": {
+				"x-swagger-router-controller": "auxiliary",
+				"operationId": "ClaimAppointment",
+				"tags": [
+					"/ClaimAppointment"
+				],
+				"description": "Create an appointment",
+				"parameters": [
+					{
+						"name": "searchInfo",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"search": {
+									"type": "string",
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "Successful appointment claimed",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		},
 		"/ListSchedules": {
 			"post": {
-				"x-swagger-router-controller": "schedules",
+				"x-swagger-router-controller": "auxiliary",
 				"operationId": "ListSchedules",
 				"tags": [
 					"/ListSchedules"
@@ -54,7 +93,7 @@
 		},
 		"/UserEditInfo": {
 			"post": {
-				"x-swagger-router-controller": "user info",
+				"x-swagger-router-controller": "auxiliary",
 				"operationId": "UserEditInfo",
 				"tags": [
 					"/UserEditInfo"
@@ -95,7 +134,7 @@
 		},
 		"/SchedulerEditInfo": {
 			"post": {
-				"x-swagger-router-controller": "scheduler info",
+				"x-swagger-router-controller": "auxiliary",
 				"operationId": "SchedulerEditInfo",
 				"tags": [
 					"/SchedulerEditInfo"
@@ -136,7 +175,7 @@
 		},
 		"/ListAppointments": {
 			"post": {
-				"x-swagger-router-controller": "appointments",
+				"x-swagger-router-controller": "auxiliary",
 				"operationId": "ListAppointments",
 				"tags": [
 					"/ListAppointments"
