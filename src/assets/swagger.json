@@ -10,6 +10,164 @@
 	],
 	"basePath": "/api",
 	"paths": {
+		"/addSchedule": {
+			"post": {
+				"x-swagger-router-controller": "schedule",
+				"operationId": "addSchedule",
+				"tags": [
+					"/addSchedule"
+				],
+				"description": "Adds a new schedule",
+				"parameters": [
+					{
+						"name": "scheduleName",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"required": [
+								"range",
+								"open",
+								"close",
+								"length",
+								"capacity"
+							],
+							"properties": {
+								"range": {
+									"type": "string"
+								},
+								"open": {
+									"type": "string"
+								},
+								"close": {
+									"type": "string"
+								},
+								"length": {
+									"type": "string"
+								},
+								"capacity": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "Successful request.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		}
+		"/deleteSchedule": {
+			"post": {
+				"x-swagger-router-controller": "schedule",
+				"operationId": "deleteSchedule",
+				"tags": [
+					"/deleteSchedule"
+				],
+				"description": "Deletes a schedule",
+				"parameters": [
+					{
+						"name": "scheduleName",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"required": [
+								"scheduleID"
+							],
+							"properties": {
+								"scheduleID": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "Successful request.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		}
+		"/addSchedule": {
+			"post": {
+				"x-swagger-router-controller": "schedule",
+				"operationId": "addSchedule",
+				"tags": [
+					"/addSchedule"
+				],
+				"description": "Adds a new schedule",
+				"parameters": [
+					{
+						"name": "scheduleName",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"required": [
+								"range",
+								"open",
+								"close",
+								"length",
+								"capacity"
+							],
+							"properties": {
+								"range": {
+									"type": "string"
+								},
+								"open": {
+									"type": "string"
+								},
+								"close": {
+									"type": "string"
+								},
+								"length": {
+									"type": "string"
+								},
+								"capacity": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "Successful request.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		}
 		"/signup": {
 			"post": {
 				"x-swagger-router-controller": "login",
