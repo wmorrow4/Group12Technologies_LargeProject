@@ -18,35 +18,33 @@
 					"/SchedulerSignup"
 				],
 				"description": "Creates a new scheduler",
-				"parameters": [
-					{
-						"name": "schedulerinfo",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"type": "object",
-							"required": [								
-								"group",
-								"email",
-								"password"								
-							],
-							"properties": {
-								"group": {
-									"type": "string",
-									"example": "company"
-								},								
-								"email": {
-									"type": "string",
-									"example": "gmail@gmail.com"
-								},
-								"password": {
-									"type": "string",
-									"example": "password"
-								}
+				"parameters": [{
+					"name": "schedulerinfo",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"required": [
+							"group",
+							"email",
+							"password"
+						],
+						"properties": {
+							"group": {
+								"type": "string",
+								"example": "company"
+							},
+							"email": {
+								"type": "string",
+								"example": "gmail@gmail.com"
+							},
+							"password": {
+								"type": "string",
+								"example": "password"
 							}
 						}
 					}
-				],
+				}],
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -71,40 +69,38 @@
 					"/UserSignup"
 				],
 				"description": "Creates a new user",
-				"parameters": [
-					{
-						"name": "userinfo",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"type": "object",
-							"required": [
-								"firstname",
-								"lastname",
-								"email",
-								"password"								
-							],
-							"properties": {
-								"firstname": {
-									"type": "string",
-									"example": "firstname"
-								},
-								"lastname": {
-									"type": "string",
-									"example": "lastname"
-								},
-								"email": {
-									"type": "string",
-									"example": "gmail@gmail.com"
-								},
-								"password": {
-									"type": "string",
-									"example": "password"
-								}
+				"parameters": [{
+					"name": "userinfo",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"required": [
+							"firstname",
+							"lastname",
+							"email",
+							"password"
+						],
+						"properties": {
+							"firstname": {
+								"type": "string",
+								"example": "firstname"
+							},
+							"lastname": {
+								"type": "string",
+								"example": "lastname"
+							},
+							"email": {
+								"type": "string",
+								"example": "gmail@gmail.com"
+							},
+							"password": {
+								"type": "string",
+								"example": "password"
 							}
 						}
 					}
-				],
+				}],
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -129,30 +125,28 @@
 					"/SchedulerLogin"
 				],
 				"description": "Login as an existing scheduler.",
-				"parameters": [
-					{
-						"name": "schedulerinfo",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"type": "object",
-							"required": [								
-								"email",
-								"password"								
-							],
-							"properties": {								
-								"email": {
-									"type": "string",
-									"example": "gmail@gmail.com"
-								},
-								"password": {
-									"type": "string",
-									"example": "password"
-								}
+				"parameters": [{
+					"name": "schedulerinfo",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"required": [
+							"email",
+							"password"
+						],
+						"properties": {
+							"email": {
+								"type": "string",
+								"example": "gmail@gmail.com"
+							},
+							"password": {
+								"type": "string",
+								"example": "password"
 							}
 						}
 					}
-				],
+				}],
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -177,30 +171,28 @@
 					"/userLogin"
 				],
 				"description": "Login as an existing user.",
-				"parameters": [
-					{
-						"name": "userinfo",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"type": "object",
-							"required": [								
-								"email",
-								"password"								
-							],
-							"properties": {								
-								"email": {
-									"type": "string",
-									"example": "gmail@gmail.com"
-								},
-								"password": {
-									"type": "string",
-									"example": "password"
-								}
+				"parameters": [{
+					"name": "userinfo",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"required": [
+							"email",
+							"password"
+						],
+						"properties": {
+							"email": {
+								"type": "string",
+								"example": "gmail@gmail.com"
+							},
+							"password": {
+								"type": "string",
+								"example": "password"
 							}
 						}
 					}
-				],
+				}],
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -275,21 +267,19 @@
 					"/ClaimAppointment"
 				],
 				"description": "Create an appointment",
-				"parameters": [
-					{
-						"name": "searchInfo",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"type": "object",
-							"properties": {
-								"search": {
-									"type": "string",
-								}
+				"parameters": [{
+					"name": "searchInfo",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"properties": {
+							"search": {
+								"type": "string"
 							}
 						}
 					}
-				],
+				}],
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -314,21 +304,19 @@
 					"/ListSchedules"
 				],
 				"description": "List created schedules.",
-				"parameters": [
-					{
-						"name": "searchInfo",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"type": "object",
-							"properties": {
-								"search": {
-									"type": "string",
-								}
+				"parameters": [{
+					"name": "searchInfo",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"properties": {
+							"search": {
+								"type": "string"
 							}
 						}
 					}
-				],
+				}],
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -348,6 +336,46 @@
 				}
 			}
 		},
+		"/ListSchedulers": {
+			"post": {
+				"x-swagger-router-controller": "auxiliary",
+				"operationId": "ListSchedules",
+				"tags": [
+					"/ListSchedules"
+				],
+				"description": "List created schedules.",
+				"parameters": [{
+					"name": "searchInfo",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"properties": {
+							"search": {
+								"type": "string"
+							}
+						}
+					}
+				}],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "return array of schedule objects",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Scheduler"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/UserEditInfo": {
 			"post": {
 				"x-swagger-router-controller": "auxiliary",
@@ -356,23 +384,20 @@
 					"/UserEditInfo"
 				],
 				"description": "Apply changes to current user info",
-				"parameters": [
-					{
-						"name": "user",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"allOf": [
-								{
-									"$ref": "#/definitions/ObjectID"
-								},
-								{
-									"$ref": "#/definitions/UserInfo"
-								}
-							]
-						}
+				"parameters": [{
+					"name": "user info",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"allOf": [{
+								"$ref": "#/definitions/ObjectID"
+							},
+							{
+								"$ref": "#/definitions/UserInfo"
+							}
+						]
 					}
-				],
+				}],
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -397,23 +422,20 @@
 					"/SchedulerEditInfo"
 				],
 				"description": "Apply changes to current scheduler info",
-				"parameters": [
-					{
-						"name": "scheduler",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"allOf": [
-								{
-									"$ref": "#/definitions/ObjectID"
-								},
-								{
-									"$ref": "#/definitions/SchedulerInfo"
-								}
-							]
-						}
+				"parameters": [{
+					"name": "scheduler info",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"allOf": [{
+								"$ref": "#/definitions/ObjectID"
+							},
+							{
+								"$ref": "#/definitions/SchedulerInfo"
+							}
+						]
 					}
-				],
+				}],
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -438,21 +460,19 @@
 					"/ListAppointments"
 				],
 				"description": "List claimed appointments.",
-				"parameters": [
-					{
-						"name": "searchInfo",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"type": "object",
-							"properties": {
-								"search": {
-									"type": "string",
-								}
+				"parameters": [{
+					"name": "searchInfo",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"properties": {
+							"search": {
+								"type": "string"
 							}
 						}
 					}
-				],
+				}],
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -471,22 +491,22 @@
 					}
 				}
 			}
-		},		
-		"/createContact": {
+		},
+		"/CreateSchedule": {
 			"post": {
-				"x-swagger-router-controller": "contacts",
-				"operationId": "createContact",
+				"x-swagger-router-controller": "schedule",
+				"operationId": "CreateSchedule",
 				"tags": [
-					"/createContact"
+					"/CreateSchedule"
 				],
-				"description": "Creates a new contact",
+				"description": "Adds a new schedule",
 				"parameters": [
 					{
-						"name": "contact",
+						"name": "singleSchedule",
 						"in": "body",
 						"required": true,
 						"schema": {
-							"$ref": "#/definitions/Contact"
+							"$ref": "#/definitions/Schedule"
 						}
 					}
 				],
@@ -506,17 +526,17 @@
 				}
 			}
 		},
-		"/deleteContact": {
+		"/deleteSchedule": {
 			"post": {
-				"x-swagger-router-controller": "contacts",
-				"operationId": "deleteContact",
+				"-swagger-router-controller": "schedule",
+				"operationId": "deleteSchedule",
 				"tags": [
-					"/deleteContact"
+					"/deleteSchedule"
 				],
-				"description": "Delete a contact",
+				"description": "Delete a Schedule for User of the current session",
 				"parameters": [
 					{
-						"name": "contact",
+						"name": "singleSchedule",
 						"in": "body",
 						"required": true,
 						"schema": {
@@ -524,6 +544,7 @@
 						}
 					}
 				],
+	
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -540,30 +561,15 @@
 				}
 			}
 		},
-		"/listContacts": {
+		"/ViewSchedule": {
 			"post": {
-				"x-swagger-router-controller": "contacts",
-				"operationId": "listContacts",
+				"x-swagger-router-controller": "schedule",
+				"operationId": "ViewSchedule",
 				"tags": [
-					"/listContacts"
+					"/ViewSchedule"
 				],
-				"description": "List current contacts.",
-				"parameters": [
-					{
-						"name": "searchInfo",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"type": "object",
-							"properties": {
-								"search": {
-									"type": "string",
-									"example": "Wick"
-								}
-							}
-						}
-					}
-				],
+				"description": "fetches a scheduler's existing schedule in the db.",
+				"parameters": [],
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -583,103 +589,107 @@
 				}
 			}
 		},
-		"/updateContact": {
-			"post": {
-				"x-swagger-router-controller": "contacts",
-				"operationId": "updateContact",
-				"tags": [
-					"/updateContact"
-				],
-				"description": "Apply changes to current contact info",
-				"parameters": [
-					{
-						"name": "contact",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"allOf": [
-								{
-									"$ref": "#/definitions/ObjectID"
-								},
-								{
-									"$ref": "#/definitions/Contact"
-								}
-							]
-						}
+		"definitions": {
+			"ObjectID": {
+				"properties": {
+					"_id": {
+						"type": "string"
 					}
-				],
-				"responses": {
-					"default": {
-						"description": "Invalid request.",
-						"schema": {
-							"$ref": "#/definitions/Error"
-						}
+				},
+				"required": [
+					"_id"
+				]
+			},
+			"UserInfo": {
+				"properties": {
+					"firstname": {
+						"type": "string"
 					},
-					"200": {
-						"description": "Successful request and contact id.",
-						"schema": {
-							"$ref": "#/definitions/Success"
-						}
+					"lastname": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"appointments": {
+						"type": "array"
 					}
+	
+				},
+				"required": [
+					"firstname",
+					"lastname",
+					"email",
+					"password"
+				]
+			},
+			"SchedulerInfo": {
+				"properties": {
+					"schedulerName": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+	
+				},
+				"required": [
+					"schedulerName",
+					"username",
+					"password"
+				]
+			},	
+			"Schedule": {
+				"properties": {
+					"scheduleName": {
+						"type": "string"
+					},
+					"timeRange": {
+						"type": "number"
+					},
+					"appointmentLength": {
+						"type": "number"
+					},
+					"appointmentCapacity": {
+						"type": "number"
+					}			
+	
 				}
+			},
+			"Scheduler": {
+				"properties": {
+					"schedulerName": {
+						"type": "string"
+					}
+	
+				}
+			},			
+			"Success": {
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				]
+			},
+			"Error": {
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				]
 			}
-		}
-	},
-	"definitions": {
-		"ObjectID": {
-			"properties": {
-				"_id": {
-					"type": "string"
-				}
-			},
-			"required": [
-				"_id"
-			]
-		},
-		"Contact": {
-			"properties": {
-				"firstname": {
-					"type": "string"
-				},
-				"lastname": {
-					"type": "string"
-				},
-				"phone": {
-					"type": "string"
-				},
-				"email": {
-					"type": "string"
-				},
-				"pic": {
-					"type": "string"
-				}
-			},
-			"required": [
-				"firstname",
-				"lastname",
-				"phone",
-				"email"
-			]
-		},
-		"Success": {
-			"properties": {
-				"message": {
-					"type": "string"
-				}
-			},
-			"required": [
-				"message"
-			]
-		},
-		"Error": {
-			"properties": {
-				"message": {
-					"type": "string"
-				}
-			},
-			"required": [
-				"message"
-			]
 		}
 	}
 }
