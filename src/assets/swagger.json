@@ -358,7 +358,7 @@
 				"description": "Apply changes to current user info",
 				"parameters": [
 					{
-						"name": "user info",
+						"name": "user",
 						"in": "body",
 						"required": true,
 						"schema": {
@@ -399,7 +399,7 @@
 				"description": "Apply changes to current scheduler info",
 				"parameters": [
 					{
-						"name": "scheduler info",
+						"name": "scheduler",
 						"in": "body",
 						"required": true,
 						"schema": {
