@@ -408,10 +408,7 @@
 					"200": {
 						"description": "Successful request and user id.",
 						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/Appointment"
-							}
+							"$ref": "#/definitions/Success"
 						}
 					}
 				}
@@ -617,9 +614,6 @@
 				},
 				"password": {
 					"type": "string"
-				},
-				"appointments": {
-					"type": "array"
 				}
 
 			},
