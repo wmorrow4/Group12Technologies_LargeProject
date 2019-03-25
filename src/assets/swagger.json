@@ -670,7 +670,24 @@
 				}
 
 			}
-		},			
+		},
+		"Appointment": {
+		    "properties": {
+			"scheduleName": {
+			    "type": "string"
+			},
+			"schedulerName": {
+			    "type": "string"
+			},
+			"time": {
+			    "type": "number"
+			},
+			"date": {
+			    "type": "number"
+			},		
+
+		    }
+		},
 		"Success": {
 			"properties": {
 				"message": {
