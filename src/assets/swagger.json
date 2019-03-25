@@ -588,6 +588,7 @@
 					}
 				}
 			}
+		}
 		},
 		"definitions": {
 			"ObjectID": {
