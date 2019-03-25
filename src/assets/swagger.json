@@ -408,7 +408,10 @@
 					"200": {
 						"description": "Successful request and user id.",
 						"schema": {
-							"$ref": "#/definitions/Success"
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Appointment"
+							}
 						}
 					}
 				}
