@@ -582,7 +582,7 @@
 						"schema": {
 							"type": "array",
 							"items": {
-								"$ref": "#/definitions/Contact"
+								"$ref": "#/definitions/Schedule"
 							}
 						}
 					}
