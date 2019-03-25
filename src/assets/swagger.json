@@ -578,7 +578,7 @@
 						}
 					},
 					"200": {
-						"description": "return array of contact objects",
+						"description": "return array of schedule objects",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -589,108 +589,107 @@
 				}
 			}
 		}
+	},
+	"definitions": {
+		"ObjectID": {
+			"properties": {
+				"_id": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"_id"
+			]
 		},
-		"definitions": {
-			"ObjectID": {
-				"properties": {
-					"_id": {
-						"type": "string"
-					}
+		"UserInfo": {
+			"properties": {
+				"firstname": {
+					"type": "string"
 				},
-				"required": [
-					"_id"
-				]
-			},
-			"UserInfo": {
-				"properties": {
-					"firstname": {
-						"type": "string"
-					},
-					"lastname": {
-						"type": "string"
-					},
-					"email": {
-						"type": "string"
-					},
-					"password": {
-						"type": "string"
-					},
-					"appointments": {
-						"type": "array"
-					}
-	
+				"lastname": {
+					"type": "string"
 				},
-				"required": [
-					"firstname",
-					"lastname",
-					"email",
-					"password"
-				]
-			},
-			"SchedulerInfo": {
-				"properties": {
-					"schedulerName": {
-						"type": "string"
-					},
-					"username": {
-						"type": "string"
-					},
-					"password": {
-						"type": "string"
-					}
-	
+				"email": {
+					"type": "string"
 				},
-				"required": [
-					"schedulerName",
-					"username",
-					"password"
-				]
-			},	
-			"Schedule": {
-				"properties": {
-					"scheduleName": {
-						"type": "string"
-					},
-					"timeRange": {
-						"type": "number"
-					},
-					"appointmentLength": {
-						"type": "number"
-					},
-					"appointmentCapacity": {
-						"type": "number"
-					}			
-	
+				"password": {
+					"type": "string"
+				},
+				"appointments": {
+					"type": "array"
 				}
+
 			},
-			"Scheduler": {
-				"properties": {
-					"schedulerName": {
-						"type": "string"
-					}
-	
+			"required": [
+				"firstname",
+				"lastname",
+				"email",
+				"password"
+			]
+		},
+		"SchedulerInfo": {
+			"properties": {
+				"schedulerName": {
+					"type": "string"
+				},
+				"username": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
 				}
-			},			
-			"Success": {
-				"properties": {
-					"message": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"message"
-				]
+
 			},
-			"Error": {
-				"properties": {
-					"message": {
-						"type": "string"
-					}
+			"required": [
+				"schedulerName",
+				"username",
+				"password"
+			]
+		},	
+		"Schedule": {
+			"properties": {
+				"scheduleName": {
+					"type": "string"
 				},
-				"required": [
-					"message"
-				]
+				"timeRange": {
+					"type": "number"
+				},
+				"appointmentLength": {
+					"type": "number"
+				},
+				"appointmentCapacity": {
+					"type": "number"
+				}			
+
 			}
+		},
+		"Scheduler": {
+			"properties": {
+				"schedulerName": {
+					"type": "string"
+				}
+
+			}
+		},			
+		"Success": {
+			"properties": {
+				"message": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"message"
+			]
+		},
+		"Error": {
+			"properties": {
+				"message": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"message"
+			]
 		}
 	}
 }
