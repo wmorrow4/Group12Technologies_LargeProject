@@ -260,41 +260,56 @@
 			}
 		},
 		"/ClaimAppointment": {
-			"post": {
-				"x-swagger-router-controller": "auxiliary",
-				"operationId": "ClaimAppointment",
-				"tags": [
-					"/ClaimAppointment"
+		    "post": {
+			"x-swagger-router-controller": "auxiliary",
+			"operationId": "ClaimAppointment",
+			"tags": [
+			    "/ClaimAppointment"
+			],
+			"description": "Claim an appointment",
+			"parameters": [{
+			    "name": "searchInfo",
+			    "in": "body",
+			    "required": true,
+			    "schema": {
+				"type": "object",
+				"required": [
+				    "scheduleID",
+				    "schedulerID",
+				    "time",
+				    "date"
 				],
-				"description": "Create an appointment",
-				"parameters": [{
-					"name": "searchInfo",
-					"in": "body",
-					"required": true,
-					"schema": {
-						"type": "object",
-						"properties": {
-							"search": {
-								"type": "string"
-							}
-						}
-					}
-				}],
-				"responses": {
-					"default": {
-						"description": "Invalid request.",
-						"schema": {
-							"$ref": "#/definitions/Error"
-						}
-					},
-					"200": {
-						"description": "Successful appointment claimed",
-						"schema": {
-							"$ref": "#/definitions/Success"
-						}
-					}
+				    "properties": {
+				    "scheduleID": {
+					"type": "string"
+				    },
+				    "schedulerID": {
+					"type": "string"
+				    },
+				    "time": {
+					"type": "number"
+				    },
+				    "date": {
+					"type": "number"
+				    }		
 				}
+			    }    
+			}],
+			"responses": {
+			    "default": {
+				"description": "Invalid request.",
+				"schema": {
+				    "$ref": "#/definitions/Error"
+				}
+			    },
+			    "200": {
+				"description": "Successful appointment claimed",
+				"schema": {
+				    "$ref": "#/definitions/Success"
+				}
+			    }
 			}
+		    }
 		},
 		"/ListSchedules": {
 			"post": {
