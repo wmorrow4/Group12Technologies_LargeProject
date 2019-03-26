@@ -268,13 +268,22 @@
 				],
 				"description": "Create an appointment",
 				"parameters": [{
-					"name": "searchInfo",
+					"name": "AppointmentInfo",
 					"in": "body",
 					"required": true,
 					"schema": {
 						"type": "object",
 						"properties": {
-							"search": {
+							"ScheduleID": {
+								"type": "string"
+							},
+							"UserID": {
+								"type": "string"
+							},
+							"time": {
+								"type": "string"
+							},
+							"date": {
 								"type": "string"
 							}
 						}
@@ -303,15 +312,15 @@
 				"tags": [
 					"/ListSchedules"
 				],
-				"description": "List created schedules.",
+				"description": "Lists created schedules of scheduler.",
 				"parameters": [{
-					"name": "searchInfo",
+					"name": "Schedules",
 					"in": "body",
 					"required": true,
 					"schema": {
 						"type": "object",
 						"properties": {
-							"search": {
+							"SchedulerID": {
 								"type": "string"
 							}
 						}
@@ -336,14 +345,57 @@
 				}
 			}
 		},
+		"/removeInterval": {
+			"post": {
+				"x-swagger-router-controller": "schedule",
+				"operationId": "removeInterval",
+				"tags": [
+					"/removeInterval"
+				],
+				"description": "Removes an interval from a schedule",
+				"parameters": [{
+					"name": "interval",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"properties": {
+							"ScheduleID": {
+								"type": "string"
+							},
+							"date": {
+								"type": "string"
+							},
+							"time": {
+								"type": "string"
+							}
+						}
+					}
+				}],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "Succesful removal of interval.",
+						"schema": {
+								"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		},
 		"/ListSchedulers": {
 			"post": {
 				"x-swagger-router-controller": "auxiliary",
-				"operationId": "ListSchedules",
+				"operationId": "ListSchedulers",
 				"tags": [
-					"/ListSchedules"
+					"/ListSchedulers"
 				],
-				"description": "List created schedules.",
+				"description": "List schedulers.",
 				"parameters": [{
 					"name": "searchInfo",
 					"in": "body",
@@ -365,7 +417,7 @@
 						}
 					},
 					"200": {
-						"description": "return array of schedule objects",
+						"description": "return array of scheduler objects",
 						"schema": {
 							"type": "array",
 							"items": {
@@ -406,7 +458,7 @@
 						}
 					},
 					"200": {
-						"description": "Successful request and user id.",
+						"description": "Successful request, information updated.",
 						"schema": {
 							"$ref": "#/definitions/Success"
 						}
@@ -444,7 +496,7 @@
 						}
 					},
 					"200": {
-						"description": "Successful request and user id.",
+						"description": "Successful request, information updated.",
 						"schema": {
 							"$ref": "#/definitions/Success"
 						}
@@ -467,7 +519,7 @@
 					"schema": {
 						"type": "object",
 						"properties": {
-							"search": {
+							"UserID": {
 								"type": "string"
 							}
 						}
@@ -582,7 +634,7 @@
 						"schema": {
 							"type": "array",
 							"items": {
-								"$ref": "#/definitions/Contact"
+								"$ref": "#/definitions/Schedule"
 							}
 						}
 					}
