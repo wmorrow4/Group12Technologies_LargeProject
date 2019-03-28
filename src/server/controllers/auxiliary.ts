@@ -6,7 +6,7 @@ import swaggerTools = require('swagger-tools')
 import db = require('../db')
 import api = require('../api')
 import ApiUserInfo = db.UserInfo
-import ApiSchedulerInfo = db.SchedulerInfo
+import ApiSchedulerInfo = db.SchedulersInfo
 import ApiObjectID = db.ObjectID
 import ApiSearch = db.Search
 import {
