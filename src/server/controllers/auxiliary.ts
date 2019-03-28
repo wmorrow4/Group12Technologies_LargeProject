@@ -70,7 +70,7 @@ module.exports.ListSchedules = function (req: api.Request & swaggerTools.Swagger
         db.schedules.find({
             $and: [
                 {
-                    belongsTo: new ObjectID(req.session.schedulerid)
+                    belongsTo: new ObjectID(req.session.logid)
                 },
                 {
                     $or: [
@@ -102,7 +102,7 @@ module.exports.ListSchedules = function (req: api.Request & swaggerTools.Swagger
     //otherwise return all documents belonging to that user
     else {
         db.schedules.find({
-            belongsTo: new ObjectID(req.session.schedulerid)
+            belongsTo: new ObjectID(req.session.logid)
         }).toArray().then((data) => {
 
             if (data) {
@@ -129,12 +129,12 @@ module.exports.SchedulerEditInfo = function (req: api.Request & swaggerTools.Swa
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
     res.setHeader('Content-Type', 'application/json')
 
-    if (req.session && req.session.userid) {
+    if (req.session && req.session.logid) {
         db.schedulers.find({
             _id: new ObjectID(req.swagger.params.scheduler.value._id)
         }).toArray().then((data) => {
             if (data.length) {
-                if (data[0].belongsTo.equals(new ObjectID(req.session.userid))) {
+                if (data[0].belongsTo.equals(new ObjectID(req.session.logid))) {
                     db.schedulers.replaceOne({
                         _id: new ObjectID(req.swagger.params.scheduler.value._id)
                     }, {
@@ -155,7 +155,7 @@ module.exports.SchedulerEditInfo = function (req: api.Request & swaggerTools.Swa
                 }
                 else {
                     res.status(BadRequest)
-                    res.send(JSON.stringify({ message: `This scheduler already exists ${req.session.schedulername}:${req.session.schedulerid}` }, null, 2))
+                    res.send(JSON.stringify({ message: `This scheduler already exists ${req.session.schedulername}:${req.session.logid}` }, null, 2))
                     res.end()
                 }
             }
@@ -182,12 +182,12 @@ module.exports.UserEditInfo = function (req: api.Request & swaggerTools.Swagger2
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
     res.setHeader('Content-Type', 'application/json')
 
-    if (req.session && req.session.userid) {
+    if (req.session && req.session.logid) {
         db.users.find({
             _id: new ObjectID(req.swagger.params.user.value._id)
         }).toArray().then((data) => {
             if (data.length) {
-                if (data[0].belongsTo.equals(new ObjectID(req.session.userid))) {
+                if (data[0].belongsTo.equals(new ObjectID(req.session.logid))) {
                     db.users.replaceOne({
                         _id: new ObjectID(req.swagger.params.user.value._id)
                     }, {
@@ -207,7 +207,7 @@ module.exports.UserEditInfo = function (req: api.Request & swaggerTools.Swagger2
                 }
                 else {
                     res.status(BadRequest)
-                    res.send(JSON.stringify({ message: `This user already exists ${req.session.username}:${req.session.userid}` }, null, 2))
+                    res.send(JSON.stringify({ message: `This user already exists ${req.session.username}:${req.session.logid}` }, null, 2))
                     res.end()
                 }
             }
@@ -248,7 +248,7 @@ module.exports.ListAppointments = function (req: api.Request & swaggerTools.Swag
         db.appointments.find({
             $and: [
                 {
-                    belongsTo: new ObjectID(req.session.userid)
+                    belongsTo: new ObjectID(req.session.logid)
                 },
                 {
                     $or: [
@@ -281,7 +281,7 @@ module.exports.ListAppointments = function (req: api.Request & swaggerTools.Swag
     //otherwise return all documents belonging to that user
     else {
         db.appointments.find({
-            belongsTo: new ObjectID(req.session.userid)
+            belongsTo: new ObjectID(req.session.logid)
         }).toArray().then((data) => {
      
             if (data) {
