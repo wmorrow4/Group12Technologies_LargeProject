@@ -136,7 +136,7 @@ module.exports.SchedulerEditInfo = function (req: api.Request & swaggerTools.Swa
             if (data.length) {
                 if (data[0].belongsTo.equals(new ObjectID(req.session.logid))) {
                     db.schedulers.replaceOne({
-                        _id: new ObjectID(req.swagger.params.scheduler.value._id)
+                        _id: new ObjectID(req.swagger.params.schedule.value._id)
                     }, {
                             belongsTo: data[0].belongsTo,
                             scheduleName: req.swagger.params.scheduler.value.scheduleName,
