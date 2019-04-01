@@ -200,48 +200,7 @@ module.exports.ListAppointments = function (req: api.Request & swaggerTools.Swag
         return
     }
 
-    //capture search in variable
-    const incomingSearch = req.swagger.params.searchInfo.value.search;
-    //if there is a search, match with database docs that belong to that user and put them in array.
-    //returned items must belong to the user AND match what was searched in any field belonging to that doc
-    if (incomingSearch) {
-
-        db.reservations.find({
-            $and: [
-                {
-                    belongsTo: new ObjectID(req.session.logid)
-                },
-                {
-                    $or: [
-                        // possibly search with date/time objects?
-                        //{ scheduleName: { '$regex': `.*${incomingSearch}.*`, '$options': 'i' } },
-                    ]
-                }
-            ]
-        
-        }).toArray().then((data) => {
-            
-            if (data) {
-                res.status(OK)
-                res.send(JSON.stringify(data))
-                res.end()
-            }
-            else {
-                res.status(OK)
-                res.send(JSON.stringify([], null, 2))
-                res.end()
-            }
-            
-        }).catch((err) => {
-            res.status(InternalServerError)
-            res.send(JSON.stringify({ message: inspect(err) }, null, 2))
-            res.end()
-        })
-        
-    }
-    //otherwise return all documents belonging to that user
-    else {
-        db.reservations.find({
+    db.reservations.find({
             belongsTo: new ObjectID(req.session.logid)
         }).toArray().then((data) => {
      
@@ -261,5 +220,4 @@ module.exports.ListAppointments = function (req: api.Request & swaggerTools.Swag
             res.send(JSON.stringify({ message: inspect(err) }, null, 2))
             res.end()
         })
-    }
 }
