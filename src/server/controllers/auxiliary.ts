@@ -37,12 +37,12 @@ interface SchedulerEditPayload {
 }
 
 interface ListSchedulesPayload {
-    searchInfo: swaggerTools.SwaggerRequestParameter<ApiSearch>
+    searchInfo: swaggerTools.SwaggerRequestParameter<ApiSchedules>
     [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiSchedules> | undefined;
 }
 
 interface ListAppointmentsPayload {
-    searchInfo: swaggerTools.SwaggerRequestParameter<ApiSearch>
+    searchInfo: swaggerTools.SwaggerRequestParameter<ApiReservations>
     [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiReservations> | undefined;
 }
 
