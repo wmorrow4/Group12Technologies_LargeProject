@@ -34,11 +34,19 @@ namespace Database {
         password: string
     }
     export interface Schedules{
-        /* ToDo */
+        belongsTo: mongodb.ObjectID,
+        scheduleName: string,
+        timeRange: number,
+        appointmentLength: number,
+        appointmentCapacity: number
         
     }
     export interface Reservations{
-        /* ToDo */
+        belongsTo: mongodb.ObjectID,
+        scheduleName: string,
+        schedulerName: string,
+        time: number,
+        date: number
     }
 
     export var client:mongodb.MongoClient
