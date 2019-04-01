@@ -28,7 +28,7 @@ namespace Database {
     }
 
     export interface SchedulersInfo{
-        _id: mongodb.ObjectID
+        belongsTo: mongodb.ObjectID,
         group: string,
         email: string,
         password: string
