@@ -131,7 +131,7 @@ module.exports.SchedulerEditInfo = function (req: api.Request & swaggerTools.Swa
 
     if (req.session && req.session.logid) {
         db.schedulers.find({
-            _id: new ObjectID(req.swagger.params.scheduler.value._id)
+            _id: new ObjectID(req.swagger.params.schedule.value._id)
         }).toArray().then((data) => {
             if (data.length) {
                 if (data[0].belongsTo.equals(new ObjectID(req.session.logid))) {
