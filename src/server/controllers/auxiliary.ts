@@ -207,7 +207,7 @@ module.exports.UserEditInfo = function (req: api.Request & swaggerTools.Swagger2
                 }
                 else {
                     res.status(BadRequest)
-                    res.send(JSON.stringify({ message: `This user already exists ${req.session.username}:${req.session.logid}` }, null, 2))
+                    res.send(JSON.stringify({ message: `This user already exists ${req.session.logid}` }, null, 2))
                     res.end()
                 }
             }
