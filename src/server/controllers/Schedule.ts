@@ -226,7 +226,7 @@ module.exports.removeInterval = function (req: api.Request & swaggerTools.Swagge
                     res.status(BadRequest)
                     res.send(JSON.stringify({ message: "This schedule doesnt belong to the current user" }, null, 2))
                     res.end()
-                
+                }
                 else {
                     if (req.swagger.params.Reservation.value.Date == null){
                         res.status(BadRequest)
