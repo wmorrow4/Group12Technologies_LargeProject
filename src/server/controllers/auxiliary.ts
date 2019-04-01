@@ -194,6 +194,7 @@ module.exports.UserEditInfo = function (req: api.Request & swaggerTools.Swagger2
                             firstname: req.swagger.params.user.value.firstname,
                             lastname: req.swagger.params.user.value.lastname,
                             email: req.swagger.params.user.value.email,
+                            password: req.swagger.params.user.value.password,
                         }).then(updateWriteOpResult => {
                             res.status(OK)
                             res.send(JSON.stringify({ message: "Update successful!" }, null, 2))
