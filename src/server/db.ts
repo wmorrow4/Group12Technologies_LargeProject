@@ -2,17 +2,33 @@ import mongodb = require('mongodb')
 
 namespace Database {
 
-    export interface ObjectID {
-        _id: string
+   export interface ObjectID {
+       _id: string
+
+   }
+   
+    export interface Schedule {
+        _id: mongodb.ObjectID
+        schedulerID: string,
+        schedule_name: string,
+        average_appointment_length: string,
+        max_capacity: string,
+        M: string,
+        T: string,
+        W: string,
+        Th: string,
+        F: string,
+        S: string,
+        Su: string
     }
 
-    export interface Contact {
-        belongsTo: mongodb.ObjectID,
-        firstname: string,
-        lastname: string,
-        email: string,
-        phone: string,
-        pic?: string,
+    export interface Reservation {
+        _id: mongodb.ObjectID
+        UserID: string,
+        ScheduleID: string,
+        Date: string,
+        Time: string
+
     }
 
     export interface UserInfo {
