@@ -16,8 +16,7 @@ namespace Database {
     }
 
     export interface UserInfo {
-        belongsTo: mongodb.ObjectID,
-        _id: belongsTo,
+        _id: mongodb.ObjectID,
         firstname: string,
         lastname: string,
         email: string,
@@ -29,7 +28,6 @@ namespace Database {
     }
 
     export interface SchedulersInfo{
-        belongsTo: mongodb.ObjectID,
         _id: mongodb.ObjectID,
         group: string,
         email: string,
