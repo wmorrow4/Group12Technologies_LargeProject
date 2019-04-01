@@ -7,6 +7,8 @@ import db = require('../db')
 import api = require('../api')
 import ApiUserInfo = db.UserInfo
 import ApiSchedulerInfo = db.SchedulersInfo
+import ApiSchedules = db.Schedules
+import ApiReservations = db.Reservations
 import ApiObjectID = db.ObjectID
 import ApiSearch = db.Search
 import {
@@ -36,12 +38,12 @@ interface SchedulerEditPayload {
 
 interface ListSchedulesPayload {
     searchInfo: swaggerTools.SwaggerRequestParameter<ApiSearch>
-    [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiSearch> | undefined;
+    [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiSchedules> | undefined;
 }
 
 interface ListAppointmentsPayload {
     searchInfo: swaggerTools.SwaggerRequestParameter<ApiSearch>
-    [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiSearch> | undefined;
+    [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiReservations> | undefined;
 }
 
 module.exports.ClaimAppointment = function (req: any, res: any, next: any) {
@@ -61,47 +63,7 @@ module.exports.ListSchedules = function (req: api.Request & swaggerTools.Swagger
         return
     }
     
-    //capture search in variable
-    const incomingSearch = req.swagger.params.searchInfo.value.search;
-    //if there is a search, match with database docs that belong to that user and put them in array.
-    //returned items must belong to the user AND match what was searched in any field belonging to that doc
-    if (incomingSearch) {
-
-        db.schedules.find({
-            $and: [
-                {
-                    belongsTo: new ObjectID(req.session.logid)
-                },
-                {
-                    $or: [
-                        { scheduleName: { '$regex': `.*${incomingSearch}.*`, '$options': 'i' } },
-                    ]
-                }
-            ]
-        
-        }).toArray().then((data) => {
-            
-            if (data) {
-                res.status(OK)
-                res.send(JSON.stringify(data))
-                res.end()
-            }
-            else {
-                res.status(OK)
-                res.send(JSON.stringify([], null, 2))
-                res.end()
-            }
-            
-        }).catch((err) => {
-            res.status(InternalServerError)
-            res.send(JSON.stringify({ message: inspect(err) }, null, 2))
-            res.end()
-        })
-        
-    }
-    //otherwise return all documents belonging to that user
-    else {
-        db.schedules.find({
+    db.schedules.find({
             belongsTo: new ObjectID(req.session.logid)
         }).toArray().then((data) => {
 
@@ -121,7 +83,6 @@ module.exports.ListSchedules = function (req: api.Request & swaggerTools.Swagger
             res.send(JSON.stringify({ message: inspect(err) }, null, 2))
             res.end()
         })
-    }
 }
 
 module.exports.SchedulerEditInfo = function (req: api.Request & swaggerTools.Swagger20Request<SchedulerEditPayload>, res: express.Response) {
