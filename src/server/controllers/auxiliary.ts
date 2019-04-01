@@ -131,18 +131,17 @@ module.exports.SchedulerEditInfo = function (req: api.Request & swaggerTools.Swa
 
     if (req.session && req.session.logid) {
         db.schedulers.find({
-            _id: new ObjectID(req.swagger.params.schedule.value._id)
+            _id: new ObjectID(req.swagger.params.scheduler.value._id)
         }).toArray().then((data) => {
             if (data.length) {
                 if (data[0].belongsTo.equals(new ObjectID(req.session.logid))) {
                     db.schedulers.replaceOne({
-                        _id: new ObjectID(req.swagger.params.schedule.value._id)
+                        _id: new ObjectID(req.swagger.params.scheduler.value._id)
                     }, {
                             belongsTo: data[0].belongsTo,
-                            scheduleName: req.swagger.params.scheduler.value.scheduleName,
-                            timeRange: req.swagger.params.scheduler.value.timeRange,
-                            appointmentLength: req.swagger.params.scheduler.value.appointmentLength,
-                            appointmentCapacity: req.swagger.params.scheduler.value.appointmentCapacity,
+                            group: req.swagger.params.scheduler.value.group,
+                            email: req.swagger.params.scheduler.value.email,
+                            password: req.swagger.params.scheduler.value.password,
                         }).then(updateWriteOpResult => {
                             res.status(OK)
                             res.send(JSON.stringify({ message: "Update successful!" }, null, 2))
