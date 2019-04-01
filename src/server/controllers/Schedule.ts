@@ -5,9 +5,10 @@ import express = require('express')
 import swaggerTools = require('swagger-tools')
 import db = require('../db')
 import api = require('../api')
-import ApiContact = db.Contact
+import ApiSchedule = db.Schedule
+import ApiReservation = db.Reservation
 import ApiObjectID = db.ObjectID
-import ApiSearch = db.Search
+
 import {
     MongoError,
     DeleteWriteOpResultObject,
@@ -34,8 +35,8 @@ interface DeleteSchedulePayload {
 }
 
 interface RemoveIntervalPayload {
-    searchInfo: swaggerTools.SwaggerRequestParameter<ApiSchedule & ApiObjectID>
-    [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiSchedule & ApiObjectID> | undefined;
+    searchInfo: swaggerTools.SwaggerRequestParameter<ApiSchedule & ApiObjectID & ApiReservation>
+    [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiSchedule & ApiObjectID & ApiReservation> | undefined;
 }
 
 module.exports.CreateSchedule = function (req: api.Request & swaggerTools.Swagger20Request<CreateSchedulePayload>, res: express.Response) {
@@ -54,7 +55,7 @@ module.exports.CreateSchedule = function (req: api.Request & swaggerTools.Swagge
             res.send(JSON.stringify({ message: "Login required" }, null, 2))
             res.end()
         }
-        if (req.swagger.params.Schedule.value.schedule_Name == null) {
+        if (req.swagger.params.Schedule.value.schedule_name == null) {
             res.status(BadRequest)
             res.send(JSON.stringify({ message: "Schedule name is required" }, null, 2))
             res.end()
@@ -146,7 +147,7 @@ module.exports.deleteSchedule = function (req: api.Request & swaggerTools.Swagge
     }
 
     // Check that the schedule exists and actually belongs to this scheduler.
-    db.schedules.findOne({ _id: new MongoObjectID(scheduleObject._id) }, function (err: MongoError, result: ApiSchedule | null) {
+    db.Schedule.findOne({ _id: new MongoObjectID(scheduleObject._id) }, function (err: MongoError, result: ApiSchedule | null) {
         // TODO: check to see if result is a thing.
         if (err) {
             res.status(InternalServerError)
@@ -160,13 +161,13 @@ module.exports.deleteSchedule = function (req: api.Request & swaggerTools.Swagge
         }
         else {
             // TODO: check to see if Schedule belongs to this user.
-                if (!result.schedulerID.equals(scheduleObject.schedulerID)) {
+                if (!result.schedulerID.equals(req.session.userid)) {
                     res.status(BadRequest)
                     res.send(JSON.stringify({ message: "This schedule doesnt belong to the current user" }, null, 2))
                     res.end()
                 }
                 else {
-                    db.schedules.deleteOne({ _id: new MongoObjectID(scheduleObject._id) }, function (err: MongoError, result: DeleteWriteOpResultObject) {
+                    db.Schedule.deleteOne({ _id: new MongoObjectID(scheduleObject._id) }, function (err: MongoError, result: DeleteWriteOpResultObject) {
                         if (err) {
                             res.status(InternalServerError)
                             res.send(JSON.stringify({ message: inspect(err) }, null, 2))
@@ -190,7 +191,7 @@ module.exports.deleteSchedule = function (req: api.Request & swaggerTools.Swagge
     })
 }
 
-module.exports.removeInterval = function (req: api.Request & swaggerTools.Swagger20Request<removeIntervalPayload>, res: express.Response) {
+module.exports.removeInterval = function (req: api.Request & swaggerTools.Swagger20Request<RemoveIntervalPayload>, res: express.Response) {
 
     // print out the params 
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
@@ -208,7 +209,7 @@ module.exports.removeInterval = function (req: api.Request & swaggerTools.Swagge
     }
 
     // Check that the schedule exists and actually belongs to this scheduler.
-    db.schedules.findOne({ _id: new MongoObjectID(scheduleObject._id) }, function (err: MongoError, result: ApiSchedule | null) {
+    db.Schedule.findOne({ _id: new MongoObjectID(scheduleObject._id) }, function (err: MongoError, result: ApiSchedule | null) {
         // TODO: check to see if result is a thing.
         if (err) {
             res.status(InternalServerError)
@@ -241,7 +242,7 @@ module.exports.removeInterval = function (req: api.Request & swaggerTools.Swagge
                     var reservationsObject = req.swagger.params.Reservation.value;
                     reservationsObject.ScheduleID = scheduleObject.ScheduleID;
                     reservationsObject.UserID = scheduleObject.schedulerID;
-                    db.reservations.insertOne(reservationsObject, function (err: MongoError, result: InsertOneWriteOpResult) {
+                    db.Reservation.insertOne(reservationsObject, function (err: MongoError, result: InsertOneWriteOpResult) {
                         if (err) {
                             res.status(InternalServerError)
                             res.send(JSON.stringify({ message: inspect(err) }, null, 2))

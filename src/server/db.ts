@@ -9,7 +9,7 @@ namespace Database {
    
     export interface Schedule {
         _id: mongodb.ObjectID
-        schedulerID: string,
+        schedulerID: mongodb.ObjectID
         schedule_name: string,
         average_appointment_length: string,
         max_capacity: string,
@@ -24,7 +24,7 @@ namespace Database {
 
     export interface Reservation {
         _id: mongodb.ObjectID
-        UserID: string,
+        UserID: mongodb.ObjectID
         ScheduleID: string,
         Date: string,
         Time: string
@@ -43,8 +43,8 @@ namespace Database {
 
     export var client:mongodb.MongoClient
     export var db:mongodb.Db
-    export var users:mongodb.Collection<UserInfo>
-    export var contacts:mongodb.Collection<Contact>
+    export var Reservation:mongodb.Collection<Reservation>
+    export var Schedule:mongodb.Collection<Schedule>
 
     export async function connectToMongo():Promise<mongodb.Db> {
         if ( this.db ) return Promise.resolve(this.db)
@@ -55,8 +55,8 @@ namespace Database {
         }).then(client => {
             this.client = client
             this.db = this.client.db("mean")
-            this.users = this.db.collection('users')
-            this.contacts = this.db.collection('contacts')
+            this.Reservation = this.db.collection('Reservation')
+            this.Schedule = this.db.collection('Schedule')
             return this.db
         })
     }
