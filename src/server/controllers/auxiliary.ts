@@ -154,7 +154,7 @@ module.exports.SchedulerEditInfo = function (req: api.Request & swaggerTools.Swa
                 }
                 else {
                     res.status(BadRequest)
-                    res.send(JSON.stringify({ message: `This scheduler already exists ${req.session.schedulername}:${req.session.logid}` }, null, 2))
+                    res.send(JSON.stringify({ message: `This scheduler already exists ${req.session.logid}` }, null, 2))
                     res.end()
                 }
             }
