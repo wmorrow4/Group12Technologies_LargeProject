@@ -186,11 +186,11 @@ module.exports.UserEditInfo = function (req: api.Request & swaggerTools.Swagger2
             _id: new ObjectID(req.swagger.params.user.value._id)
         }).toArray().then((data) => {
             if (data.length) {
-                if (data[0].belongsTo.equals(new ObjectID(req.session.logid))) {
+                if (data[0]._id.equals(new ObjectID(req.session.logid))) {
                     db.users.replaceOne({
                         _id: new ObjectID(req.swagger.params.user.value._id)
                     }, {
-                            belongsTo: data[0].belongsTo,
+                            _id: data[0]._id,
                             firstname: req.swagger.params.user.value.firstname,
                             lastname: req.swagger.params.user.value.lastname,
                             email: req.swagger.params.user.value.email,
