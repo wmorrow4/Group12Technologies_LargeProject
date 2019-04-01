@@ -1,3 +1,33 @@
+'use strict';
+
+import util = require('util')
+import express = require('express')
+import swaggerTools = require('swagger-tools')
+import db = require('../db')
+import api = require('../api')
+import ApiUserInfo = db.UserInfo
+import ApiSchedulerInfo = db.SchedulersInfo
+import ApiObjectID = db.ObjectID
+import ApiSearch = db.Search
+import {
+    MongoError,
+    DeleteWriteOpResultObject,
+    ObjectID as MongoObjectID,
+    InsertOneWriteOpResult,
+    ObjectID
+} from 'mongodb';
+
+const OK = 200
+const BadRequest = 400
+const InternalServerError = 500
+const inspect = (input: any) => util.inspect(input, false, Infinity, true)
+
+// Probably will need updating.
+interface CreateSchedulePayload {
+	schedule: swaggerTools.SwaggerRequestParameter<ApiSchedulerInfo & ApiObjectID>
+	[paramName: string]: swaggerTools.SwaggerRequestParameter<ApiSchedulerInfo & ApiObjectID> | undefined;
+}
+
 module.exports.createSchedule = function (req: api.Request & swaggerTools.Swagger20Request<CreateSchedulePayload>, res: express.Response) {
 	
 	console.log(util.inspect(req.swagger.params, false, Infinity, true))
