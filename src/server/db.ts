@@ -16,7 +16,7 @@ namespace Database {
     }
 
     export interface UserInfo {
-        _id: mongodb.ObjectID
+        belongsTo: mongodb.ObjectID,
         firstname: string,
         lastname: string,
         email: string,
