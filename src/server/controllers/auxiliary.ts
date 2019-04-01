@@ -245,7 +245,7 @@ module.exports.ListAppointments = function (req: api.Request & swaggerTools.Swag
     //returned items must belong to the user AND match what was searched in any field belonging to that doc
     if (incomingSearch) {
 
-        db.appointments.find({
+        db.reservations.find({
             $and: [
                 {
                     belongsTo: new ObjectID(req.session.logid)
@@ -280,7 +280,7 @@ module.exports.ListAppointments = function (req: api.Request & swaggerTools.Swag
     }
     //otherwise return all documents belonging to that user
     else {
-        db.appointments.find({
+        db.reservations.find({
             belongsTo: new ObjectID(req.session.logid)
         }).toArray().then((data) => {
      
