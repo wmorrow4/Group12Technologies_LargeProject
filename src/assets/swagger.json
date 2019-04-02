@@ -369,7 +369,7 @@
 						"schema": {
 							"type": "array",
 							"items": {
-								"$ref": "#/definitions/Scheduler"
+								"$ref": "#/definitions/SchedulerInfo"
 							}
 						}
 					}
