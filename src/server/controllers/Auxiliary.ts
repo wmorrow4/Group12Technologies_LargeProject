@@ -46,7 +46,6 @@ interface ListAppointmentsPayload {
     [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiReservations> | undefined;
 }
 
-
 module.exports.ClaimAppointment = function (req: any, res: any, next: any) {
     // print out the params
     console.log(inspect(req.swagger.params))
@@ -221,63 +220,4 @@ module.exports.ListAppointments = function (req: api.Request & swaggerTools.Swag
             res.send(JSON.stringify({ message: inspect(err) }, null, 2))
             res.end()
         })
-}
-
-module.exports.ListSchedulers = function (req: api.Request & swaggerTools.Swagger20Request<SchedulerEditPayload>, res: express.Response) {
-
-    console.log(util.inspect(req.swagger.params, false, Infinity, true))
-
-    res.setHeader('Content-Type', 'application/json')
-
-    if (!req.session) {
-        return
-    }
-
-    //capture search in variable
-    const incomingSearch = req.swagger.params.search;
-    //if there is a search, match with database docs that belong to that user and put them in array.
-    //returned items must belong to the user AND match what was searched in any field belonging to that doc
-    if (incomingSearch) {
-
-        db.schedulers.find({
-   
-			name: { '$regex': `.*${incomingSearch}.*`, '$options': 'i' }
-				
-        }).toArray().then((data) => {
-            if (data) {
-                res.status(OK)
-                res.send(JSON.stringify(data));
-                res.end()
-            }
-            else {
-                res.status(OK)
-                res.send(JSON.stringify([], null, 2))
-                res.end()
-            }
-        }).catch((err) => {
-            res.status(InternalServerError)
-            res.send(JSON.stringify({ message: inspect(err) }, null, 2))
-            res.end()
-        })
-    }
-    //otherwise return all documents belonging to that user
-    else {
-        db.schedulers.find({
-        }).toArray().then((data) => {
-            if (data) {
-                res.status(OK)
-                res.send(JSON.stringify(data));
-                res.end()
-            }
-            else {
-                res.status(OK)
-                res.send(JSON.stringify([], null, 2))
-                res.end()
-            }
-        }).catch((err) => {
-            res.status(InternalServerError)
-            res.send(JSON.stringify({ message: inspect(err) }, null, 2))
-            res.end()
-        })
-    }
 }
