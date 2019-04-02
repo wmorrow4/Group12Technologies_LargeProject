@@ -339,11 +339,11 @@
 		"/ListSchedulers": {
 			"post": {
 				"x-swagger-router-controller": "auxiliary",
-				"operationId": "ListSchedules",
+				"operationId": "ListSchedulers",
 				"tags": [
-					"/ListSchedules"
+					"/ListSchedulers"
 				],
-				"description": "List created schedules.",
+				"description": "Search for schedulers.",
 				"parameters": [{
 					"name": "searchInfo",
 					"in": "body",
