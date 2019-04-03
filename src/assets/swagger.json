@@ -268,7 +268,7 @@
 			],
 			"description": "Claim an appointment",
 			"parameters": [{
-			    "name": "searchInfo",
+			    "name": "scheduleInfo",
 			    "in": "body",
 			    "required": true,
 			    "schema": {
