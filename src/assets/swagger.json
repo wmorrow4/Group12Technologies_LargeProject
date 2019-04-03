@@ -275,7 +275,7 @@
 				"type": "object",
 				"required": [
 				    "scheduleID",
-				    "schedulerID",
+				    "userID",
 				    "time",
 				    "date"
 				],
@@ -283,7 +283,7 @@
 				    "scheduleID": {
 					"type": "string"
 				    },
-				    "schedulerID": {
+				    "userID": {
 					"type": "string"
 				    },
 				    "time": {
@@ -661,6 +661,9 @@
 		"Schedule": {
 			"properties": {
 				"scheduleName": {
+					"type": "string"
+				},
+				"userClaimed": {
 					"type": "string"
 				},
 				"timeRange": {
