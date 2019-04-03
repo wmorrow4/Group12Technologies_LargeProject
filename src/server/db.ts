@@ -36,6 +36,7 @@ namespace Database {
     export interface Schedules{
         belongsTo: mongodb.ObjectID,
         scheduleName: string,
+        userClaimed: string,
         timeRange: number,
         appointmentLength: number,
         appointmentCapacity: number
