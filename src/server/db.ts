@@ -8,7 +8,7 @@ namespace Database {
    }
    
     export interface Schedule {
-        _id: mongodb.ObjectID
+        s_id: mongodb.ObjectID
         schedulerID: mongodb.ObjectID
         schedule_name: string,
         average_appointment_length: string,
@@ -23,7 +23,7 @@ namespace Database {
     }
 
     export interface Reservation {
-        _id: mongodb.ObjectID
+        r_id: mongodb.ObjectID
         UserID: mongodb.ObjectID
         ScheduleID: string,
         Date: string,
