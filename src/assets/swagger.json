@@ -663,9 +663,6 @@
 				"scheduleName": {
 					"type": "string"
 				},
-				"userClaimed": {
-					"type": "string"
-				},
 				"timeRange": {
 					"type": "number"
 				},
@@ -691,7 +688,7 @@
 			"scheduleName": {
 			    "type": "string"
 			},
-			"schedulerName": {
+			"userID": {
 			    "type": "string"
 			},
 			"time": {
