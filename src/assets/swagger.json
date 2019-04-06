@@ -580,7 +580,7 @@
 		},
 		"/deleteSchedule": {
 			"post": {
-				"-swagger-router-controller": "schedule",
+				"x-swagger-router-controller": "schedule",
 				"operationId": "deleteSchedule",
 				"tags": [
 					"/deleteSchedule"
@@ -652,7 +652,7 @@
 					"_id"
 				]
 			},
-			"UserInfo": {
+			"User": {
 				"properties": {
 					"firstname": {
 						"type": "string"
@@ -678,7 +678,7 @@
 					"password"
 				]
 			},
-			"SchedulerInfo": {
+			"Scheduler": {
 				"properties": {
 					"schedulerName": {
 						"type": "string"
@@ -713,15 +713,7 @@
 					}			
 	
 				}
-			},
-			"Scheduler": {
-				"properties": {
-					"schedulerName": {
-						"type": "string"
-					}
-	
-				}
-			},			
+			},		
 			"Success": {
 				"properties": {
 					"message": {

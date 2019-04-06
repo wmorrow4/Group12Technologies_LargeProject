@@ -3,10 +3,12 @@ import db = require('./db')
 
 async function go() {
     await db.connectToMongo()
-    if (await db.db.listCollections({ name: 'users' }).hasNext())
-        await db.users.drop()
-    if (await db.db.listCollections({ name: 'contacts' }).hasNext())
-        await db.contacts.drop()
+    if (await db.db.listCollections({ name: 'Scheduler' }).hasNext())
+        await db.Scheduler.drop()
+    if (await db.db.listCollections({ name: 'Schedules' }).hasNext())
+        await db.Schedule.drop()
+    if (await db.db.listCollections({ name: 'Reservations' }).hasNext())
+        await db.Reservation.drop()
     db.disconnectFromMongo()
     return "Success!!"
 }

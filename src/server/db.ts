@@ -6,13 +6,20 @@ namespace Database {
        _id: string
 
    }
+
+   export interface Scheduler {
+       schedulerID: mongodb.ObjectID
+       username: string,
+       password: string,
+       name: string
+   }
    
     export interface Schedule {
         s_id: mongodb.ObjectID
         schedulerID: mongodb.ObjectID
         schedule_name: string,
         average_appointment_length: string,
-        max_capacity: string,
+        max_capacity: number,
         M: string,
         T: string,
         W: string,
@@ -23,18 +30,17 @@ namespace Database {
     }
 
     export interface Reservation {
-        r_id: mongodb.ObjectID
         UserID: mongodb.ObjectID
         ScheduleID: string,
         Date: string,
         Time: string
-
     }
 
-    export interface UserInfo {
+    export interface User {
         _id: mongodb.ObjectID
         username: string,
-        password: string
+        password: string,
+        email: string
     }
 
     export interface Search {
@@ -45,6 +51,8 @@ namespace Database {
     export var db:mongodb.Db
     export var Reservation:mongodb.Collection<Reservation>
     export var Schedule:mongodb.Collection<Schedule>
+    export var Scheduler:mongodb.Collection<Scheduler>
+    export var User:mongodb.Collection<User>
 
     export async function connectToMongo():Promise<mongodb.Db> {
         if ( this.db ) return Promise.resolve(this.db)
@@ -57,6 +65,8 @@ namespace Database {
             this.db = this.client.db("mean")
             this.Reservation = this.db.collection('Reservation')
             this.Schedule = this.db.collection('Schedule')
+            this.User = this.db.collection('User')
+            this.Scheduler = this.db.collection('Scheduler')
             return this.db
         })
     }

@@ -35,8 +35,8 @@ interface DeleteSchedulePayload {
 }
 
 interface RemoveIntervalPayload {
-    removeinterval: swaggerTools.SwaggerRequestParameter<ApiSchedule & ApiReservation & ApiObjectID>
-    [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiSchedule & ApiReservation & ApiObjectID> | undefined;
+    removeinterval: swaggerTools.SwaggerRequestParameter<ApiSchedule & ApiReservation>
+    [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiSchedule & ApiReservation> | undefined;
 }
 
 module.exports.CreateSchedule = function (req: api.Request & swaggerTools.Swagger20Request<CreateSchedulePayload>, res: express.Response) {
@@ -181,10 +181,43 @@ module.exports.removeInterval = function (req: api.Request & swaggerTools.Swagge
                     res.end()
                 }
                 else {
-                    if (req.swagger.params.removeinterval.value.Date && req.swagger.params.removeinterval.value.Time) {
-                        removeintervalObject.ScheduleID = removeintervalObject.s_id;
-                        removeintervalObject.UserID = removeintervalObject.schedulerID;
-                        db.Reservation.insertOne(, function (err: MongoError, result: InsertOneWriteOpResult) {
+                    if (removeintervalObject.Date && removeintervalObject.Time) {
+                        db.Reservation.find({
+                            $and: [
+                                {
+                                    ScheduleID: new ObjectID(removeintervalObject.s_id)
+                                },
+                                {
+                                    Date: removeintervalObject.Date
+                                },
+                                {
+                                    Time: removeintervalObject.Time
+                                }
+                            ]
+                        }).toArray().then((data) => {
+                            if (data) {
+                                if((data.length + 1) >= removeintervalObject.max_capacity){
+                                    res.status(BadRequest)
+                                    res.send(JSON.stringify({ message: "Appointment capacity is full" }, null, 2))
+                                    res.end()
+                                }
+                                else {
+                                    res.status(OK)
+                                    res.send(JSON.stringify(data))
+                                    res.end()
+                                }
+                            }
+                            else {
+                                res.status(OK)
+                                res.send(JSON.stringify([], null, 2))
+                                res.end()
+                            }
+                        }).catch((err) => {
+                            res.status(InternalServerError)
+                            res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+                            res.end()
+                        })
+                        db.Reservation.insertOne(removeintervalObject, function (err: MongoError, result: InsertOneWriteOpResult) {
                             if (err) {
                                 res.status(InternalServerError)
                                 res.send(JSON.stringify({ message: inspect(err) }, null, 2))
