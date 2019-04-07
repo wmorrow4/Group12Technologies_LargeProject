@@ -25,12 +25,12 @@
 					"schema": {
 						"type": "object",
 						"required": [
-							"group",
+							"name",
 							"email",
 							"password"
 						],
 						"properties": {
-							"group": {
+							"name": {
 								"type": "string",
 								"example": "company"
 							},
@@ -76,19 +76,14 @@
 					"schema": {
 						"type": "object",
 						"required": [
-							"firstname",
-							"lastname",
+							"username",
 							"email",
 							"password"
 						],
 						"properties": {
-							"firstname": {
+							"username": {
 								"type": "string",
 								"example": "firstname"
-							},
-							"lastname": {
-								"type": "string",
-								"example": "lastname"
 							},
 							"email": {
 								"type": "string",
@@ -273,11 +268,17 @@
 					"required": true,
 					"schema": {
 						"type": "object",
+						"required": [
+							"scheduleID",
+							"userID",
+							"time",
+							"date"
+						],
 						"properties": {
-							"ScheduleID": {
+							"scheduleID": {
 								"type": "string"
 							},
-							"UserID": {
+							"userID": {
 								"type": "string"
 							},
 							"time": {
@@ -319,6 +320,9 @@
 					"required": true,
 					"schema": {
 						"type": "object",
+						"required": [
+							"SchedulerID"
+						],
 						"properties": {
 							"SchedulerID": {
 								"type": "string"
@@ -359,6 +363,11 @@
 					"required": true,
 					"schema": {
 						"type": "object",
+						"required": [
+							"ScheduleID",
+							"date",
+							"time"
+						],
 						"properties": {
 							"ScheduleID": {
 								"type": "string"
@@ -402,6 +411,9 @@
 					"required": true,
 					"schema": {
 						"type": "object",
+						"required": [
+							"search"
+						],
 						"properties": {
 							"search": {
 								"type": "string"
@@ -421,7 +433,7 @@
 						"schema": {
 							"type": "array",
 							"items": {
-								"$ref": "#/definitions/Scheduler"
+								"$ref": "#/definitions/SchedulerInfo"
 							}
 						}
 					}
@@ -519,7 +531,7 @@
 					"schema": {
 						"type": "object",
 						"properties": {
-							"UserID": {
+							"search": {
 								"type": "string"
 							}
 						}
@@ -640,7 +652,8 @@
 					}
 				}
 			}
-		},
+		}
+	},
 		"definitions": {
 			"ObjectID": {
 				"properties": {
@@ -652,12 +665,22 @@
 					"_id"
 				]
 			},
-			"User": {
+			"Appointment": {
 				"properties": {
-					"firstname": {
+					"scheduleID": {
 						"type": "string"
 					},
-					"lastname": {
+					"date": {
+						"type": "string"
+					},
+					"time": {
+						"type": "string"
+					}
+				}
+			},
+			"UserInfo": {
+				"properties": {
+					"username": {
 						"type": "string"
 					},
 					"email": {
@@ -667,18 +690,21 @@
 						"type": "string"
 					},
 					"appointments": {
-						"type": "array"
+						"type": "array",
+							"items": {
+								"$ref": "#/definitions/Appointment"
+							}
 					}
 	
 				},
 				"required": [
-					"firstname",
-					"lastname",
+					"username",
 					"email",
-					"password"
+					"password",
+					"appointments"
 				]
 			},
-			"Scheduler": {
+			"SchedulerInfo": {
 				"properties": {
 					"schedulerName": {
 						"type": "string"
@@ -699,20 +725,53 @@
 			},	
 			"Schedule": {
 				"properties": {
+					"schedulerID": {
+						"type": "string"
+					},
 					"scheduleName": {
 						"type": "string"
 					},
-					"timeRange": {
+					"averageAppointmentLength": {
+						"type": "string"
+					},
+					"maxCapacity": {
 						"type": "number"
 					},
-					"appointmentLength": {
-						"type": "number"
+					"M": {
+						"type": "string"
 					},
-					"appointmentCapacity": {
-						"type": "number"
-					}			
-	
-				}
+					"T": {
+						"type": "string"
+					},
+					"W": {
+						"type": "string"
+					},
+					"Th": {
+						"type": "string"
+					},
+					"F": {
+						"type": "string"
+					},
+					"S": {
+						"type": "string"
+					},
+					"Su": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"schedulerID",
+					"scheduleName",
+					"averageAppointmentLength",
+					"maxCapacity",
+					"M",
+					"T",
+					"W",
+					"Th",
+					"F",
+					"S",
+					"Su"
+				]
 			},		
 			"Success": {
 				"properties": {
@@ -735,6 +794,4 @@
 				]
 			}
 		}
-	}
 }
-	
