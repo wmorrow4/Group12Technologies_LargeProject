@@ -256,7 +256,7 @@
 		},
 		"/ClaimAppointment": {
 			"post": {
-				"x-swagger-router-controller": "auxiliary",
+				"x-swagger-router-controller": "Auxiliary",
 				"operationId": "ClaimAppointment",
 				"tags": [
 					"/ClaimAppointment"
@@ -308,7 +308,7 @@
 		},
 		"/ListSchedules": {
 			"post": {
-				"x-swagger-router-controller": "auxiliary",
+				"x-swagger-router-controller": "Auxiliary",
 				"operationId": "ListSchedules",
 				"tags": [
 					"/ListSchedules"
@@ -351,7 +351,7 @@
 		},
 		"/removeInterval": {
 			"post": {
-				"x-swagger-router-controller": "schedule",
+				"x-swagger-router-controller": "Schedule",
 				"operationId": "removeInterval",
 				"tags": [
 					"/removeInterval"
@@ -399,7 +399,7 @@
 		},
 		"/ListSchedulers": {
 			"post": {
-				"x-swagger-router-controller": "auxiliary",
+				"x-swagger-router-controller": "Auxiliary",
 				"operationId": "ListSchedulers",
 				"tags": [
 					"/ListSchedulers"
@@ -442,7 +442,7 @@
 		},
 		"/UserEditInfo": {
 			"post": {
-				"x-swagger-router-controller": "auxiliary",
+				"x-swagger-router-controller": "Auxiliary",
 				"operationId": "UserEditInfo",
 				"tags": [
 					"/UserEditInfo"
@@ -480,7 +480,7 @@
 		},
 		"/SchedulerEditInfo": {
 			"post": {
-				"x-swagger-router-controller": "auxiliary",
+				"x-swagger-router-controller": "Auxiliary",
 				"operationId": "SchedulerEditInfo",
 				"tags": [
 					"/SchedulerEditInfo"
@@ -518,7 +518,7 @@
 		},
 		"/ListAppointments": {
 			"post": {
-				"x-swagger-router-controller": "auxiliary",
+				"x-swagger-router-controller": "Auxiliary",
 				"operationId": "ListAppointments",
 				"tags": [
 					"/ListAppointments"
@@ -558,7 +558,7 @@
 		},
 		"/CreateSchedule": {
 			"post": {
-				"x-swagger-router-controller": "schedule",
+				"x-swagger-router-controller": "Schedule",
 				"operationId": "CreateSchedule",
 				"tags": [
 					"/CreateSchedule"
@@ -592,7 +592,7 @@
 		},
 		"/deleteSchedule": {
 			"post": {
-				"x-swagger-router-controller": "schedule",
+				"x-swagger-router-controller": "Schedule",
 				"operationId": "deleteSchedule",
 				"tags": [
 					"/deleteSchedule"
@@ -627,7 +627,7 @@
 		},
 		"/ViewSchedule": {
 			"post": {
-				"x-swagger-router-controller": "schedule",
+				"x-swagger-router-controller": "Schedule",
 				"operationId": "ViewSchedule",
 				"tags": [
 					"/ViewSchedule"
@@ -728,13 +728,13 @@
 					"schedulerID": {
 						"type": "string"
 					},
-					"scheduleName": {
+					"schedule_name": {
 						"type": "string"
 					},
-					"averageAppointmentLength": {
+					"average_appointment_length": {
 						"type": "string"
 					},
-					"maxCapacity": {
+					"max_capacity": {
 						"type": "number"
 					},
 					"M": {
@@ -761,9 +761,9 @@
 				},
 				"required": [
 					"schedulerID",
-					"scheduleName",
-					"averageAppointmentLength",
-					"maxCapacity",
+					"schedule_name",
+					"average_appointment_length",
+					"max_capacity",
 					"M",
 					"T",
 					"W",

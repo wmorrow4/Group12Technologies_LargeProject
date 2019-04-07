@@ -50,11 +50,11 @@ module.exports.CreateSchedule = function (req: api.Request & swaggerTools.Swagge
             res.send(JSON.stringify({ message: "Invalid session" }, null, 2))
             res.end()
         }
-        if (!req.session.username) {
-            res.status(BadRequest)
-            res.send(JSON.stringify({ message: "Login required" }, null, 2))
-            res.end()
-        }
+       // if (!req.session.username) {
+        //    res.status(BadRequest)
+         //   res.send(JSON.stringify({ message: "Login required" }, null, 2))
+        //    res.end()
+       // }
         if (req.swagger.params.Schedule.value.schedule_name && req.swagger.params.Schedule.value.average_appointment_length && req.swagger.params.Schedule.value.max_capacity && req.swagger.params.Schedule.value.M && req.swagger.params.Schedule.value.T && req.swagger.params.Schedule.value.W && req.swagger.params.Schedule.value.Th && req.swagger.params.Schedule.value.F && req.swagger.params.Schedule.value.S && req.swagger.params.Schedule.value.Su) {
 
             var scheduleObject = req.swagger.params.Schedule.value;
