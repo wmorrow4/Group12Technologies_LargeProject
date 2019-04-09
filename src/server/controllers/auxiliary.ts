@@ -57,67 +57,66 @@ module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swag
 
     res.setHeader('Content-Type', 'application/json')
 
-    if (!req.session) {
+    if (!req.session || !req.swagger.params.scheduleInfo) {
         return
     }
-    if (req.swagger.params.scheduleInfo)
-    {
-        db.schedules.findOne(req.swagger.params.scheduleInfo.value.scheduleID).then((schedule) => {
-            if (schedule){
-                db.reservations.find({
-                    $and: [
+
+    db.schedules.findOne(req.swagger.params.scheduleInfo.value.scheduleID).then((schedule) => {
+
+        if (schedule && req.swagger.params.scheduleInfo){
+            db.reservations.find({
+                $and: [
+                    {
+                        scheduleID: req.swagger.params.scheduleInfo.value.scheduleID
+                    },
+                    {
+                        date: req.swagger.params.scheduleInfo.value.date
+                    },
+                    {
+                        time: req.swagger.params.scheduleInfo.value.time
+                    }
+                ]
+            }) .toArray().then((appointments) => {
+                if (appointments && req.swagger.params.scheduleInfo) {
+                    if (appointments.length < schedule.appointmentCapacity) {
+                        for (var i = 0; i < appointments.length; i++)
                         {
-                            scheduleID: req.swagger.params.scheduleInfo.value.scheduleID
-                        },
-                        {
-                            date: req.swagger.params.scheduleInfo.value.date
-                        },
-                        {
-                            time: req.swagger.params.scheduleInfo.value.time
-                        }
-                    ]
-                }) .toArray().then((appointments) => {
-                    if (appointments) {
-                        if (appointments.length < schedule.appointmentCapacity) {
-                            for (var i = 0; i < appointments.length; i++)
-                            {
-                                if(!appointments[i].userID && req.swagger.params.scheduleinfo.value.userID){
-                                    appointments[i].userID = req.swagger.params.scheduleinfo.value.userID
-                                }
+                            if(!appointments[i].userID && req.swagger.params.scheduleinfo.value.userID){
+                                appointments[i].userID = req.swagger.params.scheduleinfo.value.userID
                             }
                         }
-                        else {
-                            res.status(BadRequest)
-                            res.send(JSON.stringify({ message: "This schedule is already at full capacity."}, null, 2))
-                            res.end()
-                        }
-
-                        res.status(OK)
-                        res.send(JSON.stringify({ message: "It worked!" }, null, 2))
-                        res.end()
                     }
                     else {
                         res.status(BadRequest)
-                        res.send(JSON.stringify({ message: "Appointment inputed did not match any known schedule."}, null, 2))
+                        res.send(JSON.stringify({ message: "This schedule is already at full capacity."}, null, 2))
                         res.end()
                     }
-                }).catch((err) => {
-                    res.status(InternalServerError)
-                    res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+
+                    res.status(OK)
+                    res.send(JSON.stringify({ message: "It worked!" }, null, 2))
                     res.end()
-                })
-            }
-            else {
-                res.status(BadRequest)
-                res.send(JSON.stringify({ message: "Schedule inputed did not match any known schedule."}, null, 2))
+                }
+                else {
+                    res.status(BadRequest)
+                    res.send(JSON.stringify({ message: "Appointment inputed did not match any known schedule."}, null, 2))
+                    res.end()
+                }
+            }).catch((err) => {
+                res.status(InternalServerError)
+                res.send(JSON.stringify({ message: inspect(err) }, null, 2))
                 res.end()
-            }
-        }).catch((err) => {
-            res.status(InternalServerError)
-            res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+            })
+        }
+        else {
+            res.status(BadRequest)
+            res.send(JSON.stringify({ message: "Schedule inputed did not match any known schedule."}, null, 2))
             res.end()
-        })
-    }
+        }
+    }).catch((err) => {
+        res.status(InternalServerError)
+        res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+        res.end()
+    })
 }  
 
 module.exports.ListSchedules = function (req: api.Request & swaggerTools.Swagger20Request<ListSchedulesPayload>, res: express.Response) {
