@@ -66,7 +66,13 @@ module.exports.ClaimAppointment = function (req: api.Request, res: express.Respo
 
         db.reservations.find(req.swagger.params.scheduleinfo.value.scheduleID && req.swagger.params.scheduleinfo.value.date && req.swagger.params.scheduleinfo.value.time).then((appointments) => {
             if (appointments) {
-                if (appointments.length < 1) {
+                if (!schedule.appointmentCapacity){
+                    res.status(BadRequest)
+                    res.send(JSON.stringify({ message: "Schedule appointmentCapacity not inputted."}, null, 2))
+                    res.end()
+                }
+                
+                if (appointments.length < schedule.appointmentCapacity) {
                     for (var i = 0; i < appointments.length; i++)
                     {
                         if(!appointments[i].userID){
