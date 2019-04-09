@@ -60,6 +60,12 @@ module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swag
     if (!req.session || !req.swagger.params.scheduleInfo) {
         return
     }
+    
+    var info = req.swagger.params.scheduleInfo;
+    
+    if (!info){
+        return;
+    }
 
     db.schedules.findOne(req.swagger.params.scheduleInfo.value.scheduleID).then((schedule) => {
 
@@ -81,8 +87,8 @@ module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swag
                     if (appointments.length < schedule.appointmentCapacity) {
                         for (var i = 0; i < appointments.length; i++)
                         {
-                            if(req.swagger.params.scheduleinfo.value.userID){
-                                appointments[i].userID = req.swagger.params.scheduleinfo.value.userID
+                            if(!appointments[i].userID && info.value.userID){
+                                appointments[i].userID = info.value.userID
                             }
                         }
                     }
