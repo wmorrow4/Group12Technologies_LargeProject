@@ -62,7 +62,7 @@ namespace Database {
             useNewUrlParser: true
         }).then(client => {
             this.client = client
-            this.db = this.client.db("mean")
+            this.db = this.client.db("matterhorn")
             this.Reservation = this.db.collection('Reservation')
             this.Schedule = this.db.collection('Schedule')
             this.User = this.db.collection('User')

@@ -263,28 +263,28 @@
 				],
 				"description": "Create an appointment",
 				"parameters": [{
-					"name": "AppointmentInfo",
+					"name": "claimappointment",
 					"in": "body",
 					"required": true,
 					"schema": {
 						"type": "object",
 						"required": [
-							"scheduleID",
-							"userID",
-							"time",
-							"date"
+							"ScheduleID",
+							"UserID",
+							"Time",
+							"Date"
 						],
 						"properties": {
-							"scheduleID": {
+							"ScheduleID": {
 								"type": "string"
 							},
-							"userID": {
+							"UserID": {
 								"type": "string"
 							},
-							"time": {
+							"Time": {
 								"type": "string"
 							},
-							"date": {
+							"Date": {
 								"type": "string"
 							}
 						}
@@ -306,6 +306,49 @@
 				}
 			}
 		},
+		"/ListmySchedules": {
+			"post": {
+				"x-swagger-router-controller": "Auxiliary",
+				"operationId": "ListmySchedules",
+				"tags": [
+					"/ListmySchedules"
+				],
+				"description": "Lists created schedules.",
+				"parameters": [{
+					"name": "searchInfo",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"required": [
+							"SchedulerID"
+						],
+						"properties": {
+							"SchedulerID": {
+								"type": "string"
+							}
+						}
+					}
+				}],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "return array of schedule objects",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Schedule"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/ListSchedules": {
 			"post": {
 				"x-swagger-router-controller": "Auxiliary",
@@ -315,7 +358,7 @@
 				],
 				"description": "Lists created schedules of scheduler.",
 				"parameters": [{
-					"name": "Schedules",
+					"name": "list",
 					"in": "body",
 					"required": true,
 					"schema": {
@@ -358,24 +401,24 @@
 				],
 				"description": "Removes an interval from a schedule",
 				"parameters": [{
-					"name": "interval",
+					"name": "removeinterval",
 					"in": "body",
 					"required": true,
 					"schema": {
 						"type": "object",
 						"required": [
 							"ScheduleID",
-							"date",
-							"time"
+							"Date",
+							"Time"
 						],
 						"properties": {
 							"ScheduleID": {
 								"type": "string"
 							},
-							"date": {
+							"Date": {
 								"type": "string"
 							},
-							"time": {
+							"Time": {
 								"type": "string"
 							}
 						}
@@ -433,7 +476,7 @@
 						"schema": {
 							"type": "array",
 							"items": {
-								"$ref": "#/definitions/SchedulerInfo"
+								"$ref": "#/definitions/Scheduler"
 							}
 						}
 					}
@@ -449,7 +492,7 @@
 				],
 				"description": "Apply changes to current user info",
 				"parameters": [{
-					"name": "user info",
+					"name": "user",
 					"in": "body",
 					"required": true,
 					"schema": {
@@ -457,7 +500,7 @@
 								"$ref": "#/definitions/ObjectID"
 							},
 							{
-								"$ref": "#/definitions/UserInfo"
+								"$ref": "#/definitions/User"
 							}
 						]
 					}
@@ -487,7 +530,7 @@
 				],
 				"description": "Apply changes to current scheduler info",
 				"parameters": [{
-					"name": "scheduler info",
+					"name": "scheduler",
 					"in": "body",
 					"required": true,
 					"schema": {
@@ -495,7 +538,7 @@
 								"$ref": "#/definitions/ObjectID"
 							},
 							{
-								"$ref": "#/definitions/SchedulerInfo"
+								"$ref": "#/definitions/Scheduler"
 							}
 						]
 					}
@@ -549,7 +592,7 @@
 						"schema": {
 							"type": "array",
 							"items": {
-								"$ref": "#/definitions/Appointment"
+								"$ref": "#/definitions/Reservation"
 							}
 						}
 					}
@@ -566,7 +609,7 @@
 				"description": "Adds a new schedule",
 				"parameters": [
 					{
-						"name": "singleSchedule",
+						"name": "schedule",
 						"in": "body",
 						"required": true,
 						"schema": {
@@ -600,7 +643,7 @@
 				"description": "Delete a Schedule for User of the current session",
 				"parameters": [
 					{
-						"name": "singleSchedule",
+						"name": "schedule",
 						"in": "body",
 						"required": true,
 						"schema": {
@@ -608,7 +651,6 @@
 						}
 					}
 				],
-	
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -620,34 +662,6 @@
 						"description": "Successful request.",
 						"schema": {
 							"$ref": "#/definitions/Success"
-						}
-					}
-				}
-			}
-		},
-		"/ViewSchedule": {
-			"post": {
-				"x-swagger-router-controller": "Schedule",
-				"operationId": "ViewSchedule",
-				"tags": [
-					"/ViewSchedule"
-				],
-				"description": "fetches a scheduler's existing schedule in the db.",
-				"parameters": [],
-				"responses": {
-					"default": {
-						"description": "Invalid request.",
-						"schema": {
-							"$ref": "#/definitions/Error"
-						}
-					},
-					"200": {
-						"description": "return array of contact objects",
-						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/Schedule"
-							}
 						}
 					}
 				}
@@ -665,20 +679,25 @@
 					"_id"
 				]
 			},
-			"Appointment": {
+			"Reservation": {
 				"properties": {
-					"scheduleID": {
+					"ScheduleID": {
 						"type": "string"
 					},
-					"date": {
+					"Date": {
 						"type": "string"
 					},
-					"time": {
+					"Time": {
 						"type": "string"
 					}
-				}
+				},
+				"required": [
+					"ScheduleID",
+					"Date",
+					"Time"
+				]
 			},
-			"UserInfo": {
+			"User": {
 				"properties": {
 					"username": {
 						"type": "string"
@@ -692,7 +711,7 @@
 					"appointments": {
 						"type": "array",
 							"items": {
-								"$ref": "#/definitions/Appointment"
+								"$ref": "#/definitions/Reservation"
 							}
 					}
 	
@@ -704,9 +723,9 @@
 					"appointments"
 				]
 			},
-			"SchedulerInfo": {
+			"Scheduler": {
 				"properties": {
-					"schedulerName": {
+					"name": {
 						"type": "string"
 					},
 					"username": {
@@ -715,10 +734,9 @@
 					"password": {
 						"type": "string"
 					}
-	
 				},
 				"required": [
-					"schedulerName",
+					"name",
 					"username",
 					"password"
 				]

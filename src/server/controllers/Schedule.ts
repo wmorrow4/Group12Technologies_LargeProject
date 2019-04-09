@@ -8,6 +8,9 @@ import api = require('../api')
 import ApiSchedule = db.Schedule
 import ApiReservation = db.Reservation
 import ApiObjectID = db.ObjectID
+import ApiUser = db.User
+import ApiScheduler = db.Scheduler
+
 
 import {
     MongoError,
@@ -25,12 +28,12 @@ const inspect = (input: any) => util.inspect(input, false, Infinity, true)
 
 // Make sure this matches the Swagger.json body parameter for the /schedule API
 interface CreateSchedulePayload {
-    Schedule: swaggerTools.SwaggerRequestParameter<ApiSchedule>
+    schedule: swaggerTools.SwaggerRequestParameter<ApiSchedule>
     [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiSchedule> | undefined;
 }
 
 interface DeleteSchedulePayload {
-    Schedule: swaggerTools.SwaggerRequestParameter<ApiObjectID>
+    schedule: swaggerTools.SwaggerRequestParameter<ApiObjectID>
     [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiObjectID> | undefined;
 }
 
@@ -55,9 +58,9 @@ module.exports.CreateSchedule = function (req: api.Request & swaggerTools.Swagge
          //   res.send(JSON.stringify({ message: "Login required" }, null, 2))
         //    res.end()
        // }
-        if (req.swagger.params.Schedule.value.schedule_name && req.swagger.params.Schedule.value.average_appointment_length && req.swagger.params.Schedule.value.max_capacity && req.swagger.params.Schedule.value.M && req.swagger.params.Schedule.value.T && req.swagger.params.Schedule.value.W && req.swagger.params.Schedule.value.Th && req.swagger.params.Schedule.value.F && req.swagger.params.Schedule.value.S && req.swagger.params.Schedule.value.Su) {
+        if (req.swagger.params.schedule.value.schedule_name && req.swagger.params.schedule.value.average_appointment_length && req.swagger.params.schedule.value.max_capacity && req.swagger.params.schedule.value.M && req.swagger.params.schedule.value.T && req.swagger.params.schedule.value.W && req.swagger.params.schedule.value.Th && req.swagger.params.schedule.value.F && req.swagger.params.schedule.value.S && req.swagger.params.schedule.value.Su) {
 
-            var scheduleObject = req.swagger.params.Schedule.value;
+            var scheduleObject = req.swagger.params.schedule.value;
             scheduleObject.schedulerID = new ObjectID(req.session.userid);
 
             db.Schedule.insertOne(scheduleObject, function (err: MongoError, result: InsertOneWriteOpResult) {
@@ -87,7 +90,7 @@ module.exports.deleteSchedule = function (req: api.Request & swaggerTools.Swagge
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
     res.setHeader('Content-Type', 'application/json')
 
-    var scheduleObject = req.swagger.params.Schedule.value;
+    var scheduleObject = req.swagger.params.schedule.value;
 
     // Check that we're logged in
     if (!req.session || !req.session.username) {
@@ -141,7 +144,7 @@ module.exports.deleteSchedule = function (req: api.Request & swaggerTools.Swagge
 
         }
     })
-}
+};
 
 module.exports.removeInterval = function (req: api.Request & swaggerTools.Swagger20Request<RemoveIntervalPayload>, res: express.Response) {
 
@@ -196,7 +199,7 @@ module.exports.removeInterval = function (req: api.Request & swaggerTools.Swagge
                             ]
                         }).toArray().then((data) => {
                             if (data) {
-                                if((data.length + 1) >= removeintervalObject.max_capacity){
+                                if ((data.length + 1) >= removeintervalObject.max_capacity){
                                     res.status(BadRequest)
                                     res.send(JSON.stringify({ message: "Appointment capacity is full" }, null, 2))
                                     res.end()
@@ -232,7 +235,6 @@ module.exports.removeInterval = function (req: api.Request & swaggerTools.Swagge
                                 res.status(OK)
                                 res.send(JSON.stringify({ message: "Removed Interval Successfully " }, null, 2))
                                 res.end()
-                                console.log("1 document deleted");
                             }
                         })
                     }
