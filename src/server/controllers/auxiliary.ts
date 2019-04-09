@@ -61,10 +61,10 @@ module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swag
         return
     }
 
-    db.schedules.findOne(req.swagger.scheduleinfo.value.scheduleID).then((schedule) => {
+    db.schedules.findOne(req.swagger.params.schedules.scheduleinfo.value.scheduleID).then((schedule) => {
 
         if (schedule){
-            db.reservations.find(req.swagger.params.scheduleinfo.value.scheduleID && req.swagger.params.scheduleinfo.value.date && req.swagger.params.scheduleinfo.value.time).then((appointments) => {
+            db.reservations.find(req.swagger.params.reservations.scheduleinfo.value.scheduleID && req.swagger.params.reservations.scheduleinfo.value.date && req.swagger.params.reservations.scheduleinfo.value.time).then((appointments) => {
                 if (appointments) {
                     if (appointments.length < schedule.appointmentCapacity) {
                         for (var i = 0; i < appointments.length; i++)
