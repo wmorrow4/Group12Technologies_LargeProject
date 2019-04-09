@@ -64,7 +64,19 @@ module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swag
     db.schedules.findOne(req.swagger.params.scheduleInfo.value.scheduleID).then((schedule) => {
 
         if (schedule){
-            db.reservations.find(req.swagger.params.reservations.scheduleinfo.value.scheduleID && req.swagger.params.reservations.scheduleinfo.value.date && req.swagger.params.reservations.scheduleinfo.value.time).toArray().then((appointments) => {
+            db.reservations.find({
+                $and: [
+                    {
+                        scheduleID: req.swagger.params.scheduleInfo.value.scheduleID
+                    },
+                    {
+                        date: req.swagger.params.scheduleInfo.value.Date
+                    },
+                    {
+                        time: req.swagger.params.scheduleInfo.value.Time
+                    }
+                ]
+            }) .toArray().then((appointments) => {
                 if (appointments) {
                     if (appointments.length < schedule.appointmentCapacity) {
                         for (var i = 0; i < appointments.length; i++)
