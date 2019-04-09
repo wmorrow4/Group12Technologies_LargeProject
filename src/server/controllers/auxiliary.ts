@@ -57,7 +57,7 @@ module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swag
 
     res.setHeader('Content-Type', 'application/json')
 
-    if (!req.session || !req.swagger.params.scheduleInfo) {
+    if (!req.session) {
         return
     }
     
@@ -67,23 +67,23 @@ module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swag
         return;
     }
 
-    db.schedules.findOne(req.swagger.params.scheduleInfo.value.scheduleID).then((schedule) => {
+    db.schedules.findOne(info.value.scheduleID).then((schedule) => {
 
-        if (schedule && req.swagger.params.scheduleInfo){
+        if (schedule){
             db.reservations.find({
                 $and: [
                     {
-                        scheduleID: req.swagger.params.scheduleInfo.value.scheduleID
+                        scheduleID: info.value.scheduleID
                     },
                     {
-                        date: req.swagger.params.scheduleInfo.value.date
+                        date: info.value.date
                     },
                     {
-                        time: req.swagger.params.scheduleInfo.value.time
+                        time: info.value.time
                     }
                 ]
             }) .toArray().then((appointments) => {
-                if (appointments && req.swagger.params.scheduleInfo) {
+                if (appointments) {
                     if (appointments.length < schedule.appointmentCapacity) {
                         for (var i = 0; i < appointments.length; i++)
                         {
