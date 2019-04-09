@@ -32,8 +32,8 @@ interface UserEditPayload {
 }
 // may need to change parameter name: "scheduler info" to scheduler in swagger
 interface SchedulerEditPayload {
-    scheduler: swaggerTools.SwaggerRequestParameter<ApiSchedulerInfo | ApiObjectID>
-    [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiSchedulerInfo | ApiObjectID> | undefined;
+    scheduler: swaggerTools.SwaggerRequestParameter<ApiSchedulerInfo & ApiObjectID>
+    [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiSchedulerInfo & ApiObjectID> | undefined;
 }
 
 interface ListSchedulesPayload {
@@ -47,8 +47,8 @@ interface ListAppointmentsPayload {
 }
 
 interface ClaimAppointmentPayload {
-    searchInfo: swaggerTools.SwaggerRequestParameter<ApiReservations & ApiSchedules>
-    [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiReservations & ApiSchedules> | undefined;
+    searchInfo: swaggerTools.SwaggerRequestParameter<ApiReservations | ApiSchedules>
+    [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiReservations | ApiSchedules> | undefined;
 }
 
 module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swagger20Request<ClaimAppointmentPayload>, res: express.Response) {
