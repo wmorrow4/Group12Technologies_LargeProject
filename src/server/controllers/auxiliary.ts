@@ -81,7 +81,7 @@ module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swag
                     if (appointments.length < schedule.appointmentCapacity) {
                         for (var i = 0; i < appointments.length; i++)
                         {
-                            if(req.swagger.params.scheduleInfo && !appointments[i].userID && req.swagger.params.scheduleinfo.value.userID){
+                            if(req.swagger.params.scheduleinfo.value.userID){
                                 appointments[i].userID = req.swagger.params.scheduleinfo.value.userID
                             }
                         }
