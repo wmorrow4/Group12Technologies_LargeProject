@@ -32,8 +32,8 @@ interface UserEditPayload {
 }
 // may need to change parameter name: "scheduler info" to scheduler in swagger
 interface SchedulerEditPayload {
-    scheduler: swaggerTools.SwaggerRequestParameter<ApiSchedulerInfo & ApiObjectID>
-    [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiSchedulerInfo & ApiObjectID> | undefined;
+    scheduler: swaggerTools.SwaggerRequestParameter<ApiSchedulerInfo | ApiObjectID>
+    [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiSchedulerInfo | ApiObjectID> | undefined;
 }
 
 interface ListSchedulesPayload {
