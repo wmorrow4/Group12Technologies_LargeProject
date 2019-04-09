@@ -201,7 +201,7 @@ module.exports.ListAppointments = function (req: api.Request & swaggerTools.Swag
     }
 
     db.reservations.find({
-            belongsTo: new ObjectID(req.session.logid)
+            userID: new ObjectID(req.session.logid)
         }).toArray().then((data) => {
      
             if (data) {
