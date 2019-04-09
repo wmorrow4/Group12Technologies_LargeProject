@@ -46,12 +46,63 @@ interface ListAppointmentsPayload {
     [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiReservations> | undefined;
 }
 
-module.exports.ClaimAppointment = function (req: any, res: any, next: any) {
-    // print out the params
-    console.log(inspect(req.swagger.params))
+module.exports.ClaimAppointment = function (req: api.Request, res: express.Response) {
+    
+    console.log(util.inspect(req.swagger.params, false, Infinity, true))
+
     res.setHeader('Content-Type', 'application/json')
-    res.end()
-} 
+
+    if (!req.session) {
+        return
+    }
+
+    db.schedules.findOne(req.swagger.scheduleinfo.value.scheduleID).then((schedule) => {
+
+        if (!schedule){
+            res.status(BadRequest)
+            res.send(JSON.stringify({ message: "Schedule inputed did not match any known schedule."}, null, 2))
+            res.end()
+        }
+
+        db.reservations.find(req.swagger.params.scheduleinfo.value.scheduleID && req.swagger.params.scheduleinfo.value.date && req.swagger.params.scheduleinfo.value.time).then((appointments) => {
+            if (appointments) {
+
+                var length = appointments.length;
+
+                if (length < schedule.appointmentCapacity) {
+                    for (var i = 0; i < length; i++)
+                    {
+                        if(!appointments[i].userID){
+                            appointments[i].userID = req.swagger.params.scheduleinfo.value.userID
+                        }
+                    }
+                }
+                else {
+                    res.status(BadRequest)
+                    res.send(JSON.stringify({ message: "This schedule is already at full capacity."}, null, 2))
+                    res.end()
+                }
+
+                res.status(OK)
+                res.send(JSON.stringify({ message: "It worked!" }, null, 2))
+                res.end()
+            }
+            else {
+                res.status(BadRequest)
+                res.send(JSON.stringify({ message: "Appointment inputed did not match any known schedule."}, null, 2))
+                res.end()
+            }
+        }).catch((err) => {
+            res.status(InternalServerError)
+            res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+            res.end()
+        })
+    }).catch((err) => {
+        res.status(InternalServerError)
+        res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+        res.end()
+    })
+}  
 
 module.exports.ListSchedules = function (req: api.Request & swaggerTools.Swagger20Request<ListSchedulesPayload>, res: express.Response) {
 
