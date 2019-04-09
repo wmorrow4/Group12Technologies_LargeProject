@@ -66,7 +66,7 @@ module.exports.ClaimAppointment = function (req: api.Request, res: express.Respo
 
         db.reservations.find(req.swagger.params.scheduleinfo.value.scheduleID && req.swagger.params.scheduleinfo.value.date && req.swagger.params.scheduleinfo.value.time).then((appointments) => {
             if (appointments) {
-                if (appointments.length < schedule.appointmentCapacity) {
+                if (appointments.length < 1) {
                     for (var i = 0; i < appointments.length; i++)
                     {
                         if(!appointments[i].userID){
