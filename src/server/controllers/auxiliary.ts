@@ -70,10 +70,10 @@ module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swag
                         scheduleID: req.swagger.params.scheduleInfo.value.scheduleID
                     },
                     {
-                        date: req.swagger.params.scheduleInfo.value.Date
+                        date: req.swagger.params.scheduleInfo.value.date
                     },
                     {
-                        time: req.swagger.params.scheduleInfo.value.Time
+                        time: req.swagger.params.scheduleInfo.value.time
                     }
                 ]
             }) .toArray().then((appointments) => {
