@@ -58,48 +58,43 @@ module.exports.ClaimAppointment = function (req: api.Request, res: express.Respo
 
     db.schedules.findOne(req.swagger.scheduleinfo.value.scheduleID).then((schedule) => {
 
-        if (!schedule){
+        if (schedule){
+            db.reservations.find(req.swagger.params.scheduleinfo.value.scheduleID && req.swagger.params.scheduleinfo.value.date && req.swagger.params.scheduleinfo.value.time).then((appointments) => {
+                if (appointments) {
+                    if (appointments.length < schedule.appointmentCapacity) {
+                        for (var i = 0; i < appointments.length; i++)
+                        {
+                            if(!appointments[i].userID){
+                                appointments[i].userID = req.swagger.params.scheduleinfo.value.userID
+                            }
+                        }
+                    }
+                    else {
+                        res.status(BadRequest)
+                        res.send(JSON.stringify({ message: "This schedule is already at full capacity."}, null, 2))
+                        res.end()
+                    }
+
+                    res.status(OK)
+                    res.send(JSON.stringify({ message: "It worked!" }, null, 2))
+                    res.end()
+                }
+                else {
+                    res.status(BadRequest)
+                    res.send(JSON.stringify({ message: "Appointment inputed did not match any known schedule."}, null, 2))
+                    res.end()
+                }
+            }).catch((err) => {
+                res.status(InternalServerError)
+                res.send(JSON.stringify({ message: inspect(err) }, null, 2))
+                res.end()
+            })
+        }
+        else {
             res.status(BadRequest)
             res.send(JSON.stringify({ message: "Schedule inputed did not match any known schedule."}, null, 2))
             res.end()
         }
-
-        db.reservations.find(req.swagger.params.scheduleinfo.value.scheduleID && req.swagger.params.scheduleinfo.value.date && req.swagger.params.scheduleinfo.value.time).then((appointments) => {
-            if (appointments) {
-                if (!schedule.appointmentCapacity){
-                    res.status(BadRequest)
-                    res.send(JSON.stringify({ message: "Schedule appointmentCapacity not inputted."}, null, 2))
-                    res.end()
-                }
-                
-                if (appointments.length < schedule.appointmentCapacity) {
-                    for (var i = 0; i < appointments.length; i++)
-                    {
-                        if(!appointments[i].userID){
-                            appointments[i].userID = req.swagger.params.scheduleinfo.value.userID
-                        }
-                    }
-                }
-                else {
-                    res.status(BadRequest)
-                    res.send(JSON.stringify({ message: "This schedule is already at full capacity."}, null, 2))
-                    res.end()
-                }
-
-                res.status(OK)
-                res.send(JSON.stringify({ message: "It worked!" }, null, 2))
-                res.end()
-            }
-            else {
-                res.status(BadRequest)
-                res.send(JSON.stringify({ message: "Appointment inputed did not match any known schedule."}, null, 2))
-                res.end()
-            }
-        }).catch((err) => {
-            res.status(InternalServerError)
-            res.send(JSON.stringify({ message: inspect(err) }, null, 2))
-            res.end()
-        })
     }).catch((err) => {
         res.status(InternalServerError)
         res.send(JSON.stringify({ message: inspect(err) }, null, 2))
