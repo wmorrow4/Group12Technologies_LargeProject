@@ -57,7 +57,7 @@ module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swag
 
     res.setHeader('Content-Type', 'application/json')
 
-    if (!req.session) {
+    if (!req.session || !req.swagger.params.scheduleInfo) {
         return
     }
 
