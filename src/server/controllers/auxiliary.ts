@@ -69,7 +69,7 @@ module.exports.ClaimAppointment = function (req: api.Request, res: express.Respo
 
                 var length = appointments.length;
 
-                if (length < schedule.appointmentCapacity) {
+                if (length && length < schedule.appointmentCapacity) {
                     for (var i = 0; i < length; i++)
                     {
                         if(!appointments[i].userID){
