@@ -47,8 +47,8 @@ interface ListAppointmentsPayload {
 }
 
 interface ClaimAppointmentPayload {
-    searchInfo: swaggerTools.SwaggerRequestParameter<ApiSchedules>
-    [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiSchedules> | undefined;
+    searchInfo: swaggerTools.SwaggerRequestParameter<ApiReservations>
+    [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiReservations> | undefined;
 }
 
 module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swagger20Request<ClaimAppointmentPayload>, res: express.Response) {
