@@ -51,7 +51,7 @@ interface ClaimAppointmentPayload {
     [paramName: string]: swaggerTools.SwaggerRequestParameter<ApiReservations> | undefined;
 }
 
-module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swagger20Request<ClaimAppointmentPayload>, res: express.Response) {
+module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swagger20Request<ClaimAppointmentPayload> & swaggerTools.Swagger20Request<ListSchedulesPayload>, res: express.Response) {
     
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
 
