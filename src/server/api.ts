@@ -8,8 +8,9 @@ namespace Api {
     }
 
     export interface Session {
-        username: string,
-        userid: string
+        email: string,
+        logid: string,
+        type: string
     }
 }
 

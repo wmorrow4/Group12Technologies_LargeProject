@@ -5,9 +5,9 @@ async function go() {
     await db.connectToMongo()
     if (await db.db.listCollections({ name: 'Scheduler' }).hasNext())
         await db.Scheduler.drop()
-    if (await db.db.listCollections({ name: 'Schedules' }).hasNext())
+    if (await db.db.listCollections({ name: 'Schedule' }).hasNext())
         await db.Schedule.drop()
-    if (await db.db.listCollections({ name: 'Reservations' }).hasNext())
+    if (await db.db.listCollections({ name: 'Reservation' }).hasNext())
         await db.Reservation.drop()
     db.disconnectFromMongo()
     return "Success!!"

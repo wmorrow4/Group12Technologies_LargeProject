@@ -53,15 +53,15 @@ module.exports.CreateSchedule = function (req: api.Request & swaggerTools.Swagge
             res.send(JSON.stringify({ message: "Invalid session" }, null, 2))
             res.end()
         }
-       // if (!req.session.username) {
-        //    res.status(BadRequest)
-         //   res.send(JSON.stringify({ message: "Login required" }, null, 2))
-        //    res.end()
-       // }
+        if (!req.session.email) {
+            res.status(BadRequest)
+            res.send(JSON.stringify({ message: "Login required" }, null, 2))
+            res.end()
+        }
         if (req.swagger.params.schedule.value.schedule_name && req.swagger.params.schedule.value.average_appointment_length && req.swagger.params.schedule.value.max_capacity && req.swagger.params.schedule.value.M && req.swagger.params.schedule.value.T && req.swagger.params.schedule.value.W && req.swagger.params.schedule.value.Th && req.swagger.params.schedule.value.F && req.swagger.params.schedule.value.S && req.swagger.params.schedule.value.Su) {
 
             var scheduleObject = req.swagger.params.schedule.value;
-            scheduleObject.schedulerID = new ObjectID(req.session.userid);
+            scheduleObject.schedulerID = new ObjectID(req.session.logid);
 
             db.Schedule.insertOne(scheduleObject, function (err: MongoError, result: InsertOneWriteOpResult) {
                 if (err) {
@@ -93,7 +93,7 @@ module.exports.deleteSchedule = function (req: api.Request & swaggerTools.Swagge
     var scheduleObject = req.swagger.params.schedule.value;
 
     // Check that we're logged in
-    if (!req.session || !req.session.username) {
+    if (!req.session || !req.session.email) {
         // no session or yes session and no username
         res.status(BadRequest)
         res.send(JSON.stringify({ message: "You are not currently logged in, login in to delete schedule" }, null, 2))
@@ -116,7 +116,7 @@ module.exports.deleteSchedule = function (req: api.Request & swaggerTools.Swagge
         }
         else {
             // TODO: check to see if Schedule belongs to this user.
-                if (!result.schedulerID.equals(req.session.userid)) {
+                if (!result.schedulerID.equals(req.session.logid)) {
                     res.status(BadRequest)
                     res.send(JSON.stringify({ message: "This schedule doesnt belong to the current user" }, null, 2))
                     res.end()
@@ -154,7 +154,7 @@ module.exports.removeInterval = function (req: api.Request & swaggerTools.Swagge
 
     var removeintervalObject = req.swagger.params.removeinterval.value;
 
-    // Check that we're logged in
+    /* Check that we're logged in
     if (!req.session || !req.session.username) {
         // no session or yes session and no username
         res.status(BadRequest)
@@ -162,7 +162,7 @@ module.exports.removeInterval = function (req: api.Request & swaggerTools.Swagge
         res.end()
         return;
     }
-
+    */
     // Check that the schedule exists and actually belongs to this scheduler.
     db.Schedule.findOne({ _id: new MongoObjectID(removeintervalObject.s_id) }, function (err: MongoError, result: ApiSchedule | null) {
         // TODO: check to see if result is a thing.
@@ -178,7 +178,7 @@ module.exports.removeInterval = function (req: api.Request & swaggerTools.Swagge
         }
         else {
             // TODO: check to see if Schedule belongs to this user.
-                if (!result.schedulerID.equals(req.session.userid)) {
+                if (!result.schedulerID.equals(req.session.logid)) {
                     res.status(BadRequest)
                     res.send(JSON.stringify({ message: "This schedule doesnt belong to the current user" }, null, 2))
                     res.end()

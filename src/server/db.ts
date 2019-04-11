@@ -9,9 +9,9 @@ namespace Database {
 
    export interface Scheduler {
        schedulerID: mongodb.ObjectID
-       username: string,
+       email: string,
        password: string,
-       name: string
+       group: string
    }
    
     export interface Schedule {
@@ -38,7 +38,8 @@ namespace Database {
 
     export interface User {
         _id: mongodb.ObjectID
-        username: string,
+        firstname: string,
+        lastname: string,
         password: string,
         email: string
     }
@@ -62,7 +63,7 @@ namespace Database {
             useNewUrlParser: true
         }).then(client => {
             this.client = client
-            this.db = this.client.db("matterhorn")
+            this.db = this.client.db("mean")
             this.Reservation = this.db.collection('Reservation')
             this.Schedule = this.db.collection('Schedule')
             this.User = this.db.collection('User')

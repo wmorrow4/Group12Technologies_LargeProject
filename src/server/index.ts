@@ -37,11 +37,11 @@ app.use(session({
 app.use((req, res, next) => {
     const apiRequest = (<api.Request>req)
     // convert user session into user cookie
-    if (apiRequest.session && apiRequest.session.username) {
-        res.cookie('username', apiRequest.session.username)
+    if (apiRequest.session && apiRequest.session.email) {
+        res.cookie('email', apiRequest.session.email)
     }
     else {
-        res.clearCookie('username')
+        res.clearCookie('email')
     }
     next();
 });

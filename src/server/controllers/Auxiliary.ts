@@ -74,7 +74,7 @@ module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swag
         res.send(JSON.stringify({ message: "Invalid session" }, null, 2))
         res.end()
     }
-    if (!req.session.username) {
+    if (!req.session.email) {
         res.status(BadRequest)
         res.send(JSON.stringify({ message: "Login required"}, null, 2))
         res.end()
@@ -160,7 +160,7 @@ module.exports.ListmySchedules = function (req: api.Request & swaggerTools.Swagg
     }
     
     db.Schedule.find({
-        schedulerID: new ObjectID(req.session.userid)
+        schedulerID: new ObjectID(req.session.logid)
     }).toArray().then((data) => {
         if (data) {
             res.status(OK)
@@ -213,18 +213,18 @@ module.exports.SchedulerEditInfo = function (req: api.Request & swaggerTools.Swa
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
     res.setHeader('Content-Type', 'application/json')
 
-    if (req.session && req.session.userid) {
+    if (req.session && req.session.logid) {
         db.Scheduler.find({
             _id: new ObjectID(req.swagger.params.scheduler.value._id)
         }).toArray().then((data) => {
             if (data.length) {
-                if (data[0].schedulerID.equals(new ObjectID(req.session.userid))) {
+                if (data[0].schedulerID.equals(new ObjectID(req.session.logid))) {
                     db.Scheduler.replaceOne({
                         _id: new ObjectID(req.swagger.params.scheduler.value._id)
                     }, {
                             schedulerID: data[0].schedulerID,
-                            name: req.swagger.params.scheduler.value.name,
-                            username: req.swagger.params.scheduler.value.username,
+                            group: req.swagger.params.scheduler.value.group,
+                            email: req.swagger.params.scheduler.value.email,
                             password: req.swagger.params.scheduler.value.password,
                         }).then(updateWriteOpResult => {
                             res.status(OK)
@@ -238,7 +238,7 @@ module.exports.SchedulerEditInfo = function (req: api.Request & swaggerTools.Swa
                 }
                 else {
                     res.status(BadRequest)
-                    res.send(JSON.stringify({ message: `Could not update info ${req.session.username}:${req.session.userid}` }, null, 2))
+                    res.send(JSON.stringify({ message: `Could not update info ${req.session.email}:${req.session.logid}` }, null, 2))
                     res.end()
                 }
             }
@@ -265,17 +265,18 @@ module.exports.UserEditInfo = function (req: api.Request & swaggerTools.Swagger2
     console.log(util.inspect(req.swagger.params, false, Infinity, true))
     res.setHeader('Content-Type', 'application/json')
 
-    if (req.session && req.session.userid) {
+    if (req.session && req.session.logid) {
         db.User.find({
             _id: new ObjectID(req.swagger.params.user.value._id)
         }).toArray().then((data) => {
             if (data.length) {
-                if (data[0]._id.equals(new ObjectID(req.session.userid))) {
+                if (data[0]._id.equals(new ObjectID(req.session.logid))) {
                     db.User.replaceOne({
                         _id: new ObjectID(req.swagger.params.user.value._id)
                     }, {
                             _id: data[0]._id,
-                            username: req.swagger.params.user.value.username,
+                            firstname: req.swagger.params.user.value.firstname,
+                            lastname: req.swagger.params.user.value.lastname,
                             email: req.swagger.params.user.value.email,
                             password: req.swagger.params.user.value.password,
                         }).then(updateWriteOpResult => {
@@ -290,7 +291,7 @@ module.exports.UserEditInfo = function (req: api.Request & swaggerTools.Swagger2
                 }
                 else {
                     res.status(BadRequest)
-                    res.send(JSON.stringify({ message: `Could not update info ${req.session.username}:${req.session.userid}` }, null, 2))
+                    res.send(JSON.stringify({ message: `Could not update info ${req.session.email}:${req.session.logid}` }, null, 2))
                     res.end()
                 }
             }
@@ -323,7 +324,7 @@ module.exports.ListAppointments = function (req: api.Request & swaggerTools.Swag
     }
 
     db.Reservation.find({
-            UserID: new ObjectID(req.session.userid)
+            UserID: new ObjectID(req.session.logid)
         }).toArray().then((data) => {
      
             if (data) {

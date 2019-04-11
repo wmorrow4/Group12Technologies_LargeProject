@@ -25,12 +25,12 @@
 					"schema": {
 						"type": "object",
 						"required": [
-							"name",
+							"group",
 							"email",
 							"password"
 						],
 						"properties": {
-							"name": {
+							"group": {
 								"type": "string",
 								"example": "company"
 							},
@@ -699,7 +699,10 @@
 			},
 			"User": {
 				"properties": {
-					"username": {
+					"firstname": {
+						"type": "string"
+					},
+					"lastname": {
 						"type": "string"
 					},
 					"email": {
@@ -717,7 +720,8 @@
 	
 				},
 				"required": [
-					"username",
+					"firstname",
+					"lastname",
 					"email",
 					"password",
 					"appointments"
@@ -725,10 +729,10 @@
 			},
 			"Scheduler": {
 				"properties": {
-					"name": {
+					"group": {
 						"type": "string"
 					},
-					"username": {
+					"email": {
 						"type": "string"
 					},
 					"password": {
@@ -736,8 +740,8 @@
 					}
 				},
 				"required": [
-					"name",
-					"username",
+					"group",
+					"email",
 					"password"
 				]
 			},	
