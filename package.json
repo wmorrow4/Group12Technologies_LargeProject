@@ -32,6 +32,7 @@
     "mongodb": "^3.1.13",
     "motion-ui": "^2.0.3",
     "node": "^11.10.0",
+    "source-map-support": "^0.5.12",
     "swagger-tools": "^0.10.4",
     "typescript": "^3.2.4",
     "what-input": "^5.1.2"
