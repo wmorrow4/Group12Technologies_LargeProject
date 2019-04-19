@@ -1,0 +1,9 @@
+{
+	"_id": <ObjectId>,
+	"name": <string>,
+	"email": <string>,
+	"phone": {
+		"mobile": <string>,
+		"work": <string>
+	}
+}
