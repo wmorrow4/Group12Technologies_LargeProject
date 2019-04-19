@@ -1,20 +1,23 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
-    "baseUrl": "src",
-    "sourceMap": true,
-    "declaration": false,
+    "module": "commonjs",
+    "lib": ["esnext", "dom","dom.iterable","scripthost"],
+    "target": "esnext",
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2016",
-      "dom"
-    ]
-  }
+    "sourceMap": true,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "node_modules/*"
+      ]
+    },
+    "typeRoots" : ["./node_modules/@types", "./typings"]
+  },
+  "include": [
+    "src/**/*"
+  ]
 }

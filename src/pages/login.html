@@ -1,0 +1,48 @@
+<script>
+  window.load = function () {
+    var $ = window.jQuery
+    $('.animated').one('animationend', function(){
+        $('body').css('overflow-y', 'initial');
+    });
+  }
+</script>
+<div class="grid-container">
+  <div class="grid-x grid-padding-x">
+    <div class="cell small-12 medium-8 large-6">
+<!--
+      <form id="loginForm" class="login-form">
+        <h4 class="text-center">Log in to access the site</h4>
+        <label>Username
+          <input id="username" type="text" placeholder="You">
+        </label>
+        <label>Password
+          <input id="password" type="password" placeholder="Your Password">
+        </label>
+        <p><input type="submit" class="button expanded" value="Log in"></input></p>
+      </form>
+-->      
+      <form data-abide novalidate id="SchedulerLoginForm" class="login-form animated bounceInUp">
+        <div data-abide-error class="alert callout" style="display: none;">
+          <p><i class="fi-alert"></i> There are some errors in your form.</p>
+        </div>
+
+        <h4 class="text-center">Sign up to access the site</h4>
+        <label>Email
+          <input type="text" id="email" placeholder="jWick" pattern="email" aria-describedby="usernameHint" aria-errormessage="usernameError"
+            required>
+          <span class="form-error" id="usernameError">
+            Email is required.
+          </span>
+        </label>
+        <label>Password
+          <input type="password" id="password" placeholder="yeti4preZ" aria-describedby="passwordHint"
+            aria-errormessage="passwordError" required>
+          <span class="form-error" id="passwordError">
+            Password is required.
+          </span>
+        </label>
+        <p><input type="submit" class="button expanded" value="Log in"></input></p>
+      </form>
+    </div>
+  </div>
+</div>

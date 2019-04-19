@@ -1,0 +1,126 @@
+<div class="reveal" id="createScheduleModal" data-reveal>
+  <h1>Create Schedule</h1>
+  <form data-abide novalidate id="createScheduleForm">
+    <div data-abide-error class="alert callout" style="display: none;">
+      <p><i class="fi-alert"></i> There are some errors in your form.</p>
+    </div>
+
+    <label>Schedule Name
+      <input type="text" id="schedule_name" placeholder="Dr. Wick's Appointments" aria-describedby="scheduleHint" aria-errormessage="scheduleError"
+        required>
+      <span class="form-error" id="scheduleError">
+        Required!
+      </span>
+    </label>
+    <p class="help-text" id="scheduleHint">Enter a schedule name please.</p>
+
+    <label>Appointment Length (Minutes)
+      <ul class="dropdown menu" id="average_appointment_length" aria-describedby="appLengthHint" aria-errormessage="appLengthError"
+        required data-dropdown-menu>
+		  <li><a href="#">30</a></li>
+		  <li><a href="#">60</a></li>
+	  </ul>
+      <span class="form-error" id="appLengthError">
+        Required!
+      </span>
+    </label>
+    <p class="help-text" id="appLengthHint">Choose an appointment length.</p>
+
+    <label>Appointment Capacity
+      <input type="text" id="max_capacity" placeholder="10" aria-describedby="appCapacityHint" aria-errormessage="appCapacityError"
+        required>
+      <span class="form-error" id="appCapacityError">
+        Required!
+      </span>
+    </label>
+    <p class="help-text" id="appCapacityHint">Enter how many people can make an appointment at a single interval.</p>
+
+    <label>Monday
+      <input type="text" id="M" placeholder="00:00-23:00" aria-describedby="mondayHint" aria-errormessage="mondayError"
+        required>
+      <span class="form-error" id="mondayError">
+        Required!
+      </span>
+    </label>
+    <p class="help-text" id="mondayHint">Enter valid time in military time.</p>
+	  
+	<label>Tuesday
+      <input type="text" id="T" placeholder="00:00-23:00" aria-describedby="tuesdayHint" aria-errormessage="tuesdayError"
+        required>
+      <span class="form-error" id="tuesdayError">
+        Required!
+      </span>
+    </label>
+    <p class="help-text" id="tuesdayHint">Enter valid time in military time.</p>
+
+	<label>Wednesday
+      <input type="text" id="W" placeholder="00:00-23:00" aria-describedby="wednesdayHint" aria-errormessage="wednesdayError"
+        required>
+      <span class="form-error" id="wednesdayError">
+        Required!
+      </span>
+    </label>
+    <p class="help-text" id="wednesdayHint">Enter valid time in military time.</p>
+	  
+	<label>Thursday
+      <input type="text" id="Th" placeholder="00:00-23:00" aria-describedby="thursdayHint" aria-errormessage="thursdayError"
+        required>
+      <span class="form-error" id="thursdayError">
+        Required!
+      </span>
+    </label>
+    <p class="help-text" id="thursdayHint">Enter valid time in military time.</p>
+	  
+	<label>Friday
+      <input type="text" id="F" placeholder="00:00-23:00" aria-describedby="fridayHint" aria-errormessage="fridayError"
+        required>
+      <span class="form-error" id="fridayError">
+        Required!
+      </span>
+    </label>
+    <p class="help-text" id="fridayHint">Enter valid time in military time.</p>
+	  
+	<label>Saturday
+      <input type="text" id="S" placeholder="00:00-23:00" aria-describedby="saturdayHint" aria-errormessage="saturdayError"
+        required>
+      <span class="form-error" id="saturdayError">
+        Required!
+      </span>
+    </label>
+    <p class="help-text" id="saturdayHint">Enter valid time in military time.</p>
+	  
+	<label>Sunday
+      <input type="text" id="Su" placeholder="00:00-23:00" aria-describedby="sundayHint" aria-errormessage="sundayError"
+        required>
+      <span class="form-error" id="sundayError">
+        Required!
+      </span>
+    </label>
+    <p class="help-text" id="sundayHint">Enter valid time in military time.</p>
+	
+    <p><input type="submit" class="button expanded" value="Create Schedule"></input></p>
+  </form>
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="reveal" id="deleteScheduleModal" data-reveal>
+  <h1>Delete Schedule</h1>
+    <p>Are you sure you want to permanently delete <span id="schedulenameDelete"></span>?</p>
+    <p><button id="deleteScheduleButton" class="button alert">Delete Schedule</button></p>
+      <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div id="splashDiv" class="grid-container">
+  <div class="grid-x grid-padding-x">
+    <div class="large-12 cell">
+      <h1>Matterhorn Schedule System</h1>
+    </div>
+  </div>
+</div>
+<div class="grid-container">
+  <div id="contactsDiv" class="grid-x grid-padding-x small-up-1 medium-up-3 large-up-5">
+  </div>
+</div>

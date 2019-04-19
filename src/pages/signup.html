@@ -1,0 +1,49 @@
+<div class="grid-container">
+  <div class="grid-x grid-padding-x">
+    <div class="cell small-12 medium-8 large-6">
+      <h3>End User License Agreement</h3>
+      <p>Peepeepoopoo</p>
+      <p><input id="termsAndConditions" type="checkbox"><label for="termsAndConditions">I agree to these terms and
+          conditions as they have been laid out to me.</label></p>
+      <form data-abide novalidate id="SchedulerSignupForm" class="login-form animated" style="display: none;">
+        <div data-abide-error class="alert callout" style="display: none;">
+          <p><i class="fi-alert"></i> There are some errors in your form.</p>
+        </div>
+
+      <h4 class="text-center">Sign up to access the site</h4>
+        
+		  <label>Group Name
+		    <input type="text" id="group" placeholder="Big Boy Group" aria-describedby="groupnameHint" aria-errormessage="groupnameError"
+          required>
+        <span class="form-error" id="groupError">
+          Group name is required.
+        </span>
+		  </label>
+      <p class="help-text" id="groupHint">Pick your group name.</p>
+      <label>Password Required
+        <input type="password" id="password" placeholder="yeti4preZ" aria-describedby="passwordHint"
+          aria-errormessage="passwordError" required>
+        <span class="form-error" id="passwordError">
+          Password is required.
+        </span>
+      </label>
+      <p class="help-text" id="passwordHint">Enter a password please.</p>
+      <label>Re-enter Password
+        <input type="password" placeholder="yeti4preZ" aria-describedby="passwordHint2" aria-errormessage="passwordError2"
+          required pattern="alpha_numeric" data-equalto="password">
+        <span class="form-error" id="passwordError2">
+          Passwords need to match!
+        </span>
+      </label>
+      <p class="help-text" id="passwordHint2">This needs to match the password above.</p>
+      <label>Email address
+        <input type="text" id="email" placeholder="you@example.com" pattern="email" required>
+        <span class="form-error" id="passwordError2">
+          Enter a valid email address.
+        </span>
+      </label>
+      <p><input type="submit" class="button expanded" value="Sign Up"></input></p>
+      </form>
+    </div>
+  </div>
+</div>
