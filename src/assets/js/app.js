@@ -64,7 +64,7 @@ $('#createScheduleButton').on('click', (evt) => {
 
 $("#createScheduleForm").on("formvalid.zf.abide", function (ev, frm) {
     $.ajax({
-        url: '/api/createSchedule',
+        url: '/api/CreateSchedule',
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
@@ -222,10 +222,11 @@ $(document).ready(() => {
     if (cookies.get('email')) {
         $('#signupButton').hide()
         $('#loginButton').hide()
-        $('#logoutButton').text(`Logout (${cookies.get('email')})`)
+        $('#logoutButton').text(`Logout (${cookies.get('group')})`)
         $('#logoutButton').show()
         $('#searchContainer').show()
         $('#createScheduleContainer').show()
+        $('#createScheduleButton').show()
         $('#splashDiv').hide()
         search()
     }
@@ -235,6 +236,7 @@ $(document).ready(() => {
         $('#logoutButton').hide()
         $('#searchContainer').hide()
         $('#createScheduleContainer').hide()
+        $('#createScheduleButton').hide()
     }
     cookies.erase('email')
 
