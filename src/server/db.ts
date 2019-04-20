@@ -20,13 +20,20 @@ namespace Database {
         schedule_name: string,
         average_appointment_length: string,
         max_capacity: number,
-        M: string,
-        T: string,
-        W: string,
-        Th: string,
-        F: string,
-        S: string,
-        Su: string
+        M_START: string,
+        M_END: string,
+        T_START: string,
+        T_END: string,
+        W_START: string,
+        W_END: string,
+        Th_START: string,
+        Th_END: string,
+        F_START: string,
+        F_END: string,
+        S_START: string,
+        S_END: string,
+        Su_START: string,
+        Su_END: string
     }
 
     export interface Reservation {

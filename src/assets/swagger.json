@@ -759,25 +759,46 @@
 					"max_capacity": {
 						"type": "number"
 					},
-					"M": {
+					"M_START": {
 						"type": "string"
 					},
-					"T": {
+                    "M_END": {
 						"type": "string"
 					},
-					"W": {
+					"T_START": {
 						"type": "string"
 					},
-					"Th": {
+                    "T_END": {
 						"type": "string"
 					},
-					"F": {
+					"W_START": {
 						"type": "string"
 					},
-					"S": {
+                    "W_END": {
 						"type": "string"
 					},
-					"Su": {
+					"Th_START": {
+						"type": "string"
+					},
+                    "Th_END": {
+						"type": "string"
+					},
+					"F_START": {
+						"type": "string"
+					},
+                    "F_END": {
+						"type": "string"
+					},
+					"S_START": {
+						"type": "string"
+					},
+                    "S_END": {
+						"type": "string"
+					},
+					"Su_START": {
+						"type": "string"
+					},
+                    "Su_END": {
 						"type": "string"
 					}
 				},
@@ -786,13 +807,20 @@
 					"schedule_name",
 					"average_appointment_length",
 					"max_capacity",
-					"M",
-					"T",
-					"W",
-					"Th",
-					"F",
-					"S",
-					"Su"
+					"M_START",
+                    "M_END",
+					"T_START",
+                    "T_END"
+					"W_START",
+                    "W_END",
+					"Th_START",
+                    "Th_END",
+					"F_START",
+                    "F_END",
+					"S_START",
+                    "S_END",
+					"Su_START",
+                    "Su_END"
 				]
 			},		
 			"Success": {
