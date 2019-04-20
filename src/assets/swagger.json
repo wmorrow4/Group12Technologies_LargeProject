@@ -753,7 +753,7 @@
 					"type": "string"
 				},
 				"max_capacity": {
-					"type": "string"
+					"type": "number"
 				},
 				"M_START": {
 					"type": "string"
