@@ -57,7 +57,7 @@ namespace Database {
 
     export async function connectToMongo():Promise<mongodb.Db> {
         if ( this.db ) return Promise.resolve(this.db)
-        return mongodb.connect('mongodb://localhost:27017', {
+        return mongodb.connect('mongodb+srv://poosgroup12:Group12UCF!@cluster0-1ldbw.mongodb.net/test?retryWrites=true', {
             bufferMaxEntries:   0,
             reconnectTries:     5000,
             useNewUrlParser: true
