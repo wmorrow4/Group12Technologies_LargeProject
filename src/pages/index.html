@@ -1,4 +1,3 @@
-<p><button id="createScheduleButton" class="button alert" style="display: none;">Create Schedule</button></p>
 <div class="reveal" id="createScheduleModal" data-reveal>  
   <h1>Create Schedule</h1>
   <form data-abide novalidate id="createScheduleForm">
@@ -26,15 +25,6 @@
       </span>
     </label>
     <p class="help-text" id="appLengthHint">Choose an appointment length.</p>
-
-    <label>Appointment Capacity
-      <input type="text" id="max_capacity" placeholder="10" aria-describedby="appCapacityHint" aria-errormessage="appCapacityError"
-        required>
-      <span class="form-error" id="appCapacityError">
-        Required!
-      </span>
-    </label>
-    <p class="help-text" id="appCapacityHint">Enter how many people can make an appointment at a single interval.</p>
 
     <label>Monday
       <input type="text" id="M_START" placeholder="00:00 AM" aria-describedby="mondayHint" aria-errormessage="mondayError"

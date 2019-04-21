@@ -78,11 +78,12 @@ $("#createScheduleForm").on("formvalid.zf.abide", function (ev, frm) {
         data: JSON.stringify({
             schedule_name: $('#schedule_name').val(),
             average_appointment_length: $('#average_appointment_length').val(),
-            max_capacity: $('#max_capacity').val(),
             M_START: $('#M_START').val(),
             M_END: $('#M_END').val(),
             T_START: $('#T_START').val(),
             T_END: $('#T_END').val(),
+            W_START: $('#W_START').val(),
+            W_END: $('#W_END').val(),
             Th_START: $('#Th_START').val(),
             Th_END: $('#Th_END').val(),
             F_START: $('#F_START').val(),
@@ -154,7 +155,6 @@ function search(searchTerm) {
     <div class="card-section">
         <h4>${schedule.schedule_name}</h4>
         <p>${schedule.average_appointment_length}</p>
-        <p>${schedule.max_capacity}</p>
         <p>${schedule.M_START}</p>
         <p>${schedule.M_END}</p>
         <p>${schedule.T_START}</p>
@@ -181,7 +181,6 @@ function search(searchTerm) {
                 $(`#deleteScheduleButton${idx}`).on('click', elem => {
                     $('#schedule_name').text(schedule.schedule_name)
                     $('#lastnameDelete').text(schedule.average_appointment_length)
-                    $('#max_capacity').text(schedule.max_capacity)
                     $('#M_START').text(schedule.M_START)
                     $('#M_END').text(schedule.M_END)
                     $('#T_START').text(schedule.T_START)
@@ -245,7 +244,6 @@ $(document).ready(() => {
         $('#logoutButton').show()
         $('#searchContainer').show()
         $('#createScheduleContainer').show()
-        $('#createScheduleButton').show()
         $('#schedulesDiv').show()
         $('#splashDiv').hide()
         search()
