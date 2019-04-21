@@ -743,9 +743,6 @@
 		},
 		"Schedule": {
 			"properties": {
-				"schedulerID": {
-					"type": "string"
-				},
 				"schedule_name": {
 					"type": "string"
 				},
@@ -796,7 +793,6 @@
 				}
 			},
 			"required": [
-				"schedulerID",
 				"schedule_name",
 				"average_appointment_length",
 				"M_START",
