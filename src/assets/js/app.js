@@ -79,12 +79,18 @@ $("#createScheduleForm").on("formvalid.zf.abide", function (ev, frm) {
             schedule_name: $('#schedule_name').val(),
             average_appointment_length: $('#average_appointment_length').val(),
             max_capacity: $('#max_capacity').val(),
-            M: $('#M').val(),
-            T: $('#T').val(),
-            Th: $('#Th').val(),
-            F: $('#F').val(),
-            S: $('#S').val(),
-            Su: $('#Su').val()
+            M_START: $('#M_START').val(),
+            M_END: $('#M_END').val(),
+            T_START: $('#T_START').val(),
+            T_END: $('#T_END').val(),
+            Th_START: $('#Th_START').val(),
+            Th_END: $('#Th_END').val(),
+            F_START: $('#F_START').val(),
+            F_END: $('#F_END').val(),
+            S_START: $('#S_START').val(),
+            S_END: $('#S_END').val(),
+            Su_START: $('#Su_START').val(),
+            Su_END: $('#Su_END').val()
         })
     })
 });
@@ -143,26 +149,32 @@ function search(searchTerm) {
 <div class="cell">
     <div class="card">
     <div class="card-section">
-        <img src="${contact.pic}">
-        <button class="button floating-menu" type="button" data-toggle="contactMenuDropdown${idx}"><i class="fa fa-bars"></i></button>
+        <button class="button floating-menu" type="button" data-toggle="scheduleMenuDropdown${idx}"><i class="fa fa-bars"></i></button>
     </div>
     <div class="card-section">
         <h4>${schedule.schedule_name}</h4>
         <p>${schedule.average_appointment_length}</p>
         <p>${schedule.max_capacity}</p>
-        <p>${schedule.M}</p>
-        <p>${schedule.T}</p>
-        <p>${schedule.W}</p>
-        <p>${schedule.Th}</p>
-        <p>${schedule.F}</p>
-        <p>${schedule.S}</p>
-        <p>${schedule.Su}</p>
+        <p>${schedule.M_START}</p>
+        <p>${schedule.M_END}</p>
+        <p>${schedule.T_START}</p>
+        <p>${schedule.T_END}</p>
+        <p>${schedule.W_START}</p>
+        <p>${schedule.W_END}</p>
+        <p>${schedule.Th_START}</p>
+        <p>${schedule.Th_END}</p>
+        <p>${schedule.F_START}</p>
+        <p>${schedule.F_END}</p>
+        <p>${schedule.S_START}</p>
+        <p>${schedule.S_END}</p>
+        <p>${schedule.Su_START}</p>
+        <p>${schedule.Su_END}</p>
     </div>
     </div>
 </div>
 <div class="dropdown-pane" id="scheduleMenuDropdown${idx}" data-dropdown data-close-on-click="true" data-auto-focus="true">
     <div class="button-group stacked">
-    <a class="alert button" id="deleteContactButton${idx}" contact="${idx}">Delete</a>
+    <a class="alert button" id="deleteScheduleButton${idx}" schedule="${idx}">Delete</a>
     </div>
 </div>
                 `).appendTo('#schedulesDiv')
@@ -170,13 +182,20 @@ function search(searchTerm) {
                     $('#schedule_name').text(schedule.schedule_name)
                     $('#lastnameDelete').text(schedule.average_appointment_length)
                     $('#max_capacity').text(schedule.max_capacity)
-                    $('#M').text(schedule.M)
-                    $('#T').text(schedule.T)
-                    $('#W').text(schedule.W)
-                    $('#Th').text(schedule.Th)
-                    $('#F').text(schedule.F)
-                    $('#S').text(schedule.S)
-                    $('#Su').text(schedule.Su)
+                    $('#M_START').text(schedule.M_START)
+                    $('#M_END').text(schedule.M_END)
+                    $('#T_START').text(schedule.T_START)
+                    $('#T_END').text(schedule.T_END)
+                    $('#W_START').text(schedule.W_START)
+                    $('#W_END').text(schedule.W_END)
+                    $('#Th_START').text(schedule.Th_START)
+                    $('#Th_END').text(schedule.Th_END)
+                    $('#F_START').text(schedule.F_START)
+                    $('#F_END').text(schedule.F_END)
+                    $('#S_START').text(schedule.S_START)
+                    $('#S_END').text(schedule.S_END)
+                    $('#Su_START').text(schedule.Su_START)
+                    $('#Su_END').text(schedule.Su_END)
                     $('#deleteScheduleButton').off('click')
                     $('#deleteScheduleButton').on('click', event => {
                         $.ajax({
@@ -222,11 +241,12 @@ $(document).ready(() => {
     if (cookies.get('email')) {
         $('#signupButton').hide()
         $('#loginButton').hide()
-        $('#logoutButton').text(`Logout (${cookies.get('group')})`)
+        $('#logoutButton').text(`Logout (${cookies.get('email')})`)
         $('#logoutButton').show()
         $('#searchContainer').show()
         $('#createScheduleContainer').show()
         $('#createScheduleButton').show()
+        $('#schedulesDiv').show()
         $('#splashDiv').hide()
         search()
     }
