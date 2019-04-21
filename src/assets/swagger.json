@@ -743,6 +743,9 @@
 		},
 		"Schedule": {
 			"properties": {
+				"schedulerID": {
+					"type": "string"
+				},
 				"schedule_name": {
 					"type": "string"
 				},
