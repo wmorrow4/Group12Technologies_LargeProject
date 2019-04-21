@@ -752,9 +752,6 @@
 				"average_appointment_length": {
 					"type": "string"
 				},
-				"max_capacity": {
-					"type": "number"
-				},
 				"M_START": {
 					"type": "string"
 				},
@@ -802,7 +799,6 @@
 				"schedulerID",
 				"schedule_name",
 				"average_appointment_length",
-				"max_capacity",
 				"M_START",
 				"M_END",
 				"T_START",

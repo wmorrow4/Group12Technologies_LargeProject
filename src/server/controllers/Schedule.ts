@@ -58,7 +58,7 @@ module.exports.CreateSchedule = function (req: api.Request & swaggerTools.Swagge
             res.send(JSON.stringify({ message: "Login required" }, null, 2))
             res.end()
         }
-        if (req.swagger.params.schedule.value.schedule_name && req.swagger.params.schedule.value.average_appointment_length && req.swagger.params.schedule.value.max_capacity && req.swagger.params.schedule.value.M_START && req.swagger.params.schedule.value.M_END && req.swagger.params.schedule.value.T_START && req.swagger.params.schedule.value.T_END && req.swagger.params.schedule.value.W_START && req.swagger.params.schedule.value.W_END && req.swagger.params.schedule.value.Th_START && req.swagger.params.schedule.value.Th_END && req.swagger.params.schedule.value.F_START && req.swagger.params.schedule.value.F_END && req.swagger.params.schedule.value.S_START && req.swagger.params.schedule.value.S_END && req.swagger.params.schedule.value.Su_START && req.swagger.params.schedule.value.Su_END) {
+        if (req.swagger.params.schedule.value.schedule_name && req.swagger.params.schedule.value.average_appointment_length && req.swagger.params.schedule.value.M_START && req.swagger.params.schedule.value.M_END && req.swagger.params.schedule.value.T_START && req.swagger.params.schedule.value.T_END && req.swagger.params.schedule.value.W_START && req.swagger.params.schedule.value.W_END && req.swagger.params.schedule.value.Th_START && req.swagger.params.schedule.value.Th_END && req.swagger.params.schedule.value.F_START && req.swagger.params.schedule.value.F_END && req.swagger.params.schedule.value.S_START && req.swagger.params.schedule.value.S_END && req.swagger.params.schedule.value.Su_START && req.swagger.params.schedule.value.Su_END) {
 
             var scheduleObject = req.swagger.params.schedule.value;
             scheduleObject.schedulerID = new ObjectID(req.session.logid);
@@ -184,42 +184,6 @@ module.exports.removeInterval = function (req: api.Request & swaggerTools.Swagge
                     res.end()
                 }
                 else {
-                    if (removeintervalObject.Date && removeintervalObject.Time) {
-                        db.Reservation.find({
-                            $and: [
-                                {
-                                    ScheduleID: new ObjectID(removeintervalObject.s_id)
-                                },
-                                {
-                                    Date: removeintervalObject.Date
-                                },
-                                {
-                                    Time: removeintervalObject.Time
-                                }
-                            ]
-                        }).toArray().then((data) => {
-                            if (data) {
-                                if ((data.length + 1) >= removeintervalObject.max_capacity){
-                                    res.status(BadRequest)
-                                    res.send(JSON.stringify({ message: "Appointment capacity is full" }, null, 2))
-                                    res.end()
-                                }
-                                else {
-                                    res.status(OK)
-                                    res.send(JSON.stringify(data))
-                                    res.end()
-                                }
-                            }
-                            else {
-                                res.status(OK)
-                                res.send(JSON.stringify([], null, 2))
-                                res.end()
-                            }
-                        }).catch((err) => {
-                            res.status(InternalServerError)
-                            res.send(JSON.stringify({ message: inspect(err) }, null, 2))
-                            res.end()
-                        })
                         db.Reservation.insertOne(removeintervalObject, function (err: MongoError, result: InsertOneWriteOpResult) {
                             if (err) {
                                 res.status(InternalServerError)

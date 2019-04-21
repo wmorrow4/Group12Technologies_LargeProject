@@ -91,42 +91,6 @@ module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swag
             res.end()
         }
         else {
-            if (claimappointmentObject.Date && claimappointmentObject.Time) {
-                db.Reservation.find({
-                    $and: [
-                        {
-                            ScheduleID: new ObjectID(claimappointmentObject.s_id)
-                        },
-                        {
-                            Date: claimappointmentObject.Date
-                        },
-                        {
-                            Time: claimappointmentObject.Time
-                        }
-                    ]
-                }).toArray().then((data) => {
-                    if(data) {
-                        if ((data.length + 1) >= claimappointmentObject.max_capacity) {
-                            res.status(BadRequest)
-                            res.send(JSON.stringify({ message: "Appointment capacity is full" }, null, 2))
-                            res.end()
-                        }
-                        else {
-                            res.status(OK)
-                            res.send(JSON.stringify(data))
-                            res.end()
-                        }
-                    }
-                    else {
-                        res.status(OK)
-                        res.send(JSON.stringify([], null, 2))
-                        res.end()
-                    }
-                }).catch((err) => {
-                    res.status(InternalServerError)
-                    res.send(JSON.stringify({ message: inspect(err) }, null, 2))
-                    res.end()
-                })
                 db.Reservation.insertOne(claimappointmentObject, function (err: MongoError, result: InsertOneWriteOpResult) {
                     if (err) {
                         res.status(InternalServerError)
