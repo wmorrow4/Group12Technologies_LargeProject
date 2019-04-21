@@ -1,9 +1,9 @@
-<p><button id="createScheduleButton" class="button alert">Create Schedule</button></p>
+
 <div class="reveal" id="createScheduleModal" data-reveal>  
   <h1>Create Schedule</h1>
   <form data-abide novalidate id="createScheduleForm">
     <div data-abide-error class="alert callout" style="display: none;">
-      <p><i class="fi-alert"></i> There are some errors in your form.</p>
+      <p><i class="fi-alert"></i>Invalid Form: Please address all fields</p>
     </div>
 
     <label>Schedule Name
@@ -14,6 +14,37 @@
       </span>
     </label>
     <p class="help-text" id="scheduleHint">Enter a schedule name please.</p>
+
+
+	
+    <div class="grid-x grid-padding-x">
+                
+
+                <div class="large-6 medium-6 cell">
+                    <div class="grid-x">
+                      <label>Appointment Length</label>
+                      <div class="input-group">
+                        <input type="number" placeholder="30" name="timelimit"min="30" max="60" step="30" class="input-group-field" />
+                        <span class="input-group-label">Minutes</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="large-6 medium-6 cell">
+                      <div class="grid-x">
+                        <label>Max Capacity</label>
+                        <div class="input-group">
+                          <input type="number" name="capacity" placeholder="3" min="0" max="10" class="input-group-field" />
+                          <span class="input-group-label">People</span>
+                        </div>
+                      </div>
+                    </div>
+
+
+           
+              </div>
+
+<!--
 
     <label>Appointment Length (Minutes)
       <ul class="dropdown menu" id="average_appointment_length" aria-describedby="appLengthHint" aria-errormessage="appLengthError"
@@ -35,7 +66,163 @@
       </span>
     </label>
     <p class="help-text" id="appCapacityHint">Enter how many people can make an appointment at a single interval.</p>
+-->
+<!--
 
+<label>Weekly Availability</label>
+              <ul class="accordion" data-accordion>
+                  <li class="accordion-item" data-accordion-item>
+                      <a href="#" class="accordion-title">Monday</a>
+                      <div class="accordion-content" data-tab-content>
+			<label>Time:
+                        <input type="text" placeholder="00:00-23:00" id="M" aria-describedby="mondayHint" aria-errormessage="mondayError" required>
+			<span class="form-error" id="mondayError">
+        		Required!
+      			</span>
+			</label> <p class="help-text" id="mondayHint">Enter valid time in military time.</p>
+                      </div>
+                  </li>
+                  <li class="accordion-item" data-accordion-item>
+                      <a href="#" class="accordion-title">Tuesday</a>
+                      <div class="accordion-content" data-tab-content>
+			<label>Time:
+                        <input type="text" placeholder="00:00-23:00" id="T" aria-describedby="tuesdayHint" aria-errormessage="tuesdayError" required>
+			<span class="form-error" id="tuesdayError">
+        		Required!
+      			</span>
+			</label> <p class="help-text" id="tuesdayHint">Enter valid time in military time.</p>
+                      </div>
+                  </li>
+                  <li class="accordion-item" data-accordion-item>
+                      <a href="#" class="accordion-title">Wednesday</a>
+                       <div class="accordion-content" data-tab-content>
+			<label>Time:
+                        <input type="text" placeholder="00:00-23:00" id="W" aria-describedby="wednesdayHint" aria-errormessage="wednesdayError" required>
+			<span class="form-error" id="wednesdayError">
+        		Required!
+      			</span>
+			</label> <p class="help-text" id="wednesdayHint">Enter valid time in military time.</p>
+                      </div>
+                  </li>
+                  <li class="accordion-item" data-accordion-item>
+                      <a href="#" class="accordion-title">Thurday</a>
+                       <div class="accordion-content" data-tab-content>
+			<label>Time:
+                        <input type="text" placeholder="00:00-23:00" id="Th" aria-describedby="thursdayHint" aria-errormessage="thursdayError" required>
+			<span class="form-error" id="thursdayError">
+        		Required!
+      			</span>
+			</label> <p class="help-text" id="thursdayHint">Enter valid time in military time.</p>
+                      </div>
+                  </li>
+                  <li class="accordion-item" data-accordion-item>
+                      <a href="#" class="accordion-title">Friday</a>
+                       <div class="accordion-content" data-tab-content>
+			<label>Time:
+                        <input type="text" placeholder="00:00-23:00" id="F" aria-describedby="fridayHint" aria-errormessage="fridayError" required>
+			<span class="form-error" id="fridayError">
+        		Required!
+      			</span>
+			</label> <p class="help-text" id="fridayHint">Enter valid time in military time.</p>
+                      </div>
+                  </li>
+                  <li class="accordion-item" data-accordion-item>
+                      <a href="#" class="accordion-title">Saturday</a>
+                       <div class="accordion-content" data-tab-content>
+			<label>Time:
+                        <input type="text" placeholder="00:00-23:00" id="S" aria-describedby="saturdayHint" aria-errormessage="saturdayError" required>
+			<span class="form-error" id="saturdayError">
+        		Required!
+      			</span>
+			</label> <p class="help-text" id="saturdayHint">Enter valid time in military time.</p>
+                      </div>
+                  </li>
+                  <li class="accordion-item" data-accordion-item>
+                      <a href="#" class="accordion-title">Sunday</a>
+                       <div class="accordion-content" data-tab-content>
+			<label>Time:
+                        <input type="text" placeholder="00:00-23:00" id="Su" aria-describedby="sundayHint" aria-errormessage="sundayError" required>
+			<span class="form-error" id="sundayError">
+        		Required!
+      			</span>
+			</label> <p class="help-text" id="sundayHint">Enter valid time in military time.</p>
+                      </div>
+                  </li>
+                          
+                </ul>
+
+-->
+
+		
+		<label>Weekly Availability</label>
+              <ul class="accordion" data-accordion>
+                  <li class="accordion-item" data-accordion-item>
+                      <a href="#" class="accordion-title">Monday</a>
+                      <div class="accordion-content" data-tab-content>
+			Time From:
+                        <input type="time"></input>
+                        Time To:
+                        <input type="time"></input>
+                      </div>
+                  </li>
+                  <li class="accordion-item" data-accordion-item>
+                      <a href="#" class="accordion-title">Tuesday</a>
+                      <div class="accordion-content" data-tab-content>
+                        Time From:
+                        <input type="time"></input>
+                        Time To:
+                        <input type="time"></input>
+                      </div>
+                  </li>
+                  <li class="accordion-item" data-accordion-item>
+                      <a href="#" class="accordion-title">Wednesday</a>
+                      <div class="accordion-content" data-tab-content>
+                        Time From:
+                        <input type="time"></input>
+                        Time To:
+                        <input type="time"></input>
+                      </div>
+                  </li>
+                  <li class="accordion-item" data-accordion-item>
+                      <a href="#" class="accordion-title">Thurday</a>
+                      <div class="accordion-content" data-tab-content>
+                        Time From:
+                        <input type="time"></input>
+                        Time To:
+                        <input type="time"></input>
+                      </div>
+                  </li>
+                  <li class="accordion-item" data-accordion-item>
+                      <a href="#" class="accordion-title">Friday</a>
+                      <div class="accordion-content" data-tab-content>
+                        Time From:
+                        <input type="time"></input>
+                        Time To:
+                        <input type="time"></input>
+                      </div>
+                  </li>
+                  <li class="accordion-item" data-accordion-item>
+                      <a href="#" class="accordion-title">Saturday</a>
+                      <div class="accordion-content" data-tab-content>
+                        Time From:
+                        <input type="time"></input>
+                        Time To:
+                        <input type="time"></input>
+                      </div>
+                  </li>
+                  <li class="accordion-item" data-accordion-item>
+                      <a href="#" class="accordion-title">Sunday</a>
+                      <div class="accordion-content" data-tab-content>
+                        Time From:
+                        <input type="time"></input>
+                        Time To:
+                        <input type="time"></input>
+                      </div>
+                  </li>
+                          
+                </ul>
+
+<!--
     <label>Monday
       <input type="text" id="M" placeholder="00:00-23:00" aria-describedby="mondayHint" aria-errormessage="mondayError"
         required>
@@ -99,12 +286,16 @@
     </label>
     <p class="help-text" id="sundayHint">Enter valid time in military time.</p>
 	
+-->
+
+
     <p><input type="submit" class="button expanded" value="Create Schedule"></input></p>
   </form>
   <button class="close-button" data-close aria-label="Close modal" type="button">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
+
 
 <div class="reveal" id="deleteScheduleModal" data-reveal>
   <h1>Delete Schedule</h1>
@@ -114,12 +305,58 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div id="splashDiv" class="grid-container">
-  <div class="grid-x grid-padding-x">
-    <div class="large-12 cell">
-      <h1>Matterhorn Schedule System</h1>
+    
+    
+
+
+
+    
+    
+  <div id="splashDiv" class="grid-container">
+    <div class="grid-x grid-padding-x">
+    
+        <div class="large-12 cell"><div class="callout">
+
+
+
+
+        
+
+      
+      
+            <div class="grid-y" style="height: 0px;"> 
+                <div class="cell small-6 medium-8 large-2">
+                <!--Nothing goes here; this is just for space-->   
+                </div>
+              </div>
+
+              <img src="https://i.imgur.com/ky4FWaj.jpg?1">
+    
+    
+      
+    
+    
+              <div class="grid-y" style="height: 0px;"> 
+                  <div class="cell small-6 medium-8 large-2">
+                  <!--Nothing goes here; this is just for space-->   
+                  </div>
+                </div>
+    
+    
+        
+              <div class="grid-container">
+                <h1 style="text-align: center; font-family: fantasy; font-size: 160px; font-size-adjust: inherit"; >MatterHorn</h1>
+              </div>
+        
+              <div class="grid-container">    
+              <h3 style="text-align: center; font-family: fantasy"; >The ideal personal reservation App. You're welcome.</h3>
+              
+    
+
+</div>
+</div>
+
     </div>
-  </div>
 </div>
 <div class="grid-container">
   <div id="contactsDiv" class="grid-x grid-padding-x small-up-1 medium-up-3 large-up-5">

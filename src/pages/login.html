@@ -21,7 +21,14 @@
         <p><input type="submit" class="button expanded" value="Log in"></input></p>
       </form>
 -->      
-      <form data-abide novalidate id="SchedulerLoginForm" class="login-form animated bounceInUp">
+
+
+
+<!--
+
+
+
+      <form data-abide novalidate id="SchedulerLoginForm" >
         <div data-abide-error class="alert callout" style="display: none;">
           <p><i class="fi-alert"></i> There are some errors in your form.</p>
         </div>
@@ -46,3 +53,52 @@
     </div>
   </div>
 </div>
+
+-->
+
+<div class="grid-y" style="height: 200px;"> <div class="cell small-6 medium-8 large-2">
+          <!--Nothing goes here; this is just for space-->   
+          </div></div>
+
+      <div class="grid-container" >
+          <div class="grid-x grid-padding-y">
+              <div class="large-12 cell">
+                  <div class="large-12 cell">
+  
+
+                      <form data-abide novalidate id="SchedulerLoginForm">
+                        
+                        <div data-abide-error class="alert callout" style="display: none;">
+          <p><i class="fi-alert"></i> There are some errors in your form.</p>
+        </div>
+                        
+                        <div class="form-icons">
+                          <h4  style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Please Log In to your Personal or Scheduler Account:</h4>
+                      
+                          <div class="input-group">
+                            <span class="input-group-label">
+                              <i class="fa fa-envelope"></i>
+                            </span>
+                            <input class="input-group-field" id="email" type="text" placeholder="Email" pattern="email" aria-describedby="usernameHint" aria-errormessage="usernameError"
+                            required>
+                            <span class="form-error" id="usernameError">
+            Email is required.
+          </span>
+                          </div>
+                      
+                      
+                          <div class="input-group">
+                            <span class="input-group-label">
+                              <i class="fa fa-key"></i>
+                            </span>
+                            <input class="input-group-field" type="password" placeholder="Password" id="password" aria-describedby="passwordHint" aria-errormessage="passwordError" required>
+                          <span class="form-error" id="passwordError">
+                            Password is required.
+                           </span>
+                          </div>
+                        </div>
+      
+                        <p><input type="submit" class="button hollow" value="Log in"></input></p>
+                      </form>
+
+  </div></div></div></div>

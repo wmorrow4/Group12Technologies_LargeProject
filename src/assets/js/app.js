@@ -2,6 +2,10 @@ import $ from 'jquery';
 import util from 'util';
 import 'what-input';
 
+
+
+
+
 // Foundation JS relies on a global varaible. In ES6, all imports are hoisted
 // to the top of the file so if we used`import` to import Foundation,
 // it would execute earlier than we have assigned the global variable.
@@ -30,6 +34,12 @@ function doError(err) {
 
 $(document).foundation();
 
+
+              
+ 
+
+
+
 $("#SchedulerLoginForm").on("formvalid.zf.abide", function (ev, frm) {
     $.ajax({
         url: '/api/SchedulerLogin',
@@ -44,7 +54,7 @@ $("#SchedulerLoginForm").on("formvalid.zf.abide", function (ev, frm) {
                 window.location.replace('/index.html')
             })
             $('#SchedulerLoginForm').removeClass('bounceInUp')
-            $('#SchedulerLoginForm').addClass('rotateOut')
+            $('#SchedulerLoginForm').addClass('bounceOutUp')
         },
         data: JSON.stringify({
             email: $('#email').val(),
@@ -108,8 +118,8 @@ $("#SchedulerSignupForm").on("formvalid.zf.abide", function (ev, frm) {
             $('#SchedulerSignupForm').on('animationend', () => {
                 window.location.replace('/index.html')
             })
-            $('#SchedulerSignupForm').removeClass('rollIn')
-            $('#SchedulerSignupForm').addClass('hinge')
+            $('#SchedulerSignupForm').removeClass('bounceInUp')
+            $('#SchedulerSignupForm').addClass('bounceOutUp')
         },
         data: JSON.stringify({
             group: $('#group').val(),
@@ -261,12 +271,14 @@ $(document).ready(() => {
                 $('body').on('animationend', () => {
                     window.location.replace('/index.html')
                 })
-                $('body').addClass('animated hinge')
+                $('body').addClass('rollOut')
             }
         })
 
         return false
     })
+
+    /*
 
     $('#termsAndConditions').on('change', () => {
         if ($('#termsAndConditions').is(':checked')) {
@@ -287,6 +299,6 @@ $(document).ready(() => {
             $('#SchedulerSignupForm').addClass('rollOut')
         }
     })
-
+*/
     window.load()
 })
