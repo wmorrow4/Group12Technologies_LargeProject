@@ -796,7 +796,6 @@
 				}
 			},
 			"required": [
-				"schedulerID",
 				"schedule_name",
 				"average_appointment_length",
 				"M_START",
