@@ -434,7 +434,7 @@
 					"200": {
 						"description": "Succesful removal of interval.",
 						"schema": {
-								"$ref": "#/definitions/Success"
+							"$ref": "#/definitions/Success"
 						}
 					}
 				}
@@ -607,16 +607,14 @@
 					"/CreateSchedule"
 				],
 				"description": "Adds a new schedule",
-				"parameters": [
-					{
-						"name": "schedule",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/Schedule"
-						}
+				"parameters": [{
+					"name": "schedule",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/Schedule"
 					}
-				],
+				}],
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -641,16 +639,14 @@
 					"/deleteSchedule"
 				],
 				"description": "Delete a Schedule for User of the current session",
-				"parameters": [
-					{
-						"name": "schedule",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/ObjectID"
-						}
+				"parameters": [{
+					"name": "schedule",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/ObjectID"
 					}
-				],
+				}],
 				"responses": {
 					"default": {
 						"description": "Invalid request.",
@@ -668,152 +664,180 @@
 			}
 		}
 	},
-		"definitions": {
-			"ObjectID": {
-				"properties": {
-					"_id": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"_id"
-				]
+	"definitions": {
+		"ObjectID": {
+			"properties": {
+				"_id": {
+					"type": "string"
+				}
 			},
-			"Reservation": {
-				"properties": {
-					"ScheduleID": {
-						"type": "string"
-					},
-					"Date": {
-						"type": "string"
-					},
-					"Time": {
-						"type": "string"
-					}
+			"required": [
+				"_id"
+			]
+		},
+		"Reservation": {
+			"properties": {
+				"ScheduleID": {
+					"type": "string"
 				},
-				"required": [
-					"ScheduleID",
-					"Date",
-					"Time"
-				]
+				"Date": {
+					"type": "string"
+				},
+				"Time": {
+					"type": "string"
+				}
 			},
-			"User": {
-				"properties": {
-					"firstname": {
-						"type": "string"
-					},
-					"lastname": {
-						"type": "string"
-					},
-					"email": {
-						"type": "string"
-					},
-					"password": {
-						"type": "string"
-					},
-					"appointments": {
-						"type": "array",
-							"items": {
-								"$ref": "#/definitions/Reservation"
-							}
-					}
-	
+			"required": [
+				"ScheduleID",
+				"Date",
+				"Time"
+			]
+		},
+		"User": {
+			"properties": {
+				"firstname": {
+					"type": "string"
 				},
-				"required": [
-					"firstname",
-					"lastname",
-					"email",
-					"password",
-					"appointments"
-				]
+				"lastname": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				},
+				"appointments": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Reservation"
+					}
+				}
+
 			},
-			"Scheduler": {
-				"properties": {
-					"group": {
-						"type": "string"
-					},
-					"email": {
-						"type": "string"
-					},
-					"password": {
-						"type": "string"
-					}
+			"required": [
+				"firstname",
+				"lastname",
+				"email",
+				"password",
+				"appointments"
+			]
+		},
+		"Scheduler": {
+			"properties": {
+				"group": {
+					"type": "string"
 				},
-				"required": [
-					"group",
-					"email",
-					"password"
-				]
-			},	
-			"Schedule": {
-				"properties": {
-					"schedulerID": {
-						"type": "string"
-					},
-					"schedule_name": {
-						"type": "string"
-					},
-					"average_appointment_length": {
-						"type": "string"
-					},
-					"max_capacity": {
-						"type": "number"
-					},
-					"M": {
-						"type": "string"
-					},
-					"T": {
-						"type": "string"
-					},
-					"W": {
-						"type": "string"
-					},
-					"Th": {
-						"type": "string"
-					},
-					"F": {
-						"type": "string"
-					},
-					"S": {
-						"type": "string"
-					},
-					"Su": {
-						"type": "string"
-					}
+				"email": {
+					"type": "string"
 				},
-				"required": [
-					"schedulerID",
-					"schedule_name",
-					"average_appointment_length",
-					"max_capacity",
-					"M",
-					"T",
-					"W",
-					"Th",
-					"F",
-					"S",
-					"Su"
-				]
-			},		
-			"Success": {
-				"properties": {
-					"message": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"message"
-				]
+				"password": {
+					"type": "string"
+				}
 			},
-			"Error": {
-				"properties": {
-					"message": {
-						"type": "string"
-					}
+			"required": [
+				"group",
+				"email",
+				"password"
+			]
+		},
+		"Schedule": {
+			"properties": {
+				"schedulerID": {
+					"type": "string"
 				},
-				"required": [
-					"message"
-				]
-			}
+				"schedule_name": {
+					"type": "string"
+				},
+				"average_appointment_length": {
+					"type": "string"
+				},
+				"max_capacity": {
+					"type": "number"
+				},
+				"M_START": {
+					"type": "string"
+				},
+				"M_END": {
+					"type": "string"
+				},
+				"T_START": {
+					"type": "string"
+				},
+				"T_END": {
+					"type": "string"
+				},
+				"W_START": {
+					"type": "string"
+				},
+				"W_END": {
+					"type": "string"
+				},
+				"Th_START": {
+					"type": "string"
+				},
+				"Th_END": {
+					"type": "string"
+				},
+				"F_START": {
+					"type": "string"
+				},
+				"F_END": {
+					"type": "string"
+				},
+				"S_START": {
+					"type": "string"
+				},
+				"S_END": {
+					"type": "string"
+				},
+				"Su_START": {
+					"type": "string"
+				},
+				"Su_END": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"schedulerID",
+				"schedule_name",
+				"average_appointment_length",
+				"max_capacity",
+				"M_START",
+				"M_END",
+				"T_START",
+				"T_END",
+				"W_START",
+				"W_END",
+				"Th_START",
+				"Th_END",
+				"F_START",
+				"F_END",
+				"S_START",
+				"S_END",
+				"Su_START",
+				"Su_END"
+			]
+		},
+		"Success": {
+			"properties": {
+				"message": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"message"
+			]
+		},
+		"Error": {
+			"properties": {
+				"message": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"message"
+			]
 		}
+	}
 }

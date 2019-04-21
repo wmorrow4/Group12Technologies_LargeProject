@@ -1,114 +1,137 @@
-<div class="reveal" id="createContactModal" data-reveal>
-  <h1>Create Contact</h1>
-  <form data-abide novalidate id="createContactForm">
+<p><button id="createScheduleButton" class="button alert" style="display: none;">Create Schedule</button></p>
+<div class="reveal" id="createScheduleModal" data-reveal>  
+  <h1>Create Schedule</h1>
+  <form data-abide novalidate id="createScheduleForm">
     <div data-abide-error class="alert callout" style="display: none;">
       <p><i class="fi-alert"></i> There are some errors in your form.</p>
     </div>
 
-    <label>First Name
-      <input type="text" id="firstname" placeholder="John" aria-describedby="firstnameHint" aria-errormessage="firstnameError"
+    <label>Schedule Name
+      <input type="text" id="schedule_name" placeholder="Dr. Wick's Appointments" aria-describedby="scheduleHint" aria-errormessage="scheduleError"
         required>
-      <span class="form-error" id="firstnameError">
+      <span class="form-error" id="scheduleError">
         Required!
       </span>
     </label>
-    <p class="help-text" id="firstnameHint">Enter a first name please.</p>
+    <p class="help-text" id="scheduleHint">Enter a schedule name please.</p>
 
-    <label>Last Name
-      <input type="text" id="lastname" placeholder="Wick" aria-describedby="lastnameHint" aria-errormessage="lastnameError"
-        required>
-      <span class="form-error" id="lastnameError">
+    <label>Appointment Length (Minutes)
+      <select id="average_appointment_length" aria-describedby="appLengthHint" aria-errormessage="appLengthError"
+        required data-dropdown-menu>
+		    <option value="30">30</option>
+        <option value="60">60</option>
+	    </select>
+      <span class="form-error" id="appLengthError">
         Required!
       </span>
     </label>
-    <p class="help-text" id="lastnameHint">Enter a last name please.</p>
+    <p class="help-text" id="appLengthHint">Choose an appointment length.</p>
 
-    <label>Email
-      <input type="text" id="email" placeholder="jWick@aol.com" aria-describedby="emailHint" aria-errormessage="emailError"
+    <label>Appointment Capacity
+      <input type="text" id="max_capacity" placeholder="10" aria-describedby="appCapacityHint" aria-errormessage="appCapacityError"
         required>
-      <span class="form-error" id="emailError">
+      <span class="form-error" id="appCapacityError">
         Required!
       </span>
     </label>
-    <p class="help-text" id="emailHint">Enter a active email please.</p>
+    <p class="help-text" id="appCapacityHint">Enter how many people can make an appointment at a single interval.</p>
 
-    <label>Phone Number
-      <input type="text" id="phone" placeholder="(123) 456 8901" aria-describedby="phoneHint" aria-errormessage="phoneError"
+    <label>Monday
+      <input type="text" id="M_START" placeholder="00:00 AM" aria-describedby="mondayHint" aria-errormessage="mondayError"
         required>
-      <span class="form-error" id="phoneError">
+      <input type="text" id="M_END" placeholder="00:00 PM" aria-describedby="mondayHint" aria-errormessage="mondayError"
+        required>
+      <span class="form-error" id="mondayError">
         Required!
       </span>
     </label>
-    <p class="help-text" id="phoneHint">Enter your phone number please.</p>
-
-    <label>Contact Picture
-      <input type="text" id="pic" placeholder="http://www.google.com/your-photo-here.jpg" aria-describedby="picHint">
+    <p class="help-text" id="mondayHint">Enter start then stop time.</p>
+    
+    <label>Tuesday
+      <input type="text" id="T_START" placeholder="00:00 AM" aria-describedby="tuesdayHint" aria-errormessage="tuesdayError"
+        required>
+      <input type="text" id="T_END" placeholder="00:00 PM" aria-describedby="tuesdayHint" aria-errormessage="tuesdayError"
+        required>
+      <span class="form-error" id="tuesdayError">
+        Required!
+      </span>
     </label>
-    <p class="help-text" id="picHint">Enter url of a photo for this contact.</p>
-
-    <p><input type="submit" class="button expanded" value="Create Contact"></input></p>
+    <p class="help-text" id="tuesdayHint">Enter start then stop time.</p>
+	  
+	  <label>Wednesday
+      <input type="text" id="W_START" placeholder="00:00 AM" aria-describedby="wednesdayHint" aria-errormessage="wednesdayError"
+        required>
+      <input type="text" id="W_END" placeholder="00:00 PM" aria-describedby="wednesdayHint" aria-errormessage="wednesdayError"
+        required>
+      <span class="form-error" id="wednesdayError">
+        Required!
+      </span>
+    </label>
+    <p class="help-text" id="wednesdayHint">Enter start then stop time.</p>
+    
+	  <label>Thursday
+      <input type="text" id="Th_START" placeholder="00:00 AM" aria-describedby="thursdayHint" aria-errormessage="thursdayError"
+        required>
+      <input type="text" id="Th_END" placeholder="00:00 PM" aria-describedby="thursdayHint" aria-errormessage="thursdayError"
+        required>
+      <span class="form-error" id="thursdayError">
+        Required!
+      </span>
+    </label>
+    <p class="help-text" id="thursdayHint">Enter start then stop time.</p>
+	  
+	  <label>Thursday
+      <input type="text" id="F_START" placeholder="00:00 AM" aria-describedby="fridayHint" aria-errormessage="fridayError"
+        required>
+      <input type="text" id="F_END" placeholder="00:00 PM" aria-describedby="fridayHint" aria-errormessage="fridayError"
+        required>
+      <span class="form-error" id="fridayError">
+        Required!
+      </span>
+    </label>
+    <p class="help-text" id="fridayHint">Enter start then stop time.</p>
+	  
+	  <label>Saturday
+      <input type="text" id="S_START" placeholder="00:00 AM" aria-describedby="saturdayHint" aria-errormessage="saturdayError"
+        required>
+      <input type="text" id="S_END" placeholder="00:00 PM" aria-describedby="saturdayHint" aria-errormessage="saturdayError"
+        required>
+      <span class="form-error" id="saturdayError">
+        Required!
+      </span>
+    </label>
+    <p class="help-text" id="saturdayHint">Enter start then stop time.</p>
+	  
+	  <label>Sunday
+      <input type="text" id="Su_START" placeholder="00:00 AM" aria-describedby="sundayHint" aria-errormessage="sundayError"
+        required>
+      <input type="text" id="Su_END" placeholder="00:00 PM" aria-describedby="sundayHint" aria-errormessage="sundayError"
+        required>
+      <span class="form-error" id="sundayError">
+        Required!
+      </span>
+    </label>
+    <p class="help-text" id="sundayHint">Enter start then stop time.</p>
+ 	
+    <p><input type="submit" class="button expanded" value="Create Schedule"></input></p>
   </form>
   <button class="close-button" data-close aria-label="Close modal" type="button">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<div class="reveal" id="updateContactModal" data-reveal>
-    <h1>Update Contact</h1>
-    <form data-abide novalidate id="updateContactForm">
-      <div data-abide-error class="alert callout" style="display: none;">
-        <p><i class="fi-alert"></i> There are some errors in your form.</p>
-      </div>
-      <input type="hidden" id="idUpdate"/>
-      <label>First Name
-        <input type="text" id="firstnameUpdate" placeholder="John" aria-errormessage="firstnameUpdateError"
-          required>
-        <span class="form-error" id="firstnameUpdateError">
-          Required!
-        </span>
-      </label>
-      <label>Last Name
-        <input type="text" id="lastnameUpdate" placeholder="Wick" aria-errormessage="lastnameUpdateError"
-          required>
-        <span class="form-error" id="lastnameUpdateError">
-          Required!
-        </span>
-      </label>
-      <label>Email
-        <input type="text" id="emailUpdate" placeholder="jWick@aol.com" aria-errormessage="emailUpdateError"
-          required>
-        <span class="form-error" id="emailError">
-          Required!
-        </span>
-      </label>
-      <label>Phone Number
-        <input type="text" id="phoneUpdate" placeholder="(123) 456 8901" aria-errormessage="phoneUpdateError"
-          required>
-        <span class="form-error" id="phoneUpdateError">
-          Required!
-        </span>
-      </label>
-      <label>Contact Picture
-        <input type="text" id="picUpdate" placeholder="http://www.google.com/your-photo-here.jpg">
-      </label>
-  
-      <p><input type="submit" class="button expanded" value="Update Contact"></input></p>
-    </form>
+
+<div class="reveal" id="deleteScheduleModal" data-reveal>
+  <h1>Delete Schedule</h1>
+    <p>Are you sure you want to permanently delete <span id="schedulenameDelete"></span>?</p>
+    <p><button id="deleteScheduleButton" class="button alert">Delete Schedule</button></p>
     <button class="close-button" data-close aria-label="Close modal" type="button">
       <span aria-hidden="true">&times;</span>
     </button>
-  </div>
-  <div class="reveal" id="deleteContactModal" data-reveal>
-      <h1>Delete Contact</h1>
-      <p>Are you sure you want to permanently delete <span id="firstnameDelete"></span> <span id="lastnameDelete"></span>? They look like they might be handy in a fight...</p>
-      <p><button id="deleteContactButton" class="button alert">Delete Contact</button></p>
-      <button class="close-button" data-close aria-label="Close modal" type="button">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div id="splashDiv" class="grid-container">
+</div>
+<div id="splashDiv" class="grid-container">
   <div class="grid-x grid-padding-x">
     <div class="large-12 cell">
-      <h1>Welcome to The Bestest Contacts Web Application Ever Implemented In The History Of The Universe</h1>
+      <h1>Matterhorn Schedule System</h1>
     </div>
   </div>
 </div>

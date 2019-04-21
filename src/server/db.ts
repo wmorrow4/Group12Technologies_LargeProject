@@ -20,13 +20,20 @@ namespace Database {
         schedule_name: string,
         average_appointment_length: string,
         max_capacity: number,
-        M: string,
-        T: string,
-        W: string,
-        Th: string,
-        F: string,
-        S: string,
-        Su: string
+        M_START: string,
+        M_END: string,
+        T_START: string,
+        T_END: string,
+        W_START: string,
+        W_END: string,
+        Th_START: string,
+        Th_END: string,
+        F_START: string,
+        F_END: string,
+        S_START: string,
+        S_END: string,
+        Su_START: string,
+        Su_END: string
     }
 
     export interface Reservation {
@@ -57,7 +64,7 @@ namespace Database {
 
     export async function connectToMongo():Promise<mongodb.Db> {
         if ( this.db ) return Promise.resolve(this.db)
-        return mongodb.connect('mongodb://localhost:27017', {
+        return mongodb.connect('mongodb+srv://poosgroup12:Group12UCF!@cluster0-1ldbw.mongodb.net/test?retryWrites=true', {
             bufferMaxEntries:   0,
             reconnectTries:     5000,
             useNewUrlParser: true

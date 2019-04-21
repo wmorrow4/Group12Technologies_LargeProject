@@ -30,9 +30,9 @@ function doError(err) {
 
 $(document).foundation();
 
-$("#loginForm").on("formvalid.zf.abide", function (ev, frm) {
+$("#SchedulerLoginForm").on("formvalid.zf.abide", function (ev, frm) {
     $.ajax({
-        url: '/api/userLogin',
+        url: '/api/SchedulerLogin',
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
@@ -40,31 +40,31 @@ $("#loginForm").on("formvalid.zf.abide", function (ev, frm) {
             doError(err)
         },
         success: function (data) {
-            $('#loginForm').on('animationend', () => {
+            $('#SchedulerLoginForm').on('animationend', () => {
                 window.location.replace('/index.html')
             })
-            $('#loginForm').removeClass('bounceInUp')
-            $('#loginForm').addClass('rotateOut')
+            $('#SchedulerLoginForm').removeClass('bounceInUp')
+            $('#SchedulerLoginForm').addClass('rotateOut')
         },
         data: JSON.stringify({
-            username: $('#username').val(),
+            email: $('#email').val(),
             password: $('#password').val()
         })
     })
 });
 
-$('#loginForm').submit(() => {
+$('#SchedulerLoginForm').submit(() => {
     // cancel the actual submit...we'll take it from here
     return false
 })
 
-$('#createContactButton').on('click', (evt) => {
-    $('#createContactModal').foundation('open')
+$('#createScheduleButton').on('click', (evt) => {
+    $('#createScheduleModal').foundation('open')
 })
 
-$("#createContactForm").on("formvalid.zf.abide", function (ev, frm) {
+$("#createScheduleForm").on("formvalid.zf.abide", function (ev, frm) {
     $.ajax({
-        url: '/api/createContact',
+        url: '/api/CreateSchedule',
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
@@ -73,26 +73,37 @@ $("#createContactForm").on("formvalid.zf.abide", function (ev, frm) {
         },
         success: function (data) {
             search($('#searchInput').val())
-            $('#createContactModal').foundation('close')
+            $('#createScheduleModal').foundation('close')
         },
         data: JSON.stringify({
-            firstname: $('#firstname').val(),
-            lastname: $('#lastname').val(),
-            email: $('#email').val(),
-            phone: $('#phone').val(),
-            pic: $('#pic').val()
+            schedule_name: $('#schedule_name').val(),
+            average_appointment_length: $('#average_appointment_length').val(),
+            max_capacity: $('#max_capacity').val(),
+            M_START: $('#M_START').val(),
+            M_END: $('#M_END').val(),
+            T_START: $('#T_START').val(),
+            T_END: $('#T_END').val(),
+            Th_START: $('#Th_START').val(),
+            Th_END: $('#Th_END').val(),
+            F_START: $('#F_START').val(),
+            F_END: $('#F_END').val(),
+            S_START: $('#S_START').val(),
+            S_END: $('#S_END').val(),
+            Su_START: $('#Su_START').val(),
+            Su_END: $('#Su_END').val()
         })
     })
 });
 
-$('#createContactForm').submit(() => {
+$('#createScheduleForm').submit(() => {
     // cancel the actual submit...we'll take it from here
     return false
 })
 
-$("#updateContactForm").on("formvalid.zf.abide", function (ev, frm) {
+
+$("#SchedulerSignupForm").on("formvalid.zf.abide", function (ev, frm) {
     $.ajax({
-        url: '/api/updateContact',
+        url: '/api/SchedulerSignup',
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
@@ -100,59 +111,30 @@ $("#updateContactForm").on("formvalid.zf.abide", function (ev, frm) {
             doError(err)
         },
         success: function (data) {
-            search($('#searchInput').val())
-            $('#updateContactModal').foundation('close')
-        },
-        data: JSON.stringify({
-            _id: $('#idUpdate').val(),
-            firstname: $('#firstnameUpdate').val(),
-            lastname: $('#lastnameUpdate').val(),
-            email: $('#emailUpdate').val(),
-            phone: $('#phoneUpdate').val(),
-            pic: $('#picUpdate').val()
-        })
-    })
-});
-
-$('#updateContactForm').submit(() => {
-    // cancel the actual submit...we'll take it from here
-    return false
-})
-
-$("#signupForm").on("formvalid.zf.abide", function (ev, frm) {
-    $.ajax({
-        url: '/api/signup',
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        error: function (err) {
-            doError(err)
-        },
-        success: function (data) {
-            $('#signupForm').on('animationend', () => {
+            $('#SchedulerSignupForm').on('animationend', () => {
                 window.location.replace('/index.html')
             })
-            $('#signupForm').removeClass('rollIn')
-            $('#signupForm').addClass('hinge')
+            $('#SchedulerSignupForm').removeClass('rollIn')
+            $('#SchedulerSignupForm').addClass('hinge')
         },
         data: JSON.stringify({
-            username: $('#username').val(),
+            group: $('#group').val(),
             password: $('#password').val(),
-            email: $('#password').val()
+            email: $('#email').val()
         })
     })
 
     return false
 })
 
-$('#signupForm').on('submit', () => {
+$('#SchedulerSignupForm').on('submit', () => {
     // cancel the actual submit...we'll take it from here
     return false
 })
 
 function search(searchTerm) {
     $.ajax({
-        url: '/api/listContacts',
+        url: '/api/listSchedules',
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
@@ -160,46 +142,64 @@ function search(searchTerm) {
             doError(err)
         },
         success: function (data) {
-            $('#contactsDiv').empty()
-            data.forEach((contact, idx) => {
+            $('#schedulesDiv').empty()
+            data.forEach((schedule, idx) => {
                 $(
 `
 <div class="cell">
     <div class="card">
     <div class="card-section">
-        <img src="${contact.pic}">
-        <button class="button floating-menu" type="button" data-toggle="contactMenuDropdown${idx}"><i class="fa fa-bars"></i></button>
+        <button class="button floating-menu" type="button" data-toggle="scheduleMenuDropdown${idx}"><i class="fa fa-bars"></i></button>
     </div>
     <div class="card-section">
-        <h4>${contact.firstname} ${contact.lastname}</h4>
-        <p>${contact.phone}</p>
-        <p>${contact.email}</p>
+        <h4>${schedule.schedule_name}</h4>
+        <p>${schedule.average_appointment_length}</p>
+        <p>${schedule.max_capacity}</p>
+        <p>${schedule.M_START}</p>
+        <p>${schedule.M_END}</p>
+        <p>${schedule.T_START}</p>
+        <p>${schedule.T_END}</p>
+        <p>${schedule.W_START}</p>
+        <p>${schedule.W_END}</p>
+        <p>${schedule.Th_START}</p>
+        <p>${schedule.Th_END}</p>
+        <p>${schedule.F_START}</p>
+        <p>${schedule.F_END}</p>
+        <p>${schedule.S_START}</p>
+        <p>${schedule.S_END}</p>
+        <p>${schedule.Su_START}</p>
+        <p>${schedule.Su_END}</p>
     </div>
     </div>
 </div>
-<div class="dropdown-pane" id="contactMenuDropdown${idx}" data-dropdown data-close-on-click="true" data-auto-focus="true">
+<div class="dropdown-pane" id="scheduleMenuDropdown${idx}" data-dropdown data-close-on-click="true" data-auto-focus="true">
     <div class="button-group stacked">
-    <a class="button" id="updateContactButton${idx}" contact="${idx}">Update</a>
-    <a class="alert button" id="deleteContactButton${idx}" contact="${idx}">Delete</a>
+    <a class="alert button" id="deleteScheduleButton${idx}" schedule="${idx}">Delete</a>
     </div>
 </div>
-                `).appendTo('#contactsDiv')
-                $(`#updateContactButton${idx}`).on('click', elem => {
-                    $('#idUpdate').val(contact._id)
-                    $('#firstnameUpdate').val(contact.firstname)
-                    $('#lastnameUpdate').val(contact.lastname)
-                    $('#emailUpdate').val(contact.email)
-                    $('#phoneUpdate').val(contact.phone)
-                    $('#picUpdate').val(contact.pic)
-                    $('#updateContactModal').foundation('open')
-                })
-                $(`#deleteContactButton${idx}`).on('click', elem => {
-                    $('#firstnameDelete').text(contact.firstname)
-                    $('#lastnameDelete').text(contact.lastname)
-                    $('#deleteContactButton').off('click')
-                    $('#deleteContactButton').on('click', event => {
+                `).appendTo('#schedulesDiv')
+                $(`#deleteScheduleButton${idx}`).on('click', elem => {
+                    $('#schedule_name').text(schedule.schedule_name)
+                    $('#lastnameDelete').text(schedule.average_appointment_length)
+                    $('#max_capacity').text(schedule.max_capacity)
+                    $('#M_START').text(schedule.M_START)
+                    $('#M_END').text(schedule.M_END)
+                    $('#T_START').text(schedule.T_START)
+                    $('#T_END').text(schedule.T_END)
+                    $('#W_START').text(schedule.W_START)
+                    $('#W_END').text(schedule.W_END)
+                    $('#Th_START').text(schedule.Th_START)
+                    $('#Th_END').text(schedule.Th_END)
+                    $('#F_START').text(schedule.F_START)
+                    $('#F_END').text(schedule.F_END)
+                    $('#S_START').text(schedule.S_START)
+                    $('#S_END').text(schedule.S_END)
+                    $('#Su_START').text(schedule.Su_START)
+                    $('#Su_END').text(schedule.Su_END)
+                    $('#deleteScheduleButton').off('click')
+                    $('#deleteScheduleButton').on('click', event => {
                         $.ajax({
-                            url: '/api/deleteContact',
+                            url: '/api/deleteSchedule',
                             type: 'post',
                             dataType: 'json',
                             contentType: 'application/json',
@@ -208,18 +208,18 @@ function search(searchTerm) {
                             },
                             success: function (data) {
                                 search($('#searchInput').val())
-                                $('#deleteContactModal').foundation('close')
+                                $('#deleteScheduleModal').foundation('close')
                             },
                             data: JSON.stringify({
                                 _id: contact._id,
                             })
                         })
                     })
-                    $('#deleteContactModal').foundation('open')
+                    $('#deleteScheduleModal').foundation('open')
                 })
 
             })
-            $('#contactsDiv').foundation()
+            $('#scheduleDiv').foundation()
         },
         data: JSON.stringify({
             search: searchTerm
@@ -238,13 +238,15 @@ $("#searchInput").on('keyup', function (e) {
 });
 
 $(document).ready(() => {
-    if (cookies.get('username')) {
+    if (cookies.get('email')) {
         $('#signupButton').hide()
         $('#loginButton').hide()
-        $('#logoutButton').text(`Logout (${cookies.get('username')})`)
+        $('#logoutButton').text(`Logout (${cookies.get('email')})`)
         $('#logoutButton').show()
         $('#searchContainer').show()
-        $('#createContactContainer').show()
+        $('#createScheduleContainer').show()
+        $('#createScheduleButton').show()
+        $('#schedulesDiv').show()
         $('#splashDiv').hide()
         search()
     }
@@ -253,9 +255,10 @@ $(document).ready(() => {
         $('#loginButton').show()
         $('#logoutButton').hide()
         $('#searchContainer').hide()
-        $('#createContactContainer').hide()
+        $('#createScheduleContainer').hide()
+        $('#createScheduleButton').hide()
     }
-    cookies.erase('username')
+    cookies.erase('email')
 
     $('#signupButton').on('click', (evt) => {
         window.location.replace('/signup.html')
@@ -287,21 +290,21 @@ $(document).ready(() => {
 
     $('#termsAndConditions').on('change', () => {
         if ($('#termsAndConditions').is(':checked')) {
-            $('#signupForm').off('animationend')
-            $('#signupForm').css('visibility', 'hidden')
-            $('#signupForm').show()
+            $('#SchedulerSignupForm').off('animationend')
+            $('#SchedulerSignupForm').css('visibility', 'hidden')
+            $('#SchedulerSignupForm').show()
             $('html, body').animate({ scrollTop: $(document).height() }, 'fast', 'linear', () => {
-                $('#signupForm').css('visibility', 'visible')
-                $('#signupForm').removeClass('rollOut')
-                $('#signupForm').addClass('rollIn')
+                $('#SchedulerSignupForm').css('visibility', 'visible')
+                $('#SchedulerSignupForm').removeClass('rollOut')
+                $('#SchedulerSignupForm').addClass('rollIn')
             });
         }
         else {
-            $('#signupForm').on('animationend', () => {
-                $('#signupForm').hide()
+            $('#SchedulerSignupForm').on('animationend', () => {
+                $('#SchedulerSignupForm').hide()
             })
-            $('#signupForm').removeClass('rollIn')
-            $('#signupForm').addClass('rollOut')
+            $('#SchedulerSignupForm').removeClass('rollIn')
+            $('#SchedulerSignupForm').addClass('rollOut')
         }
     })
 
