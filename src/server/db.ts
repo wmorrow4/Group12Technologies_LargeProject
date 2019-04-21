@@ -19,7 +19,6 @@ namespace Database {
         schedulerID: mongodb.ObjectID
         schedule_name: string,
         average_appointment_length: string,
-        max_capacity: number,
         M_START: string,
         M_END: string,
         T_START: string,
