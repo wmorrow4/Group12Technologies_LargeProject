@@ -60,7 +60,7 @@ module.exports.CreateSchedule = function (req: api.Request & swaggerTools.Swagge
         }
         if (req.swagger.params.schedule.value.schedule_name && req.swagger.params.schedule.value.average_appointment_length && req.swagger.params.schedule.value.M_START && req.swagger.params.schedule.value.M_END && req.swagger.params.schedule.value.T_START && req.swagger.params.schedule.value.T_END && req.swagger.params.schedule.value.W_START && req.swagger.params.schedule.value.W_END && req.swagger.params.schedule.value.Th_START && req.swagger.params.schedule.value.Th_END && req.swagger.params.schedule.value.F_START && req.swagger.params.schedule.value.F_END && req.swagger.params.schedule.value.S_START && req.swagger.params.schedule.value.S_END && req.swagger.params.schedule.value.Su_START && req.swagger.params.schedule.value.Su_END) {
 
-            var scheduleObject: Schedule = req.swagger.params.schedule.value;
+            var scheduleObject: Schedule[] = req.swagger.params.schedule.value;
             scheduleObject.schedulerID = (new ObjectID(req.session.logid)).toString();
 
             db.Schedule.insertOne(scheduleObject, function (err: MongoError, result: InsertOneWriteOpResult) {
