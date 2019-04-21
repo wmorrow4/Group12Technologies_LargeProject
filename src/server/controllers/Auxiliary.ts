@@ -91,36 +91,6 @@ module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swag
             res.end()
         }
         else {
-            if (claimappointmentObject.Date && claimappointmentObject.Time) {
-                db.Reservation.find({
-                    $and: [
-                        {
-                            ScheduleID: new ObjectID(claimappointmentObject.s_id)
-                        },
-                        {
-                            Date: claimappointmentObject.Date
-                        },
-                        {
-                            Time: claimappointmentObject.Time
-                        }
-                    ]
-                }).toArray().then((data) => {
-                    if(data) {
-                            res.status(OK)
-                            res.send(JSON.stringify(data))
-                            res.end()
-                        }
-                    }
-                    else {
-                        res.status(OK)
-                        res.send(JSON.stringify([], null, 2))
-                        res.end()
-                    }
-                }).catch((err) => {
-                    res.status(InternalServerError)
-                    res.send(JSON.stringify({ message: inspect(err) }, null, 2))
-                    res.end()
-                })
                 db.Reservation.insertOne(claimappointmentObject, function (err: MongoError, result: InsertOneWriteOpResult) {
                     if (err) {
                         res.status(InternalServerError)
@@ -140,7 +110,7 @@ module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swag
                 })
             }
         }
-    }) 
+    ) 
 };
 
 module.exports.ListmySchedules = function (req: api.Request & swaggerTools.Swagger20Request<ListmySchedulesPayload>, res: express.Response) {
