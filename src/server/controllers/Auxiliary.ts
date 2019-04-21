@@ -110,7 +110,7 @@ module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swag
                 })
             }
         }
-    }) 
+    ) 
 };
 
 module.exports.ListmySchedules = function (req: api.Request & swaggerTools.Swagger20Request<ListmySchedulesPayload>, res: express.Response) {

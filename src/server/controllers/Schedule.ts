@@ -204,5 +204,5 @@ module.exports.removeInterval = function (req: api.Request & swaggerTools.Swagge
                     }
                 }
         }
-    })
-}
+    )
+};
