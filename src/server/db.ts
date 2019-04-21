@@ -15,7 +15,7 @@ namespace Database {
    }
    
     export interface Schedule {
-        s_id: mongodb.ObjectID
+        s_id: mongodb.ObjectID,
         schedulerID: string,
         schedule_name: string,
         average_appointment_length: string,
