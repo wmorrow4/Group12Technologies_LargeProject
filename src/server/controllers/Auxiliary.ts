@@ -106,12 +106,6 @@ module.exports.ClaimAppointment = function (req: api.Request & swaggerTools.Swag
                     ]
                 }).toArray().then((data) => {
                     if(data) {
-                        if ((data.length + 1) >= claimappointmentObject.max_capacity) {
-                            res.status(BadRequest)
-                            res.send(JSON.stringify({ message: "Appointment capacity is full" }, null, 2))
-                            res.end()
-                        }
-                        else {
                             res.status(OK)
                             res.send(JSON.stringify(data))
                             res.end()
