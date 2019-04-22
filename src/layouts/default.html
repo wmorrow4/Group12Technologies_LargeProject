@@ -7,43 +7,250 @@
   <meta charset="utf-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Group 12 Contacts App</title>
+  <title>MyMatterHornApp</title>
   <link rel="stylesheet" href="{{root}}assets/css/app.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+<style>
+
+
+
+
+form .form-icons {
+    text-align: center;
+  }
+  
+  form .form-icons h4 {
+    margin-bottom: 1rem;
+  }
+  
+  form .form-icons .input-group-label {
+    background-color: #1779ba;
+    border-color: #1779ba;
+  }
+  
+  form .form-icons .input-group-field {
+    border-color: #1779ba;
+  }
+  
+  form .form-icons .fa {
+    color: white;
+    width: 1rem;
+  }
+  
+
+
+  
+* {box-sizing:border-box}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 3s;
+  animation-name: fade;
+  animation-duration: 3s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+  
+
+    img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 60%;
+    }
+</style>
+
+
+
 </head>
 
+
+
+
+
+
+
 <body style="overflow-y: hidden;">
-  <div class="reveal" id="errorModal" data-reveal>
-    <h1>WHAT DID YOU DO?!?!? OH GOD!!!!!!</h1>
+  <div class="reveal" data-reveal>
+    <h1>OOPS. Something went wrong...</h1>
     <div id="errorDiv"></div>
     <button class="close-button" data-close aria-label="Close modal" type="button">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+ <div data-sticky-container>
+                <div class="title-bar" data-sticky data-options="marginTop:0;" style="width:100%" data-top-anchor="1" data-btm-anchor="content:bottom">
+                  <div class="title-bar-left">
+                      <!-- Content -->
+                    <h4 style="font-family: fantasy">Group 12 Technologies</h4>
+                
+                
+                </div>
+                  <div class="title-bar-right">
+                      <!-- Content -->
+                    
+                      <!-- Fire Off-canvas -->
+                      <button type="button" class="button" data-toggle="offCanvasRight">Open Menu</button>
+                
+                
+                </div>
+                </div>
+              </div>
+
+    <!---------------SPACE BLOCK--------------------->
+            
+    <div class="grid-y" style="height: 30px;">
+    <div class="cell small-6 medium-8 large-2">
+    <!--Nothing goes here; this is just for space-->   
+    </div></div>  
+        
+    <!---------------SPACE BLOCK--------------------->
+
+
+    <div class="grid-container"><div class="grid-x grid-padding-x"><div class="large-12 cell"><div class="callout">
+
+        
+
+            
+
+        <!-- Set up Off-canvas -->
+
+        <div class="off-canvas-wrapper" id="responsive-menu">
+          <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
+            <div class="off-canvas position-left" id="offCanvasLeft" data-off-canvas>
+              <!-- left off-canvas markup -->
+            </div>
+            <div class="off-canvas position-right" id="offCanvasRight" data-off-canvas data-position="right">
+              <!-- right off-canvas markup -->
+
+              <!----------------SPACE BLOCK--------------------->
+              <div class="grid-y" style="height: 30px;">
+                <div class="cell small-6 medium-8 large-2">
+                    <!--Nothing goes here; this is just for space-->   
+                </div></div>  
+                <!---------------SPACE BLOCK--------------------->
+              
+              
+
+              <ul class="vertical menu" data-drilldown style="width: 200px" id="m1">
+        
+                <li><a id="signupButton"  class="clear button" style="display:none;">Sign Up</a></li>
+                <li><a id="loginButton"   class="clear button" style="display:none;">Log In</a></li>
+                
+                
+                
+                <!----------------SPACE BLOCK--------------------->
+              <div class="grid-y" style="height: 100px;">
+                <div class="cell small-6 medium-8 large-2">
+                    <!--Nothing goes here; this is just for space-->   
+                </div></div>  
+                <!---------------SPACE BLOCK--------------------->
+              
+              
+                
+                
+                
+                
+                
+                
+                <li><button id="logoutButton" type="button" class="button" style="display:none;">Log Out</button></li>
+              
+              </ul>  
+
+
+              <ul class="vertical menu">
+                <li class="menu-text" role="menuitem"></li>
+                <li id="createScheduleContainer" style="display: none;"><button id="createScheduleButton" type="button" class="button">Create a Schedule</button></li>
+                
+                <!----------------SPACE BLOCK--------------------->
+              <div class="grid-y" style="height: 100px;">
+                <div class="cell small-6 medium-8 large-2">
+                    <!--Nothing goes here; this is just for space-->   
+                </div></div>  
+                <!---------------SPACE BLOCK--------------------->
+              
+              
+                
+                
+                
+                
+                <ul id="searchContainer" class="menu" style="display: none;">
+                  <li><input type="search" placeholder="Search" id="searchInput"></li>
+                  <li><button type="button" class="button" id="searchButton">Search</button></li>
+                </ul>
+              </ul>
+
+
+
+
+
+            </div>
+            <div class="off-canvas-content" data-off-canvas-content>
+              <!-- page content -->
+            </div>
+          </div>
+        </div>
+      
+      
+
+
+
+
+
+
+    </div></div></div></div>
+
+
+
+<!--
+
+
   <div class="top-bar" id="responsive-menu">
     <div class="top-bar-left">
       <ul class="menu">
-        <li class="menu-text" role="menuitem">Group 12 Pwnz</li>
-        <li id="createContactContainer" style="display: none;"><button id="createContactButton" type="button" class="button">Create
-            Contact</button></li>
+        <li class="menu-text" role="menuitem">Group 12 Tech</li>
+        <li id="createScheduleContainer" style="display: none;"><button id="createScheduleButton" type="button" class="button">Create a Schedule</button></li>
         <ul id="searchContainer" class="menu" style="display: none;">
           <li><input type="search" placeholder="Search" id="searchInput"></li>
           <li><button type="button" class="button" id="searchButton">Search</button></li>
         </ul>
       </ul>
-      <!--
-      <ul class="dropdown menu" data-disable-hover="true" data-click-open="true" data-dropdown-menu="44r89u-dropdown-menu"
-        role="menubar">
-        <li class="has-submenu is-dropdown-submenu-parent opens-right" role="menuitem" aria-haspopup="true" aria-label="One">
-          <a href="#0">One</a>
-          <ul class="submenu menu vertical is-dropdown-submenu first-sub" data-submenu="" role="menubar">
-            <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="#0">One</a></li>
-            <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="#0">Two</a></li>
-            <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="#0">Three</a></li>
-          </ul>
-        </li>
-        <li role="menuitem"><a href="#0">Two</a></li>
-    </ul>
--->
+      
     </div>
     <div class="top-bar-right">
       <ul class="menu">
@@ -53,6 +260,19 @@
       </ul>
     </div>
   </div>
+
+-->
+
+
+
+
+
+
+
+
+
+
+
 
 
   {{!-- Pages you create in the src/pages/ folder are inserted here when the flattened page is created. --}}

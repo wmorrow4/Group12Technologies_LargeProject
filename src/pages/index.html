@@ -1,10 +1,11 @@
+
 <div class="reveal" id="createScheduleModal" data-reveal>  
   <h1>Create Schedule</h1>
   <form data-abide novalidate id="createScheduleForm">
     <div data-abide-error class="alert callout" style="display: none;">
-      <p><i class="fi-alert"></i> There are some errors in your form.</p>
+      <p><i class="fi-alert"></i>Invalid Form: Please address all fields</p>
     </div>
-
+    
     <label>Schedule Name
       <input type="text" id="schedule_name" placeholder="Dr. Wick's Appointments" aria-describedby="scheduleHint" aria-errormessage="scheduleError"
         required>
@@ -110,20 +111,67 @@
   </button>
 </div>
 
+
 <div class="reveal" id="deleteScheduleModal" data-reveal>
   <h1>Delete Schedule</h1>
     <p>Are you sure you want to permanently delete <span id="schedulenameDelete"></span>?</p>
     <p><button id="deleteScheduleButton" class="button alert">Delete Schedule</button></p>
-    <button class="close-button" data-close aria-label="Close modal" type="button">
-      <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-<div id="splashDiv" class="grid-container">
-  <div class="grid-x grid-padding-x">
-    <div class="large-12 cell">
-      <h1>Matterhorn Schedule System</h1>
+      <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
-  </div>
+    
+    
+
+
+
+    
+    
+  <div id="splashDiv" class="grid-container">
+    <div class="grid-x grid-padding-x">
+    
+        <div class="large-12 cell"><div class="callout">
+
+
+
+
+        
+
+      
+      
+            <div class="grid-y" style="height: 0px;"> 
+                <div class="cell small-6 medium-8 large-2">
+                <!--Nothing goes here; this is just for space-->   
+                </div>
+              </div>
+
+              <img src="https://i.imgur.com/ky4FWaj.jpg?1">
+    
+    
+      
+    
+    
+              <div class="grid-y" style="height: 0px;"> 
+                  <div class="cell small-6 medium-8 large-2">
+                  <!--Nothing goes here; this is just for space-->   
+                  </div>
+                </div>
+    
+    
+        
+              <div class="grid-container">
+                <h1 style="text-align: center; font-family: fantasy; font-size: 160px; font-size-adjust: inherit"; >MatterHorn</h1>
+              </div>
+        
+              <div class="grid-container">    
+              <h3 style="text-align: center; font-family: fantasy"; >The Ideal Personal Reservation App.</h3>
+              
+    
+
+</div>
+</div>
+
+    </div>
 </div>
 <div class="grid-container">
   <div id="contactsDiv" class="grid-x grid-padding-x small-up-1 medium-up-3 large-up-5">
