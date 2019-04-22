@@ -1,0 +1,442 @@
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyMatterHornApp</title>
+  <link rel="stylesheet" href="assets/css/app.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+<style>
+
+
+
+
+form .form-icons {
+    text-align: center;
+  }
+  
+  form .form-icons h4 {
+    margin-bottom: 1rem;
+  }
+  
+  form .form-icons .input-group-label {
+    background-color: #1779ba;
+    border-color: #1779ba;
+  }
+  
+  form .form-icons .input-group-field {
+    border-color: #1779ba;
+  }
+  
+  form .form-icons .fa {
+    color: white;
+    width: 1rem;
+  }
+  
+
+
+  
+* {box-sizing:border-box}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 3s;
+  animation-name: fade;
+  animation-duration: 3s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+  
+
+    img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 60%;
+    }
+</style>
+
+
+
+</head>
+
+
+
+
+
+
+
+<body style="overflow-y: hidden;">
+  <div class="reveal" data-reveal>
+    <h1>OOPS. Something went wrong...</h1>
+    <div id="errorDiv"></div>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+ <div data-sticky-container>
+                <div class="title-bar" data-sticky data-options="marginTop:0;" style="width:100%" data-top-anchor="1" data-btm-anchor="content:bottom">
+                  <div class="title-bar-left">
+                      <!-- Content -->
+                    <h4 style="font-family: fantasy">Group 12 Technologies</h4>
+                
+                
+                </div>
+                  <div class="title-bar-right">
+                      <!-- Content -->
+                    
+                      <!-- Fire Off-canvas -->
+                      <button type="button" class="button" data-toggle="offCanvasRight">Open Menu</button>
+                
+                
+                </div>
+                </div>
+              </div>
+
+    <!---------------SPACE BLOCK--------------------->
+            
+    <div class="grid-y" style="height: 30px;">
+    <div class="cell small-6 medium-8 large-2">
+    <!--Nothing goes here; this is just for space-->   
+    </div></div>  
+        
+    <!---------------SPACE BLOCK--------------------->
+
+
+    <div class="grid-container"><div class="grid-x grid-padding-x"><div class="large-12 cell"><div class="callout">
+
+        
+
+            
+
+        <!-- Set up Off-canvas -->
+
+        <div class="off-canvas-wrapper" id="responsive-menu">
+          <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
+            <div class="off-canvas position-left" id="offCanvasLeft" data-off-canvas>
+              <!-- left off-canvas markup -->
+            </div>
+            <div class="off-canvas position-right" id="offCanvasRight" data-off-canvas data-position="right">
+              <!-- right off-canvas markup -->
+
+              <!----------------SPACE BLOCK--------------------->
+              <div class="grid-y" style="height: 30px;">
+                <div class="cell small-6 medium-8 large-2">
+                    <!--Nothing goes here; this is just for space-->   
+                </div></div>  
+                <!---------------SPACE BLOCK--------------------->
+              
+              
+
+              <ul class="vertical menu" data-drilldown style="width: 200px" id="m1">
+        
+                <li><a id="signupButton"  class="clear button" style="display:none;">Sign Up</a></li>
+                <li><a id="loginButton"   class="clear button" style="display:none;">Log In</a></li>
+                
+                
+                
+                <!----------------SPACE BLOCK--------------------->
+              <div class="grid-y" style="height: 100px;">
+                <div class="cell small-6 medium-8 large-2">
+                    <!--Nothing goes here; this is just for space-->   
+                </div></div>  
+                <!---------------SPACE BLOCK--------------------->
+              
+              
+                
+                
+                
+                
+                
+                
+                <li><button id="logoutButton" type="button" class="button" style="display:none;">Log Out</button></li>
+              
+              </ul>  
+
+
+              <ul class="vertical menu">
+                <li class="menu-text" role="menuitem"></li>
+                <li id="createScheduleContainer" style="display: none;"><button id="createScheduleButton" type="button" class="button">Create a Schedule</button></li>
+                
+                <!----------------SPACE BLOCK--------------------->
+              <div class="grid-y" style="height: 100px;">
+                <div class="cell small-6 medium-8 large-2">
+                    <!--Nothing goes here; this is just for space-->   
+                </div></div>  
+                <!---------------SPACE BLOCK--------------------->
+              
+              
+                
+                
+                
+                
+                <ul id="searchContainer" class="menu" style="display: none;">
+                  <li><input type="search" placeholder="Search" id="searchInput"></li>
+                  <li><button type="button" class="button" id="searchButton">Search</button></li>
+                </ul>
+              </ul>
+
+
+
+
+
+            </div>
+            <div class="off-canvas-content" data-off-canvas-content>
+              <!-- page content -->
+            </div>
+          </div>
+        </div>
+      
+      
+
+
+
+
+
+
+    </div></div></div></div>
+
+
+
+<!--
+
+
+  <div class="top-bar" id="responsive-menu">
+    <div class="top-bar-left">
+      <ul class="menu">
+        <li class="menu-text" role="menuitem">Group 12 Tech</li>
+        <li id="createScheduleContainer" style="display: none;"><button id="createScheduleButton" type="button" class="button">Create a Schedule</button></li>
+        <ul id="searchContainer" class="menu" style="display: none;">
+          <li><input type="search" placeholder="Search" id="searchInput"></li>
+          <li><button type="button" class="button" id="searchButton">Search</button></li>
+        </ul>
+      </ul>
+      
+    </div>
+    <div class="top-bar-right">
+      <ul class="menu">
+        <li><button id="signupButton" type="button" class="button" style="display:none;">Sign Up</button></li>
+        <li><button id="loginButton" type="button" class="button" style="display:none;">Log In</button></li>
+        <li><button id="logoutButton" type="button" class="button" style="display:none;">Log Out</button></li>
+      </ul>
+    </div>
+  </div>
+
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="grid-container">
+    <div class="grid-x grid-padding-x">
+      <div class="cell small-12 medium-8 large-6">
+        
+        
+        <!--
+        
+        <h3>End User License Agreement</h3>
+        <p>I agree because I said so</p>
+        <p><input id="termsAndConditions" type="checkbox"><label for="termsAndConditions">I agree to these terms and
+            conditions as they have been laid out to me.</label></p>
+        
+        
+        -->
+        
+        
+        
+        
+        <form data-abide novalidate id="SchedulerSignupForm">
+          <div data-abide-error class="alert callout" style="display: none;">
+            <p><i class="fi-alert"></i> There are some errors in your form.</p>
+          </div>
+  
+          <!--
+  
+        <h4 class="text-center">Sign up to access the site</h4>
+          
+  		  <label>Group Name
+  		    <input type="text" id="group" placeholder="Big Boy Group" aria-describedby="groupnameHint" aria-errormessage="groupnameError"
+            required>
+          <span class="form-error" id="groupError">
+            Group name is required.
+          </span>
+  		  </label>
+        <p class="help-text" id="groupHint">Pick your group name.</p>
+        <label>Password Required
+          <input type="password" id="password" placeholder="yeti4preZ" aria-describedby="passwordHint"
+            aria-errormessage="passwordError" required>
+          <span class="form-error" id="passwordError">
+            Password is required.
+          </span>
+        </label>
+        <p class="help-text" id="passwordHint">Enter a password please.</p>
+        <label>Re-enter Password
+          <input type="password" placeholder="yeti4preZ" aria-describedby="passwordHint2" aria-errormessage="passwordError2"
+            required pattern="alpha_numeric" data-equalto="password">
+          <span class="form-error" id="passwordError2">
+            Passwords need to match!
+          </span>
+        </label>
+        <p class="help-text" id="passwordHint2">This needs to match the password above.</p>
+        <label>Email address
+          <input type="text" id="email" placeholder="you@example.com" pattern="email" required>
+          <span class="form-error" id="passwordError2">
+            Enter a valid email address.
+          </span>
+        </label>
+        <p><input type="submit" class="button expanded" value="Sign Up"></input></p>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  
+  -->
+  
+  
+  
+  <div class="grid-y" style="height: 200px;"> <div class="cell small-6 medium-8 large-2">
+            <!--Nothing goes here; this is just for space-->   
+          </div></div>
+  
+        
+        
+            <div class="grid-container">
+            <div class="grid-x grid-padding-y">
+                <div class="large-12 cell">
+                    <div class="large-12 cell">
+    
+  
+                      <form>
+                        <div class="form-icons">
+                          <h4  style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Please Register your Workplace Entity</h4>
+                      
+  
+  
+                              
+                            
+                        
+  
+                              <div class="input-group">
+                                  <span class="input-group-label">
+                                    <i class="fa fa-envelope"></i>
+                                  </span>
+                                  <input class="input-group-field" id="email" type="text" placeholder="Something@else.com"  pattern="email" required>
+                                <span class="form-error" id="passwordError2">
+                                Enter a valid email address.
+                                </span>
+                                </div>
+  
+  
+  
+                            <div class="input-group">
+                                  <span class="input-group-label">
+                                    <i class="fa fa-user"></i>
+                                  </span>
+                                  <input class="input-group-field" type="text" placeholder="Group/Company" id="group" aria-errormessage="groupnameError" 
+                                  required>
+                                  <span class="form-error" id="groupError">
+                                  Need your company/organization here
+                                </span>
+                                </div>
+  
+  
+  
+  
+  
+  
+  
+        
+                      
+                              <div class="input-group">
+                                <span class="input-group-label">
+                                  <i class="fa fa-key"></i>
+                                </span>
+                                <input class="input-group-field" type="password" id="password" placeholder="yeti4preZ" aria-describedby="passwordHint"
+                                aria-errormessage="passwordError" required>
+  
+                                <span class="form-error" id="passwordError">
+                                Password is required.
+                              </span>
+                              </div>
+  
+  
+  
+  
+                              <div class="input-group">
+                                  <span class="input-group-label">
+                                    <i class="fa fa-key"></i>
+                                  </span>
+                                  <input class="input-group-field" type="password" placeholder="yeti4preZ" aria-describedby="passwordHint2" aria-errormessage="passwordError2"
+                                  required pattern="alpha_numeric" data-equalto="password">
+  
+                                  <span class="form-error" id="passwordError2">
+                                  Passwords need to match!
+                                </span>
+                                </div>
+                              </div>
+                        
+                        
+                            
+  
+    
+                        
+                      <p><input type="submit" class="button hollow" value="Sign Up" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 1.5rem" ></input></p>
+                        </form>
+        
+    </div></div></div></div>
+  
+  
+  
+
+  <script src="assets/js/app.js"></script>
+</body>
+
+</html>

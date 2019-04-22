@@ -1,0 +1,838 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"title": "Schedule API",
+		"description": "API our schedule app",
+		"version": "1.0"
+	},
+	"produces": [
+		"application/json"
+	],
+	"basePath": "/api",
+	"paths": {
+		"/SchedulerSignup": {
+			"post": {
+				"x-swagger-router-controller": "login",
+				"operationId": "SchedulerSignup",
+				"tags": [
+					"/SchedulerSignup"
+				],
+				"description": "Creates a new scheduler",
+				"parameters": [{
+					"name": "schedulerinfo",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"required": [
+							"group",
+							"email",
+							"password"
+						],
+						"properties": {
+							"group": {
+								"type": "string",
+								"example": "company"
+							},
+							"email": {
+								"type": "string",
+								"example": "gmail@gmail.com"
+							},
+							"password": {
+								"type": "string",
+								"example": "password"
+							}
+						}
+					}
+				}],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "Scheduler signup request successful.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		},
+		"/UserSignup": {
+			"post": {
+				"x-swagger-router-controller": "login",
+				"operationId": "UserSignup",
+				"tags": [
+					"/UserSignup"
+				],
+				"description": "Creates a new user",
+				"parameters": [{
+					"name": "userinfo",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"required": [
+							"username",
+							"email",
+							"password"
+						],
+						"properties": {
+							"username": {
+								"type": "string",
+								"example": "firstname"
+							},
+							"email": {
+								"type": "string",
+								"example": "gmail@gmail.com"
+							},
+							"password": {
+								"type": "string",
+								"example": "password"
+							}
+						}
+					}
+				}],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "User signup request successful.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		},
+		"/SchedulerLogin": {
+			"post": {
+				"x-swagger-router-controller": "login",
+				"operationId": "SchedulerLogin",
+				"tags": [
+					"/SchedulerLogin"
+				],
+				"description": "Login as an existing scheduler.",
+				"parameters": [{
+					"name": "schedulerinfo",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"required": [
+							"email",
+							"password"
+						],
+						"properties": {
+							"email": {
+								"type": "string",
+								"example": "gmail@gmail.com"
+							},
+							"password": {
+								"type": "string",
+								"example": "password"
+							}
+						}
+					}
+				}],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "Scheduler log in request successful.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		},
+		"/UserLogin": {
+			"post": {
+				"x-swagger-router-controller": "login",
+				"operationId": "Userlogin",
+				"tags": [
+					"/userLogin"
+				],
+				"description": "Login as an existing user.",
+				"parameters": [{
+					"name": "userinfo",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"required": [
+							"email",
+							"password"
+						],
+						"properties": {
+							"email": {
+								"type": "string",
+								"example": "gmail@gmail.com"
+							},
+							"password": {
+								"type": "string",
+								"example": "password"
+							}
+						}
+					}
+				}],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "User log in request successful.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		},
+		"/SchedulerLogout": {
+			"post": {
+				"x-swagger-router-controller": "login",
+				"operationId": "SchedulerLogout",
+				"tags": [
+					"/SchedulerLogout"
+				],
+				"description": "Logout scheduler.",
+				"parameters": [],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "Scheduler log out request successful.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		},
+		"/UserLogout": {
+			"post": {
+				"x-swagger-router-controller": "login",
+				"operationId": "UserLogout",
+				"tags": [
+					"/UserLogout"
+				],
+				"description": "Logout user.",
+				"parameters": [],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "User log out request successful.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		},
+		"/ClaimAppointment": {
+			"post": {
+				"x-swagger-router-controller": "Auxiliary",
+				"operationId": "ClaimAppointment",
+				"tags": [
+					"/ClaimAppointment"
+				],
+				"description": "Create an appointment",
+				"parameters": [{
+					"name": "claimappointment",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"required": [
+							"ScheduleID",
+							"UserID",
+							"Time",
+							"Date"
+						],
+						"properties": {
+							"ScheduleID": {
+								"type": "string"
+							},
+							"UserID": {
+								"type": "string"
+							},
+							"Time": {
+								"type": "string"
+							},
+							"Date": {
+								"type": "string"
+							}
+						}
+					}
+				}],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "Successful appointment claimed",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		},
+		"/ListmySchedules": {
+			"post": {
+				"x-swagger-router-controller": "Auxiliary",
+				"operationId": "ListmySchedules",
+				"tags": [
+					"/ListmySchedules"
+				],
+				"description": "Lists created schedules.",
+				"parameters": [{
+					"name": "searchInfo",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"required": [
+							"schedulerID"
+						],
+						"properties": {
+							"schedulerID": {
+								"type": "string"
+							}
+						}
+					}
+				}],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "return array of schedule objects",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Schedule"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/ListSchedules": {
+			"post": {
+				"x-swagger-router-controller": "Auxiliary",
+				"operationId": "ListSchedules",
+				"tags": [
+					"/ListSchedules"
+				],
+				"description": "Lists created schedules of scheduler.",
+				"parameters": [{
+					"name": "list",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"required": [
+							"schedulerID"
+						],
+						"properties": {
+							"schedulerID": {
+								"type": "string"
+							}
+						}
+					}
+				}],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "return array of schedule objects",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Schedule"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/removeInterval": {
+			"post": {
+				"x-swagger-router-controller": "Schedule",
+				"operationId": "removeInterval",
+				"tags": [
+					"/removeInterval"
+				],
+				"description": "Removes an interval from a schedule",
+				"parameters": [{
+					"name": "removeinterval",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"required": [
+							"ScheduleID",
+							"Date",
+							"Time"
+						],
+						"properties": {
+							"ScheduleID": {
+								"type": "string"
+							},
+							"Date": {
+								"type": "string"
+							},
+							"Time": {
+								"type": "string"
+							}
+						}
+					}
+				}],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "Succesful removal of interval.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		},
+		"/ListSchedulers": {
+			"post": {
+				"x-swagger-router-controller": "Auxiliary",
+				"operationId": "ListSchedulers",
+				"tags": [
+					"/ListSchedulers"
+				],
+				"description": "List schedulers.",
+				"parameters": [{
+					"name": "searchInfo",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"required": [
+							"search"
+						],
+						"properties": {
+							"search": {
+								"type": "string"
+							}
+						}
+					}
+				}],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "return array of scheduler objects",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Scheduler"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/UserEditInfo": {
+			"post": {
+				"x-swagger-router-controller": "Auxiliary",
+				"operationId": "UserEditInfo",
+				"tags": [
+					"/UserEditInfo"
+				],
+				"description": "Apply changes to current user info",
+				"parameters": [{
+					"name": "user",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"allOf": [{
+								"$ref": "#/definitions/ObjectID"
+							},
+							{
+								"$ref": "#/definitions/User"
+							}
+						]
+					}
+				}],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "Successful request, information updated.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		},
+		"/SchedulerEditInfo": {
+			"post": {
+				"x-swagger-router-controller": "Auxiliary",
+				"operationId": "SchedulerEditInfo",
+				"tags": [
+					"/SchedulerEditInfo"
+				],
+				"description": "Apply changes to current scheduler info",
+				"parameters": [{
+					"name": "scheduler",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"allOf": [{
+								"$ref": "#/definitions/ObjectID"
+							},
+							{
+								"$ref": "#/definitions/Scheduler"
+							}
+						]
+					}
+				}],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "Successful request, information updated.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		},
+		"/ListAppointments": {
+			"post": {
+				"x-swagger-router-controller": "Auxiliary",
+				"operationId": "ListAppointments",
+				"tags": [
+					"/ListAppointments"
+				],
+				"description": "List claimed appointments.",
+				"parameters": [{
+					"name": "searchInfo",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"type": "object",
+						"properties": {
+							"search": {
+								"type": "string"
+							}
+						}
+					}
+				}],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "return array of Appointment objects",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Reservation"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/CreateSchedule": {
+			"post": {
+				"x-swagger-router-controller": "Schedule",
+				"operationId": "CreateSchedule",
+				"tags": [
+					"/CreateSchedule"
+				],
+				"description": "Adds a new schedule",
+				"parameters": [{
+					"name": "schedule",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/Schedule"
+					}
+				}],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "Successful request.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		},
+		"/deleteSchedule": {
+			"post": {
+				"x-swagger-router-controller": "Schedule",
+				"operationId": "deleteSchedule",
+				"tags": [
+					"/deleteSchedule"
+				],
+				"description": "Delete a Schedule for User of the current session",
+				"parameters": [{
+					"name": "schedule",
+					"in": "body",
+					"required": true,
+					"schema": {
+						"$ref": "#/definitions/ObjectID"
+					}
+				}],
+				"responses": {
+					"default": {
+						"description": "Invalid request.",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					},
+					"200": {
+						"description": "Successful request.",
+						"schema": {
+							"$ref": "#/definitions/Success"
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"ObjectID": {
+			"properties": {
+				"_id": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"_id"
+			]
+		},
+		"Reservation": {
+			"properties": {
+				"ScheduleID": {
+					"type": "string"
+				},
+				"Date": {
+					"type": "string"
+				},
+				"Time": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"ScheduleID",
+				"Date",
+				"Time"
+			]
+		},
+		"User": {
+			"properties": {
+				"firstname": {
+					"type": "string"
+				},
+				"lastname": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				},
+				"appointments": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Reservation"
+					}
+				}
+
+			},
+			"required": [
+				"firstname",
+				"lastname",
+				"email",
+				"password",
+				"appointments"
+			]
+		},
+		"Scheduler": {
+			"properties": {
+				"group": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"group",
+				"email",
+				"password"
+			]
+		},
+		"Schedule": {
+			"properties": {
+				"schedulerID": {
+					"type": "string"
+				},
+				"schedule_name": {
+					"type": "string"
+				},
+				"average_appointment_length": {
+					"type": "string"
+				},
+				"M_START": {
+					"type": "string"
+				},
+				"M_END": {
+					"type": "string"
+				},
+				"T_START": {
+					"type": "string"
+				},
+				"T_END": {
+					"type": "string"
+				},
+				"W_START": {
+					"type": "string"
+				},
+				"W_END": {
+					"type": "string"
+				},
+				"Th_START": {
+					"type": "string"
+				},
+				"Th_END": {
+					"type": "string"
+				},
+				"F_START": {
+					"type": "string"
+				},
+				"F_END": {
+					"type": "string"
+				},
+				"S_START": {
+					"type": "string"
+				},
+				"S_END": {
+					"type": "string"
+				},
+				"Su_START": {
+					"type": "string"
+				},
+				"Su_END": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"schedule_name",
+				"average_appointment_length",
+				"M_START",
+				"M_END",
+				"T_START",
+				"T_END",
+				"W_START",
+				"W_END",
+				"Th_START",
+				"Th_END",
+				"F_START",
+				"F_END",
+				"S_START",
+				"S_END",
+				"Su_START",
+				"Su_END"
+			]
+		},
+		"Success": {
+			"properties": {
+				"message": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"message"
+			]
+		},
+		"Error": {
+			"properties": {
+				"message": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"message"
+			]
+		}
+	}
+}
